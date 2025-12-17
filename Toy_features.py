@@ -32,10 +32,10 @@ def parse_options():
 
     parser.add_argument("--exp_id", type=int, default=0)
     parser.add_argument("--exp_id_osr", type=int, default=-1)
-    parser.add_argument("--model_path", type=str, default= "/home/zhi/projects/open_cross_entropy/models/toy_model_E1_99.pth")
+    parser.add_argument("--model_path", type=str, default= "./models/toy_model_E1_0.pth")
     parser.add_argument("--epoch_id", type=int, default=0)
-    parser.add_argument("--data_path", type=str, default="/home/zhi/projects/open_cross_entropy/toy_data_train")
-    parser.add_argument("--feature_save_path", type=str, default="/home/zhi/projects/open_cross_entropy/features/E1")
+    parser.add_argument("--data_path", type=str, default="./toy_data_train")
+    parser.add_argument("--feature_save_path", type=str, default="./features/E1")
     
     opt = parser.parse_args()
     opt.num_classes = len(label_mappings[opt.exp_id])

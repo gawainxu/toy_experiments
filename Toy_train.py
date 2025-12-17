@@ -30,14 +30,13 @@ if __name__ == "__main__":
     lr = 1e-3
     buffer_size = 0
 
-    data_path = "/home/zhi/projects/open_cross_entropy/toy_data_train"
-    test_data_path = "/home/zhi/projects/open_cross_entropy/toy_data_test_inliers"
-    model_path = "/home/zhi/projects/open_cross_entropy/models/toy_model_E1_kaiming"
-    losses_path = "/home/zhi/projects/open_cross_entropy/losses_model_E1_kaiming"
+    data_path = "./toy_data_train"
+    test_data_path = "./toy_data_test_inliers"
+    model_path = "./models/toy_model_E1_kaiming"
+    losses_path = "./losses_model_E1_kaiming"
     # for continual mode
     last_model_path = None #"/home/zhi/projects/open_cross_entropy/models/toy_model_E2_99.pth"
     last_label_mapping = label_mappings[0]
-
 
     label_mapping = label_mappings[1]
     data_transform = transforms.Compose([transforms.ToTensor(),
