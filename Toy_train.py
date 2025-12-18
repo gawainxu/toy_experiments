@@ -166,7 +166,7 @@ if __name__ == "__main__":
             #torch.save(model.state_dict(), model_path) 
             acc_best = acc
         
-    model_path_epoch = opt.model_path + "_" + str(opt.classes_idx) + ".pth"
+    model_path_epoch = opt.model_path + "_" + opt.dataset + "_" + str(opt.classes_idx) + ".pth"
     torch.save(model.state_dict(), model_path_epoch)
 
     print("best loss: ", loss_best/len(dataset), "best acc: ", acc_best)
