@@ -23,8 +23,8 @@ label_mappings = [{"circle_blue": 0, "rectangle_red": 1},  # E1
                   {"ellipse_pink": 2, "rectangle_blue": 3}, # E9
                   {"ellipse_pink": 3, "rectangle_blue": 4}] # E10
 
-mnist_classes = [[1,2,3],
-                 [1,2,3,4,5,6]]
+mnist_classes = [[0, 1,2],
+                 [0, 1,2,3,4,5]]
 
 cifar_classes = [list(range(10)),
                  list(range(20)),
