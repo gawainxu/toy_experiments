@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, ConcatDataset
 
-from Toy_model import toy_model
+from Toy_model import toy_model, cnn
 from Toy_dataset import toy_dataset
 import torchvision.transforms as transforms
 
@@ -162,13 +162,13 @@ if __name__ == "__main__":
 
     batch_size = 1
     # data_path1 and data_path2 can either be two tasks in continual learning or inliers and outliers in OSR
-    data_path1 = "/home/zhi/projects/open_cross_entropy/toy_data_test_inliers"
+    data_path1 = "/home/zhi/projects/open_cross_entropy/toy_data_test_shapes"
     data_path2 = None #"/home/zhi/projects/open_cross_entropy/toy_data_test_outliers"
     data_transform = transforms.Compose([transforms.ToTensor(),
                                          transforms.RandomHorizontalFlip(),
                                          ])
 
-    label_mapping1 = {"circle_green": 3, "rectangle_green": 4}  #{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}                   # , "circleRed": 2  , "circleGreen": 2
+    label_mapping1 = {"circle_black": 0, "rectangle_black": 1}  # {"circle_blue": 0, "rectangle_red": 1}  #
     label_mapping2 = {"rectangle_blue": 3, "rectangle_green": 4}
     dataset1 = toy_dataset(data_path1, label_mapping1, data_transform)
 
@@ -178,11 +178,11 @@ if __name__ == "__main__":
     else:
         dataset = dataset1
 
-    data_loader = DataLoader(dataset, batch_size, num_workers=4, shuffle=True)
+    data_loader = DataLoader(dataset, batch_size, num_workers=4, shuffle=False)
 
-    model_path = "/home/zhi/projects/open_cross_entropy/models/toy_model_E6_99.pth"
-    num_classes = 5
-    model = toy_model(num_classes)
+    model_path = "/home/zhi/projects/open_cross_entropy/models/cnn_E1_toy_1_0.pth"
+    num_classes = 3
+    model = cnn(num_classes, in_channels=3, img_size=64)
     model.load_state_dict(torch.load(model_path))
 
     preds = []

@@ -8,14 +8,14 @@ from skimage.util import random_noise
 color_dict = {"black": (0,0,0), "white": (255, 255, 255), "blue": (255, 0, 0),
               "red": (0, 0, 255), "green": (0, 255, 0), "pink": (153, 153, 255)}
 
-def circle(color, if_noise=False):
+def circle(color, if_noise=False, thickness=-1):
 
     height = 64
     width = 64
 
     back_image = np.ones((height, width, 3), np.uint8)
     choice_back = ["black", "white"]
-    back_color = "black"                 #random.choice(choice_back)
+    back_color = "white"                 #random.choice(choice_back)
 
     if back_color == "black":
         back_pixel = (0, 0, 0)
@@ -29,7 +29,7 @@ def circle(color, if_noise=False):
     center_w = random.randint(radius, 64-radius)
     center_coordinates = (center_h, center_w)
 
-    image = cv2.circle(back_image, center_coordinates, radius, color, -1)
+    image = cv2.circle(back_image, center_coordinates, radius, color, thickness=thickness)
     
     if if_noise == True:
         sp_amount = random.random()
@@ -40,14 +40,14 @@ def circle(color, if_noise=False):
     
 
 
-def rectangle(color, if_noise=False):
+def rectangle(color, if_noise=False, thickness=-1):
 
     height = 64
     width = 64
 
     back_image = np.ones((height, width, 3), np.uint8)
     choice_back = ["black", "white"]
-    back_color =  "black"               #random.choice(choice_back)
+    back_color =  "white"               #random.choice(choice_back)
 
     if back_color == "black":
         back_pixel = (0, 0, 0)
@@ -63,7 +63,7 @@ def rectangle(color, if_noise=False):
     start = (start_h, start_w)
     end = (end_h, end_w)
 
-    image = cv2.rectangle(back_image, start, end, color, -1)
+    image = cv2.rectangle(back_image, start, end, color, thickness=thickness)
     if if_noise == True:
         sp_amount = random.random()
         sp_ratio = random.random()
@@ -72,7 +72,7 @@ def rectangle(color, if_noise=False):
     return image
 
 
-def ellipse(color, if_noise=False):
+def ellipse(color, if_noise=False, thickness=-1):
 
     height = 64
     width = 64
@@ -97,7 +97,7 @@ def ellipse(color, if_noise=False):
     angle = random.randint(0, 360)
     start_angle = random.randint(0, 360)
     end_angle = random.randint(0, 360)
-    img = cv2.ellipse(back_image, center_coordinates, axesLength, angle, start_angle, end_angle, color, -1)
+    img = cv2.ellipse(back_image, center_coordinates, axesLength, angle, start_angle, end_angle, color, thickness=thickness)
 
     return img
 
@@ -126,20 +126,21 @@ def sp_noise(image, amount, salt_vs_pepper):
  
 if __name__ == "__main__":
 
-    save_path = "./toy_data_train/"
+    save_path = "./toy_data_test_shapes/"
     num_imgs = 100
     shape = "rectangle"
-    color = "green"
+    color = "black"
     noising = False
+    thickness=1
 
     for i in range(num_imgs):
         
         if "circle" in shape: 
-            img = circle(color_dict[color], noising)
+            img = circle(color_dict[color], noising, thickness)
         elif "rectangle" in shape:
-            img = rectangle(color_dict[color], noising)
+            img = rectangle(color_dict[color], noising, thickness)
         elif "ellipse" in shape:
-            img = ellipse(color_dict[color], noising)
+            img = ellipse(color_dict[color], noising, thickness)
 
         img_name = shape + "_" + color + "_" + str(i) + ".png"
         cv2.imwrite(save_path + img_name, img)

@@ -18,7 +18,7 @@ class toy_dataset(Dataset):
         self.transform = transform
         #os.chdir(data_path)
 
-        for f in os.listdir(data_path):
+        for f in sorted(os.listdir(data_path)):
             img = cv2.imread(data_path + "/" + f)
             label = f.split("_")[0] + "_" + f.split("_")[1]
             if label not in label_map.keys():

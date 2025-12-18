@@ -4,7 +4,7 @@ import argparse
 import torch
 from torch.utils.data import DataLoader
 from Toy_dataset import toy_dataset
-from Toy_model import toy_model, toy_model_supcon
+from Toy_model import toy_model, cnn
 import torchvision.transforms as transforms
 
 label_mappings = [{"circle_blue": 0, "rectangle_red": 1},    #E1
@@ -30,12 +30,12 @@ def parse_options():
     
     parser = argparse.ArgumentParser("Arguments")
 
-    parser.add_argument("--exp_id", type=int, default=0)
+    parser.add_argument("--exp_id", type=int, default=1)
     parser.add_argument("--exp_id_osr", type=int, default=-1)
-    parser.add_argument("--model_path", type=str, default= "./models/toy_model_E1_0.pth")
+    parser.add_argument("--model_path", type=str, default= "./models/cnn_E1_toy_1_0.pth")
     parser.add_argument("--epoch_id", type=int, default=0)
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
-    parser.add_argument("--feature_save_path", type=str, default="./features/E1")
+    parser.add_argument("--feature_save_path", type=str, default="./features/E2")
     
     opt = parser.parse_args()
     opt.num_classes = len(label_mappings[opt.exp_id])
@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     opt = parse_options()
 
-    model = toy_model(opt.num_classes)
+    model = cnn(opt.num_classes, in_channels=3, img_size=64)
     model.load_state_dict(torch.load(opt.model_path, map_location=torch.device("cpu")))
     model.eval()
 
