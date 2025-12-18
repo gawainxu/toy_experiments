@@ -32,6 +32,36 @@ class toy_model(nn.Module):
         return y
 
 
+class cnn(nn.Module):
+
+    def __init__(self, num_classes, in_channels=3, img_size=32) -> None:
+        super(cnn, self).__init__()
+
+        self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=10, kernel_size=5, padding=2, padding_mode="reflect")
+        self.conv2 = nn.Conv2d(in_channels=10, out_channels=10, kernel_size=5, padding=2, padding_mode="reflect")
+        self.pooling = nn.AvgPool2d(kernel_size=2)
+        self.linear1 = nn.Linear(int(img_size / 4) * int(img_size / 4) * 20, 1000)
+        self.linear2 = nn.Linear(1000, 20)
+        self.linear3 = nn.Linear(20, num_classes)
+        self.activation = nn.ReLU()
+
+
+    def forward(self, x):
+
+        y = self.conv1(x)
+        y = self.pooling(y)
+        y = self.conv2(y)
+        y = self.pooling(y)
+        y = torch.flatten(y, start_dim=1)
+        y = self.linear1(y)
+        y = self.activation(y)
+        y = self.linear2(y)
+        y = self.activation(y)
+        y = self.linear3(y)
+
+        return y
+
+
 
 class toy_model_supcon(nn.Module):
 

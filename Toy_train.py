@@ -1,5 +1,5 @@
 import torch
-from Toy_model import toy_model, updata_model, init_weights
+from Toy_model import toy_model, updata_model, init_weights, cnn
 from Toy_dataset import toy_dataset, continual_buffer, iCIFAR100, mnist
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
@@ -62,9 +62,8 @@ def parse_options():
 if __name__ == "__main__":
 
     opt = parse_options()
-    last_label_mapping = label_mappings[0]
-
-    label_mapping = label_mappings[1]
+    opt.last_label_mapping = label_mappings[opt.old_classes_idx]
+    opt.label_mapping = label_mappings[opt.classes_idx]
 
     if "mnist" in opt.dataset:
         opt.classes = mnist_classes[opt.classes_idx]
@@ -83,29 +82,36 @@ if __name__ == "__main__":
         dataset_test = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
         in_channels = 3
     else:
-        opt.classes = [label_mapping[k] for k in opt.label_mapping.keys()]
+        opt.classes = [opt.label_mapping[k] for k in opt.label_mapping.keys()]
+        opt.old_classes = [opt.old_label_mapping[k] for k in opt.old_label_mapping.keys()]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.RandomHorizontalFlip(),
                                              ])
-        dataset = toy_dataset(opt.data_path, label_mapping, data_transform)
-        dataset_test = toy_dataset(opt.test_data_path, label_mapping, data_transform)
+        dataset = toy_dataset(opt.data_path, opt.label_mapping, data_transform)
+        dataset_test = toy_dataset(opt.test_data_path, opt.label_mapping, data_transform)
         in_channels = 3
 
     data_loader = DataLoader(dataset, opt.batch_size, num_workers=1, shuffle=True)
     test_data_loader = DataLoader(dataset_test, 1, num_workers=1, shuffle=True)
 
     if opt.last_model_path is not None:
-        model = toy_model(len(opt.old_classes), in_channels=in_channels)
+        if "toy" in opt.model_name:
+            model = toy_model(len(opt.old_classes), in_channels=in_channels)
+        elif "cnn" in opt.model_name:
+            model = cnn(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
         model.load_state_dict(torch.load(opt.last_model_path, weights_only=True))
         updata_model(model, new_num_classes=len(opt.classes))
         if opt.buffer_size > 0:
-            old_dataset = toy_dataset(opt.data_path, last_label_mapping, data_transform)
+            old_dataset = toy_dataset(opt.data_path, opt.last_label_mapping, data_transform)
             old_dataset = continual_buffer(old_dataset, opt.buffer_size)
             dataset = torch.utils.data.ConcatDataset([dataset, old_dataset])
         print("model loaded")
     else:
-        model = toy_model(len(opt.classes), in_channels=in_channels, img_size=opt.data_size)
-        model.apply(init_weights)
+        if "toy" in opt.model_name:
+            model = toy_model(len(opt.classes), in_channels=in_channels, img_size=opt.data_size)
+        elif "cnn" in opt.model_name:
+            model = cnn(len(opt.classes), in_channels=in_channels, img_size=opt.data_size)
+    model.apply(init_weights)
 
     model.train()
     model = model.cuda()
