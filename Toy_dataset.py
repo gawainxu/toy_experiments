@@ -212,5 +212,5 @@ if __name__ == "__main__":
     """
 
     data_root = "../datasets"
-    dataset = mnist(root=data_root)
+    dataset = iCIFAR100(root=data_root)
     img, l = dataset[0]

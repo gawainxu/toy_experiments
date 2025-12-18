@@ -58,15 +58,13 @@ if __name__ == "__main__":
 
     if "mnist" in opt.dataset:
         data_transform = transforms.Compose([transforms.ToTensor(),
-                                         transforms.RandomHorizontalFlip(),
-                                         ])      # transforms.Normalize(mean=(0., 27.95993652, 30.653125), std=(0., 79.67449882, 82.92727418))
+                                         transforms.Normalize(mean=(0.1307,), std=(0.3081,))])
         dataset = mnist(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = mnist(opt.test_data_path, transform=data_transform)
         in_channels = 1
     elif "cifar" in opt.dataset:
         data_transform = transforms.Compose([transforms.ToTensor(),
-                                             transforms.RandomHorizontalFlip(),
-                                             ])  # transforms.Normalize(mean=(0., 27.95993652, 30.653125), std=(0., 79.67449882, 82.92727418))
+                                             transforms.Normalize(mean= (0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.2010))])
         dataset = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = iCIFAR100(opt.test_data_path, classes=opt.classes, transform=data_transform)
         in_channels = 3
@@ -77,6 +75,7 @@ if __name__ == "__main__":
         dataset = toy_dataset(opt.data_path, label_mapping, data_transform)
         dataset_test = toy_dataset(opt.test_data_path, label_mapping, data_transform)
         in_channels = 3
+        opt.classes = [label_mapping[k] for k in opt.label_mapping.keys()]
 
     data_loader = DataLoader(dataset, opt.batch_size, num_workers=1, shuffle=True)
     test_data_loader = DataLoader(dataset_test, 1, num_workers=1, shuffle=True)
@@ -90,15 +89,11 @@ if __name__ == "__main__":
             old_dataset = continual_buffer(old_dataset, opt.buffer_size)
             dataset = torch.utils.data.ConcatDataset([dataset, old_dataset])
     else:
-        if "toy" in opt.model_name:
-            model = toy_model(len(opt.classes), in_channels=in_channels)
-        elif "cnn" in opt.model_name:
-            model = toy_model(len(opt.classes), in_channels=in_channels)
-        else:
-            model = toy_model(len(opt.classes), in_channels=in_channels)
+        model = toy_model(len(opt.classes), in_channels=in_channels, img_size=opt.data_size)
         model.apply(init_weights)
 
     model.train()
+    model = model.cuda()
 
     criteria = torch.nn.CrossEntropyLoss()
     optimizer = SGD(model.parameters(), lr=opt.lr)
@@ -114,6 +109,7 @@ if __name__ == "__main__":
         for i, (x, y) in enumerate(data_loader):
       
             x = x.float()
+            x = x.cuda()
             y = y.type(torch.LongTensor)
             pred = model(x)
             loss = criteria(pred, y)
@@ -138,6 +134,7 @@ if __name__ == "__main__":
         for i, (x, y) in enumerate(test_data_loader):
 
             x = x.float()
+            x = x.cuda()
             pred = model(x)
             pred = torch.argmax(pred)
             #print(pred, y)
@@ -146,8 +143,8 @@ if __name__ == "__main__":
             if pred.item() != y.item():
                 unequals += 1
 
-        conf_matrix = confusion_matrix(preds, actuals)
-        confusions.append(conf_matrix)
+        #conf_matrix = confusion_matrix(preds, actuals)
+        #confusions.append(conf_matrix)
         #plot_confusion_matrix(conf_matrix, "D://projects//open_cross_entropy//save//confusion_class3_" + str(e) + ".png")
 
         acc = 1-unequals*1.0 / len(dataset_test)
@@ -162,4 +159,4 @@ if __name__ == "__main__":
 
     print("best loss: ", loss_best/len(dataset), "best acc: ", acc_best)
     with open(opt.losses_path, "wb") as f:
-        pickle.dump((losses, accs, confusions), f)
+        pickle.dump((losses, accs), f)

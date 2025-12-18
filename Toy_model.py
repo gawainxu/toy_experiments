@@ -4,13 +4,13 @@ import torch.nn as nn
 
 class toy_model(nn.Module):
 
-    def __init__(self, num_classes, in_channels=3) -> None:
+    def __init__(self, num_classes, in_channels=3, img_size=32) -> None:
         super(toy_model, self).__init__()
 
         self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=10, kernel_size=5, padding=2, padding_mode="reflect")
         #self.conv2 = nn.Conv2d(in_channels=20, out_channels=10, kernel_size=5, padding=2, padding_mode="reflect")
         self.pooling = nn.AvgPool2d(kernel_size=2)
-        self.linear1 = nn.Linear(14*14*10, 1000)       #32
+        self.linear1 = nn.Linear(img_size / 2 * img_size / 2 * 10, 1000)
         self.linear2 = nn.Linear(1000, 20)
         self.linear3 = nn.Linear(20, num_classes)
         self.activation = nn.ReLU()
