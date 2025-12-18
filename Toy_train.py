@@ -62,7 +62,7 @@ def parse_options():
 if __name__ == "__main__":
 
     opt = parse_options()
-    opt.last_label_mapping = label_mappings[opt.old_classes_idx]
+    opt.old_label_mapping = label_mappings[opt.old_classes_idx]
     opt.label_mapping = label_mappings[opt.classes_idx]
 
     if "mnist" in opt.dataset:
