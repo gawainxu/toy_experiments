@@ -102,6 +102,7 @@ if __name__ == "__main__":
             old_dataset = toy_dataset(opt.data_path, last_label_mapping, data_transform)
             old_dataset = continual_buffer(old_dataset, opt.buffer_size)
             dataset = torch.utils.data.ConcatDataset([dataset, old_dataset])
+        print("model loaded")
     else:
         model = toy_model(len(opt.classes), in_channels=in_channels, img_size=opt.data_size)
         model.apply(init_weights)
