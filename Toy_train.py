@@ -41,7 +41,7 @@ def parse_options():
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--buffer_size", type=int, default=0)
 
-    parser.add_argument("--dataset", type=str, default="mnist")
+    parser.add_argument("--dataset", type=str, default="toy")
     parser.add_argument("--data_root", type=str, default="../datasets")
     parser.add_argument("--data_path", type=str, default= "./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
@@ -50,12 +50,16 @@ def parse_options():
     parser.add_argument("--old_classes_idx", type=int, default=0)
 
     parser.add_argument("--model_name", type=str, default="toy", choices=["toy", "cnn", "vgg"])
-    parser.add_argument("--model_path", type=str, default="./models/toy_model_E1")
+    parser.add_argument("--model_path", type=str, default="./models/")
     parser.add_argument("--losses_path", type=str, default="./losses_model_E1")
     parser.add_argument("--last_model_path", type=str, default=None)
     parser.add_argument("--freeze", type=bool, default=False)
 
     opt = parser.parse_args()
+    model_name = opt.model_name+"_"+opt.dataset+"_"+str(opt.classes_idx)+"_"+str(opt.old_classes_idx)+".pth"
+    losses_name = opt.model_name + "_" + opt.dataset + "_" + str(opt.classes_idx) + "_" + str(opt.old_classes_idx)
+    opt.model_path = os.path.join("./models/", model_name)
+    opt.losses_path = os.path.join("./losses/", losses_name)
     return opt
 
 
