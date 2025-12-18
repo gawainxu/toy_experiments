@@ -47,11 +47,13 @@ def parse_options():
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
     parser.add_argument("--data_size", type=int, default=32)
     parser.add_argument("--classes_idx", type=int, default=0)
+    parser.add_argument("--old_classes_idx", type=int, default=0)
 
     parser.add_argument("--model_name", type=str, default="toy", choices=["toy", "cnn", "vgg"])
-    parser.add_argument("--model_path", type=str, default="./models/toy_model_E1_kaiming")
-    parser.add_argument("--losses_path", type=str, default="./losses_model_E1_kaiming")
+    parser.add_argument("--model_path", type=str, default="./models/toy_model_E1")
+    parser.add_argument("--losses_path", type=str, default="./losses_model_E1")
     parser.add_argument("--last_model_path", type=str, default=None)
+    parser.add_argument("--freeze", type=bool, default=False)
 
     opt = parser.parse_args()
     return opt
@@ -66,6 +68,7 @@ if __name__ == "__main__":
 
     if "mnist" in opt.dataset:
         opt.classes = mnist_classes[opt.classes_idx]
+        opt.old_classes = mnist_classes[opt.old_classes_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                          transforms.Normalize(mean=(0.1307,), std=(0.3081,))])
         dataset = mnist(opt.data_root, classes=opt.classes, transform=data_transform)
@@ -73,6 +76,7 @@ if __name__ == "__main__":
         in_channels = 1
     elif "cifar" in opt.dataset:
         opt.classes = cifar_classes[opt.classes_idx]
+        opt.old_classes = cifar_classes[opt.old_classes_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize(mean= (0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.2010))])
         dataset = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
@@ -91,9 +95,9 @@ if __name__ == "__main__":
     test_data_loader = DataLoader(dataset_test, 1, num_workers=1, shuffle=True)
 
     if opt.last_model_path is not None:
-        model = toy_model(len(last_label_mapping), in_channels=in_channels)
+        model = toy_model(len(opt.old_classes), in_channels=in_channels)
         model.load_state_dict(torch.load(opt.last_model_path, weights_only=True))
-        updata_model(model, new_num_classes=len(label_mapping))
+        updata_model(model, new_num_classes=len(opt.classes))
         if opt.buffer_size > 0:
             old_dataset = toy_dataset(opt.data_path, last_label_mapping, data_transform)
             old_dataset = continual_buffer(old_dataset, opt.buffer_size)
@@ -104,6 +108,11 @@ if __name__ == "__main__":
 
     model.train()
     model = model.cuda()
+
+    if opt.freeze:
+        for name, param in model.named_parameters():
+            if "conv" in name:
+                param.requires_grad = False
 
     criteria = torch.nn.CrossEntropyLoss()
     optimizer = SGD(model.parameters(), lr=opt.lr)
@@ -166,7 +175,7 @@ if __name__ == "__main__":
             #torch.save(model.state_dict(), model_path) 
             acc_best = acc
         
-    model_path_epoch = opt.model_path + "_" + opt.dataset + "_" + str(opt.classes_idx) + ".pth"
+    model_path_epoch = opt.model_path + "_" + opt.dataset + "_" + str(opt.classes_idx) + "_" + str(opt.old_classes_idx) + ".pth"
     torch.save(model.state_dict(), model_path_epoch)
 
     print("best loss: ", loss_best/len(dataset), "best acc: ", acc_best)
