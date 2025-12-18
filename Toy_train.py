@@ -111,6 +111,7 @@ if __name__ == "__main__":
             x = x.float()
             x = x.cuda()
             y = y.type(torch.LongTensor)
+            y = y.cuda()
             pred = model(x)
             loss = criteria(pred, y)
             #print(loss.item())
@@ -135,6 +136,7 @@ if __name__ == "__main__":
 
             x = x.float()
             x = x.cuda()
+            y = y.cuda()
             pred = model(x)
             pred = torch.argmax(pred)
             #print(pred, y)
