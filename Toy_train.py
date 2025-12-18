@@ -60,15 +60,15 @@ if __name__ == "__main__":
         data_transform = transforms.Compose([transforms.ToTensor(),
                                          transforms.RandomHorizontalFlip(),
                                          ])      # transforms.Normalize(mean=(0., 27.95993652, 30.653125), std=(0., 79.67449882, 82.92727418))
-        dataset = mnist(opt.data_root, transform=data_transform)
+        dataset = mnist(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = mnist(opt.test_data_path, transform=data_transform)
         in_channels = 1
     elif "cifar" in opt.dataset:
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.RandomHorizontalFlip(),
                                              ])  # transforms.Normalize(mean=(0., 27.95993652, 30.653125), std=(0., 79.67449882, 82.92727418))
-        dataset = iCIFAR100(opt.data_root, data_transform)
-        dataset_test = iCIFAR100(opt.test_data_path, label_mapping, data_transform)
+        dataset = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
+        dataset_test = iCIFAR100(opt.test_data_path, classes=opt.classes, transform=data_transform)
         in_channels = 3
     else:
         data_transform = transforms.Compose([transforms.ToTensor(),
