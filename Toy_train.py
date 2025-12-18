@@ -65,27 +65,27 @@ if __name__ == "__main__":
     label_mapping = label_mappings[1]
 
     if "mnist" in opt.dataset:
+        opt.classes = mnist_classes[opt.classes_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                          transforms.Normalize(mean=(0.1307,), std=(0.3081,))])
         dataset = mnist(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = mnist(opt.data_root, transform=data_transform)
         in_channels = 1
-        opt.classes = mnist_classes[opt.classes_idx]
     elif "cifar" in opt.dataset:
+        opt.classes = cifar_classes[opt.classes_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize(mean= (0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.2010))])
         dataset = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
         in_channels = 3
-        opt.classes = cifar_classes[opt.classes_idx]
     else:
+        opt.classes = [label_mapping[k] for k in opt.label_mapping.keys()]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.RandomHorizontalFlip(),
                                              ])
         dataset = toy_dataset(opt.data_path, label_mapping, data_transform)
         dataset_test = toy_dataset(opt.test_data_path, label_mapping, data_transform)
         in_channels = 3
-        opt.classes = [label_mapping[k] for k in opt.label_mapping.keys()]
 
     data_loader = DataLoader(dataset, opt.batch_size, num_workers=1, shuffle=True)
     test_data_loader = DataLoader(dataset_test, 1, num_workers=1, shuffle=True)
