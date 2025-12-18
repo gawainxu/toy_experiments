@@ -23,6 +23,14 @@ label_mappings = [{"circle_blue": 0, "rectangle_red": 1},  # E1
                   {"ellipse_pink": 2, "rectangle_blue": 3}, # E9
                   {"ellipse_pink": 3, "rectangle_blue": 4}] # E10
 
+mnist_classes = [[1,2,3],
+                 [1,2,3,4,5,6]]
+
+cifar_classes = [list(range(10)),
+                 list(range(20)),
+                 list(range(30)),
+                 list(range(40))]
+
 
 def parse_options():
 
@@ -38,7 +46,7 @@ def parse_options():
     parser.add_argument("--data_path", type=str, default= "./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
     parser.add_argument("--data_size", type=int, default=32)
-    parser.add_argument("--classes", type=list, default=list(range(10)))
+    parser.add_argument("--classes_idx", type=int, default=0)
 
     parser.add_argument("--model_name", type=str, default="toy", choices=["toy", "cnn", "vgg"])
     parser.add_argument("--model_path", type=str, default="./models/toy_model_E1_kaiming")
@@ -62,12 +70,14 @@ if __name__ == "__main__":
         dataset = mnist(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = mnist(opt.data_root, transform=data_transform)
         in_channels = 1
+        opt.classes = mnist_classes[opt.classes_idx]
     elif "cifar" in opt.dataset:
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize(mean= (0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.2010))])
         dataset = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
         in_channels = 3
+        opt.classes = cifar_classes[opt.classes_idx]
     else:
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.RandomHorizontalFlip(),
@@ -156,8 +166,8 @@ if __name__ == "__main__":
             #torch.save(model.state_dict(), model_path) 
             acc_best = acc
         
-        model_path_epoch = opt.model_path + "_" + str(e) + ".pth"
-        torch.save(model.state_dict(), model_path_epoch)
+    model_path_epoch = opt.model_path + "_" + str(opt.classes_idx) + ".pth"
+    torch.save(model.state_dict(), model_path_epoch)
 
     print("best loss: ", loss_best/len(dataset), "best acc: ", acc_best)
     with open(opt.losses_path, "wb") as f:

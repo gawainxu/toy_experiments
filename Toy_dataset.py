@@ -212,5 +212,5 @@ if __name__ == "__main__":
     """
 
     data_root = "../datasets"
-    dataset = iCIFAR100(root=data_root)
+    dataset = iCIFAR100(root=data_root, classes=[0,1,2,3,4,5])
     img, l = dataset[0]
