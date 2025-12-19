@@ -54,6 +54,8 @@ def parse_options():
     parser.add_argument("--losses_path", type=str, default="./losses_model_E1")
     parser.add_argument("--last_model_path", type=str, default=None)
     parser.add_argument("--freeze", type=bool, default=False)
+    parser.add_argument("--freeze_layers", type=str, default="conv",
+                        choices=["conv", "conv1", "conv2"])
 
     opt = parser.parse_args()
     model_name = opt.model_name+"_"+opt.dataset+"_"+str(opt.classes_idx)+"_"+str(opt.old_classes_idx)+".pth"
@@ -122,7 +124,7 @@ if __name__ == "__main__":
 
     if opt.freeze:
         for name, param in model.named_parameters():
-            if "conv" in name:
+            if opt.freeze_layers in name:
                 param.requires_grad = False
 
     criteria = torch.nn.CrossEntropyLoss()
