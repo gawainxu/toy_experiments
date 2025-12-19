@@ -127,8 +127,8 @@ def sp_noise(image, amount, salt_vs_pepper):
 if __name__ == "__main__":
 
     save_path = "./toy_data_test_shapes/"
-    num_imgs = 100
-    shape = "rectangle"
+    num_imgs = 50
+    shape = "circle"
     color = "black"
     noising = False
     thickness=1
