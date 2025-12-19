@@ -125,6 +125,7 @@ if __name__ == "__main__":
     if opt.freeze:
         for name, param in model.named_parameters():
             if opt.freeze_layers in name:
+                print(name)
                 param.requires_grad = False
 
     criteria = torch.nn.CrossEntropyLoss()
