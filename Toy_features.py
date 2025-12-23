@@ -30,26 +30,34 @@ def parse_options():
     
     parser = argparse.ArgumentParser("Arguments")
 
-    parser.add_argument("--exp_id", type=int, default=1)
-    parser.add_argument("--exp_id_osr", type=int, default=-1)
-    parser.add_argument("--model_path", type=str, default= "./models/cnn_E1_toy_1_0.pth")
-    parser.add_argument("--epoch_id", type=int, default=0)
+    parser.add_argument("--inliers_id", type=int, default=0)
+    parser.add_argument("--outliers_id", type=int, default=-1)    # >= 0 for outlier data
+    parser.add_argument("--model_path", type=str, default= "./models/cnn_toy_E1.pth")
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
-    parser.add_argument("--feature_save_path", type=str, default="./features/E2")
-    
+    parser.add_argument("--feature_save_path", type=str, default="./features/")
+    parser.add_argument("--training_data", type=bool, default=True)
+
     opt = parser.parse_args()
-    opt.num_classes = len(label_mappings[opt.exp_id])
+    opt.num_classes = len(label_mappings[opt.inliers_id])
+    model_name = opt.model_path.split("/")[-1].split(".")[0]
 
-    if opt.exp_id_osr >= 0:
-        opt.label_mapping = label_mappings_osr[opt.exp_id_osr]
-        class_name = list(label_mappings_osr[opt.exp_id_osr].keys())[0]
-        opt.feature_save_path = opt.feature_save_path + class_name + "_" + str(opt.exp_id)
+    if opt.outliers_id >= 0:
+        opt.label_mapping = label_mappings_osr[opt.outliers_id]
+        class_name = list(label_mappings_osr[opt.outliers_id].keys())[0]
+        opt.feature_save_path = opt.feature_save_path + model_name + "_" + class_name
+        opt.data_path = "toy_data_test_outliers"
+    elif opt.outliers_id == -1 and opt.training_data:
+        opt.label_mapping = label_mappings[opt.inliers_id]
+        class_name = list(label_mappings[opt.inliers_id].keys())
+        opt.feature_save_path = opt.feature_save_path + model_name + "_train"
+        opt.data_path = "toy_data_train"
     else:
-        opt.label_mapping = label_mappings[opt.exp_id]
+        opt.label_mapping = label_mappings[opt.inliers_id]
+        class_name = list(label_mappings[opt.inliers_id].keys())
+        opt.feature_save_path = opt.feature_save_path + model_name + "_test"
+        opt.data_path = "toy_data_test_inliers"
 
-    if opt.epoch_id >= 0:
-        opt.feature_save_path = opt.feature_save_path+ "_" + str(opt.epoch_id)
-    
+    print(class_name)
     return opt
         
 

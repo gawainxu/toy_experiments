@@ -45,21 +45,27 @@ def parse_options():
     parser.add_argument("--data_root", type=str, default="../datasets")
     parser.add_argument("--data_path", type=str, default= "./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
-    parser.add_argument("--data_size", type=int, default=32)
+    parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--classes_idx", type=int, default=0)
     parser.add_argument("--old_classes_idx", type=int, default=0)
 
-    parser.add_argument("--model_name", type=str, default="toy", choices=["toy", "cnn", "vgg"])
-    parser.add_argument("--model_path", type=str, default="./models/")
-    parser.add_argument("--losses_path", type=str, default="./losses_model_E1")
+    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--model_path", type=str, default="")
+    parser.add_argument("--losses_path", type=str, default="")
     parser.add_argument("--last_model_path", type=str, default=None)
     parser.add_argument("--freeze", type=bool, default=False)
     parser.add_argument("--freeze_layers", type=str, default="conv",
                         choices=["conv", "conv1", "conv2"])
 
     opt = parser.parse_args()
-    model_name = opt.model_name+"_"+opt.dataset+"_"+str(opt.classes_idx)+"_"+str(opt.old_classes_idx)+".pth"
-    losses_name = opt.model_name + "_" + opt.dataset + "_" + str(opt.classes_idx) + "_" + str(opt.old_classes_idx)
+    opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
+    print( opt.experiment_name)
+    if opt.freeze:
+        model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx) + ".pth"
+        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + str(opt.old_classes_idx)
+    else:
+        model_name = opt.model_name + "_" + opt.dataset  + "_" + opt.experiment_name + ".pth"
+        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
     opt.model_path = os.path.join("./models/", model_name)
     opt.losses_path = os.path.join("./losses/", losses_name)
     return opt
@@ -188,9 +194,8 @@ if __name__ == "__main__":
         if acc > acc_best:
             #torch.save(model.state_dict(), model_path) 
             acc_best = acc
-        
-    model_path_epoch = opt.model_path + "_" + opt.dataset + "_" + str(opt.classes_idx) + "_" + str(opt.old_classes_idx) + ".pth"
-    torch.save(model.state_dict(), model_path_epoch)
+
+    torch.save(model.state_dict(), opt.model_path)
 
     print("best loss: ", loss_best/len(dataset), "best acc: ", acc_best)
     with open(opt.losses_path, "wb") as f:

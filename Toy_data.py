@@ -47,7 +47,7 @@ def rectangle(color, if_noise=False, thickness=-1):
 
     back_image = np.ones((height, width, 3), np.uint8)
     choice_back = ["black", "white"]
-    back_color =  "white"               #random.choice(choice_back)
+    back_color =  "black"               #random.choice(choice_back)
 
     if back_color == "black":
         back_pixel = (0, 0, 0)
@@ -126,12 +126,12 @@ def sp_noise(image, amount, salt_vs_pepper):
  
 if __name__ == "__main__":
 
-    save_path = "./toy_data_test_shapes/"
+    save_path = "./toy_data_test_outliers/"
     num_imgs = 50
-    shape = "circle"
-    color = "black"
+    shape = "rectangle"
+    color = "blue"
     noising = False
-    thickness=1
+    thickness=-1   # -1 for filling otherwise is edge thickness
 
     for i in range(num_imgs):
         

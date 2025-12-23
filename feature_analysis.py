@@ -56,9 +56,9 @@ def parse_options():
 def sort_features(features_in_dict, opt):
     
     if opt.loss == "ce":
-       sorted_features_in_dict = {'conv1': [], 'pooling': [], 'linear1': [], 'activation': [], 'linear2': [], 'linear3': [], '': []}
+       sorted_features_in_dict = {'conv1': [], 'conv2': [], 'pooling': [], 'linear1': [], 'activation': [], 'linear2': [], 'linear3': [], '': []}
     else:
-       sorted_features_in_dict = {'conv1': [], 'pooling': [], 'linear1': [], 'activation': [], 'linear2': [], 'head': [], '': []} 
+       sorted_features_in_dict = {'conv1': [], 'conv2': [], 'pooling': [], 'linear1': [], 'activation': [], 'linear2': [], 'head': [], '': []}
        
     for i, fd in enumerate(features_in_dict):
         
@@ -71,6 +71,7 @@ def sort_features(features_in_dict, opt):
             sorted_features_in_dict[key].append(fd[key])
         """
         sorted_features_in_dict["conv1"].append(np.squeeze(fd["conv1"].numpy()))
+        sorted_features_in_dict["conv2"].append(np.squeeze(fd["conv2"].numpy()))
         sorted_features_in_dict["pooling"].append(np.squeeze(fd["pooling"].numpy()))
         sorted_features_in_dict["linear1"].append(np.squeeze(fd["linear1"].numpy()))
         sorted_features_in_dict["activation"].append(np.squeeze(fd["activation"].numpy()))
