@@ -7,7 +7,7 @@ import pickle
 
 from toy_test import feature_stats, compare_hist
 from view_weights import open_weights, find_removable
-from Toy_model import toy_model, toy_model_supcon
+from Toy_model import toy_model, cnn
 
 
 feature_keys = ['conv1', 'pooling', 'linear1', 'activation', 'linear2', 'linear3', '']
@@ -17,48 +17,39 @@ def parse_options():
     
     parser = argparse.ArgumentParser("Arguments")
     
-    parser.add_argument("--loss", type=str, default="ce", choices=["ce", "supcon"])
-    parser.add_argument("--num_classes", type=int, default=2)
-    parser.add_argument("--num_dim", type=int, default=20)
-    parser.add_argument("--model_name", type=str, default="toy_model_supcon_E2_10")
-    parser.add_argument("--inlier_outlier", type=bool, default=True)
-    parser.add_argument("--inlier_features_path", type=str, default="toy_features_inliers_train_supcon_E2_10")
-    parser.add_argument("--outlier_features_path", type=str, default="toy_features_outliers_supcon_E2_10")
-    parser.add_argument("--features_to_view", type=str, default="linear2")
+    parser.add_argument("--model", type=str, default="toy", choices=["toy", "cnn"])
+    parser.add_argument("--num_classes", type=int, default=3)
+    parser.add_argument("--model_name", type=str, default="toy_toy_E2.pth")
+    parser.add_argument("--inlier_features_path", type=str, default="toy_toy_E2_train")
+    parser.add_argument("--outlier_features_path", type=str, default="toy_toy_E2_rectangle_blue")
+    parser.add_argument("--data_size", type=int, default=64)
+    parser.add_argument("--feature_to_view", type=str, default="linear2")
     parser.add_argument("--remove_weights", type=bool, default=False)
+    parser.add_argument("--mode", type=str, default="mahalanobis")
     
     opt = parser.parse_args()
-    opt.current_dir = os.path.dirname(os.getcwd())
+    opt.current_dir = os.getcwd()
     
-    opt.model_path = opt.current_dir + "/save/" + opt.model_name
-    
-    opt.model_id = opt.model_name.replace("toy_model_", "")
-    if opt.inlier_outlier is True:
-        opt.feature_name = "toy_features_inliers_train_" + opt.model_id
-        opt.data_path = "/code/toy_data"
-    else:
-        opt.feature_name = "toy_features_outliers_" + opt.model_id
-        opt.data_path = "/code/toy_data_test_outliers"
+    opt.model_path = opt.current_dir + "/models/" + opt.model_name
         
-    if opt.loss == "ce":
-        opt.feature_keys = ['conv1', 'pooling', 'linear1', 'activation', 'linear2', 'linear3', '']
-    else:
-        opt.feature_keys = ['conv1', 'pooling', 'linear1', 'activation', 'linear2', 'head', '']
+    if opt.model == "toy":
+        opt.feature_keys = ['conv1', 'pooling', 'linear1', 'linear2', 'linear3']
+    elif opt.model == "cnn":
+        opt.feature_keys = ['conv1', 'conv2', 'pooling', 'linear1', 'linear2', 'linear3']
         
     opt.inlier_features_path = opt.current_dir + "/features/" + opt.inlier_features_path
     opt.outlier_features_path = opt.current_dir + "/features/" + opt.outlier_features_path
-    opt.data_path = opt.path.join(opt.current_dir, opt.data_path)
-    opt.hist_name = opt.current_dir + "/plots/hist_outlier_similarity_" + opt.loss + "_" +  opt.id + ".png"
+    opt.hist_name = opt.current_dir + "/plots/hist_outlier_similarity_" + opt.model_name + ".png"
     
     return opt
 
 
 def sort_features(features_in_dict, opt):
     
-    if opt.loss == "ce":
-       sorted_features_in_dict = {'conv1': [], 'conv2': [], 'pooling': [], 'linear1': [], 'activation': [], 'linear2': [], 'linear3': [], '': []}
+    if opt.model == "toy":
+       sorted_features_in_dict = {'conv1': [], 'pooling': [], 'linear1': [], 'linear2': [], 'linear3': []}
     else:
-       sorted_features_in_dict = {'conv1': [], 'conv2': [], 'pooling': [], 'linear1': [], 'activation': [], 'linear2': [], 'head': [], '': []}
+       sorted_features_in_dict = {'conv1': [], 'conv2': [], 'pooling': [], 'linear1': [], 'linear2': [], 'linear3': []}
        
     for i, fd in enumerate(features_in_dict):
         
@@ -71,15 +62,12 @@ def sort_features(features_in_dict, opt):
             sorted_features_in_dict[key].append(fd[key])
         """
         sorted_features_in_dict["conv1"].append(np.squeeze(fd["conv1"].numpy()))
-        sorted_features_in_dict["conv2"].append(np.squeeze(fd["conv2"].numpy()))
+        if opt.model == "cnn":
+            sorted_features_in_dict["conv2"].append(np.squeeze(fd["conv2"].numpy()))
         sorted_features_in_dict["pooling"].append(np.squeeze(fd["pooling"].numpy()))
         sorted_features_in_dict["linear1"].append(np.squeeze(fd["linear1"].numpy()))
-        sorted_features_in_dict["activation"].append(np.squeeze(fd["activation"].numpy()))
         sorted_features_in_dict["linear2"].append(np.squeeze(fd["linear2"].numpy()))
-        if opt.loss == "ce":
-            sorted_features_in_dict["linear3"].append(np.squeeze(fd["linear3"].numpy()))
-        else:
-            sorted_features_in_dict["head"].append(np.squeeze(fd["head"].numpy()))
+        sorted_features_in_dict["linear3"].append(np.squeeze(fd["linear3"].numpy()))
 
     return sorted_features_in_dict
 
@@ -124,11 +112,12 @@ def distances(stats, inlier_features, outlier_features, mode="mahalanobis"):
             features_normalized = features - centers
             dis =  np.dot(features_normalized, np.linalg.inv(var))
             dis = np.dot(dis, features_normalized.T)
+            dis_c = np.diag(dis)
+            dis_inliers.append(dis_c)
         else:
             dis = np.sum(np.abs(features - centers), axis=1)
-        dis_c = np.diag(dis)                  # distance between pairs of points in one class    
-        dis_inliers.append(dis_c)
-
+            dis_inliers.append(dis)
+                      # distance between pairs of points in one class
     return dis_inliers, dis_outliers
 
 
@@ -136,10 +125,10 @@ if __name__ == "__main__":
 
     opt = parse_options()
     
-    if opt.loss == 'ce': 
-        model = toy_model(opt.num_classes)
+    if opt.model == 'toy':
+        model = toy_model(opt.num_classes, in_channels=3, img_size=opt.data_size)
     else:
-        model = toy_model_supcon(opt.num_dim)
+        model = cnn(opt.num_classes, in_channels=3, img_size=opt.data_size)
         
     model.load_state_dict(torch.load(opt.model_path, map_location=torch.device("cpu")))
     model.eval()
@@ -178,7 +167,7 @@ if __name__ == "__main__":
 
     stats = feature_stats(features_to_view_inliers)
 
-    dis_inliers, dis_outliers = distances(stats, features_to_view_inliers, features_to_view_outliers)
+    dis_inliers, dis_outliers = distances(stats, features_to_view_inliers, features_to_view_outliers, opt.mode)
 
     for i, dis_c in enumerate(dis_inliers):
         print("Average Distance of Class ", i, "is", np.sum(dis_c)/dis_c.shape[0])
@@ -193,7 +182,8 @@ if __name__ == "__main__":
     print("Outliers to Class1", sum(outliers_to_class2)/len(outliers_to_class2))
 
     n_inlier, _, _ = plt.hist(outliers_to_class1, bins=200, range=(0, 2000), alpha=0.5, label="Outlier Similarities1")
-    n_outlier, _, _ = plt.hist(outliers_to_class2, bins=200, range=(0, 2000), alpha=0.5, label="Outlier Similarities2")
+    #n_outlier, _, _ = plt.hist(outliers_to_class2, bins=200, range=(0, 2000), alpha=0.5, label="Outlier Similarities2")
+    n_outlier, _, _ = plt.hist(outliers_to_class2[0] + outliers_to_class2[1], bins=200, range=(0, 2000), alpha=0.5, label="Inlier Similarities2")
     plt.xlabel('Distances')
     plt.ylabel('Counts')
     plt.legend(prop ={'size': 10})

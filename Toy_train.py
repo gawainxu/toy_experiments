@@ -37,8 +37,8 @@ def parse_options():
     parser = argparse.ArgumentParser("Arguments")
 
     parser.add_argument("--batch_size", type=int, default=32)
-    parser.add_argument("--epochs", type=int, default=100)
-    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--epochs", type=int, default=30)
+    parser.add_argument("--lr", type=float, default=1e-2)
     parser.add_argument("--buffer_size", type=int, default=0)
 
     parser.add_argument("--dataset", type=str, default="toy")
@@ -61,10 +61,10 @@ def parse_options():
     opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
     print( opt.experiment_name)
     if opt.freeze:
-        model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx) + ".pth"
+        model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx)
         losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + str(opt.old_classes_idx)
     else:
-        model_name = opt.model_name + "_" + opt.dataset  + "_" + opt.experiment_name + ".pth"
+        model_name = opt.model_name + "_" + opt.dataset  + "_" + opt.experiment_name
         losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
     opt.model_path = os.path.join("./models/", model_name)
     opt.losses_path = os.path.join("./losses/", losses_name)
@@ -98,6 +98,8 @@ if __name__ == "__main__":
         opt.old_classes = [opt.old_label_mapping[k] for k in opt.old_label_mapping.keys()]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.RandomHorizontalFlip(),
+                                             transforms.RandomVerticalFlip(),
+                                             transforms.RandomRotation((90, 270))
                                              ])
         dataset = toy_dataset(opt.data_path, opt.label_mapping, data_transform)
         dataset_test = toy_dataset(opt.test_data_path, opt.label_mapping, data_transform)
@@ -189,13 +191,14 @@ if __name__ == "__main__":
         #plot_confusion_matrix(conf_matrix, "D://projects//open_cross_entropy//save//confusion_class3_" + str(e) + ".png")
 
         acc = 1-unequals*1.0 / len(dataset_test)
+        torch.save(model.state_dict(), opt.model_path + "_" + str(e) + ".pth")
         print("testing accuracy is ", acc)
         accs.append(acc)
         if acc > acc_best:
             #torch.save(model.state_dict(), model_path) 
             acc_best = acc
 
-    torch.save(model.state_dict(), opt.model_path)
+    torch.save(model.state_dict(), opt.model_path + ".pth")
 
     print("best loss: ", loss_best/len(dataset), "best acc: ", acc_best)
     with open(opt.losses_path, "wb") as f:

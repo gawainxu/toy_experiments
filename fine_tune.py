@@ -16,7 +16,7 @@ def parse_options():
     parser = argparse.ArgumentParser("Arguments")
 
     parser.add_argument("--batch_size", type=int, default=32)
-    parser.add_argument("--epochs", type=int, default=100)
+    parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--lr", type=float, default=1e-3)
 
     parser.add_argument("--dataset", type=str, default="toy_shape")
@@ -24,10 +24,10 @@ def parse_options():
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_shapes")
     parser.add_argument("--data_size", type=int, default=64)
 
-    parser.add_argument("--model_name", type=str, default="toy", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
     parser.add_argument("--model_path", type=str, default="./models/")
-    parser.add_argument("--last_model_path", type=str, default="./models/toy_model_E1_99.pth")
-    parser.add_argument("--num_classes", type=int, default=2)
+    parser.add_argument("--last_model_path", type=str, default="./models/cnn_toy_E2.pth")
+    parser.add_argument("--num_classes", type=int, default=3)
     parser.add_argument("--freeze_layers", type=list, default=["conv1", "conv2", "linear1", "linear2"])
 
     opt = parser.parse_args()
@@ -49,7 +49,10 @@ if __name__ == "__main__":
     dataset_test = toy_dataset(opt.test_data_path, opt.label_mapping, data_transform)
     test_data_loader = DataLoader(dataset_test, 1, num_workers=1, shuffle=True)
 
-    model = toy_model(num_classes=opt.num_classes, in_channels=3, img_size=opt.data_size)
+    if "toy" in opt.model_name:
+        model = toy_model(num_classes=opt.num_classes, in_channels=3, img_size=opt.data_size)
+    else:
+        model = cnn(num_classes=opt.num_classes, in_channels=3, img_size=opt.data_size)
     model.load_state_dict(torch.load(opt.last_model_path, weights_only=True))
 
     model.train()

@@ -1,8 +1,23 @@
 import pickle
+import sys
+
 from scipy.spatial.distance import mahalanobis
 import numpy as np
 import matplotlib.pyplot as plt
-from sympy.abc import alpha
+import argparse
+
+
+def parse_options():
+    parser = argparse.ArgumentParser("Arguments")
+
+    parser.add_argument("--feature_path", type=str, default="./features/toy_toy_E1_0_train")
+    parser.add_argument("--num_classes", type=int, default=2)
+    parser.add_argument("--feature_path_test", type=str, default="./features/toy_toy_E1_0_rectangle_blue")
+    parser.add_argument("--feature_to_visualize", type=str, default="linear2")
+    parser.add_argument("--fig_save_path", type=str, default="./plots/hist_E1_0.png")
+
+    opt = parser.parse_args()
+    return opt
 
 
 def feature_stats(features):
@@ -55,17 +70,15 @@ def seperate_class(featuresTest, labelsTest, num_classes):
 
 if __name__ == "__main__":
 
-    num_classes = 3
-    featurePath = "/home/zhi/projects/open_cross_entropy/features/E2_100"
-    feature_to_visulize = "linear2"
+    opt = parse_options()
     
-    with open(featurePath, "rb") as f:
+    with open(opt.feature_path, "rb") as f:
         featuresTrain, labelsTrain = pickle.load(f)
  
-    featuresTrain = [featureTrain[feature_to_visulize].detach().numpy() for featureTrain in featuresTrain]
+    featuresTrain = [featureTrain[opt.feature_to_visualize].detach().numpy() for featureTrain in featuresTrain]
     featuresTrain = np.squeeze(np.array(featuresTrain))
 
-    seperated_features = seperate_class(featuresTrain, labelsTrain, num_classes)
+    seperated_features = seperate_class(featuresTrain, labelsTrain, opt.num_classes)
     
     centers = []
     all_similarities_train = []
@@ -77,17 +90,15 @@ if __name__ == "__main__":
 
     all_similarities_train = np.array(all_similarities_train)
 
-
-    featurePath_test = "/home/zhi/projects/open_cross_entropy/features/osr_rectangle_green_1_100"
-    with open(featurePath_test, "rb") as f:
+    with open(opt.feature_path_test, "rb") as f:
         featuresTest, labelsTest = pickle.load(f)
 
-    featuresTest = [featureTest[feature_to_visulize].detach().numpy() for featureTest in featuresTest]
+    featuresTest = [featureTest[opt.feature_to_visualize].detach().numpy() for featureTest in featuresTest]
     featuresTest = np.squeeze(np.array(featuresTest))
     #seperated_features_test = seperate_class(featuresTest, labelsTest, num_classes+3)
 
     all_similarities_test = []
-    for i in range(num_classes):
+    for i in range(opt.num_classes):
        all_similarities_test.append(mahalanobis_distances(featuresTest, centers[i]))
 
     all_similarities_test = np.array(all_similarities_test)
@@ -99,7 +110,7 @@ if __name__ == "__main__":
     all_similarities_test_closest = all_similarities_test[closest_class]
 
     # compute the histogram distances
-    bins = np.linspace(0, 50, 200)
+    bins = np.linspace(0, 10, 200)
     hist_train, e1 = np.histogram(all_similarities_train_closest, bins)
     hist_test, e2 = np.histogram(all_similarities_test_closest, bins)
 
@@ -110,5 +121,6 @@ if __name__ == "__main__":
     axs.hist(all_similarities_train_closest, bins=bins, label="train", alpha=0.3)
     axs.hist(all_similarities_test_closest, bins=bins, label="test", alpha=0.3)
     plt.legend()
-    plt.show()
+    plt.savefig(opt.fig_save_path)
+    sys.exit(hist_dis)
 

@@ -30,12 +30,14 @@ def parse_options():
     
     parser = argparse.ArgumentParser("Arguments")
 
-    parser.add_argument("--inliers_id", type=int, default=0)
-    parser.add_argument("--outliers_id", type=int, default=-1)    # >= 0 for outlier data
-    parser.add_argument("--model_path", type=str, default= "./models/cnn_toy_E1.pth")
+    parser.add_argument("--inliers_id", type=int, default=1)
+    parser.add_argument("--outliers_id", type=int, default=1)    # >= 0 for outlier data
+    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--model_path", type=str, default= "./models/cnn_toy_E2.pth")
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
+    parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--feature_save_path", type=str, default="./features/")
-    parser.add_argument("--training_data", type=bool, default=True)
+    parser.add_argument("--training_data", type=bool, default=False)
 
     opt = parser.parse_args()
     opt.num_classes = len(label_mappings[opt.inliers_id])
@@ -109,7 +111,10 @@ if __name__ == "__main__":
 
     opt = parse_options()
 
-    model = cnn(opt.num_classes, in_channels=3, img_size=64)
+    if "toy" in opt.model_name:
+        model = toy_model(num_classes=opt.num_classes, in_channels=3, img_size=opt.data_size)
+    else:
+        model = cnn(num_classes=opt.num_classes, in_channels=3, img_size=opt.data_size)
     model.load_state_dict(torch.load(opt.model_path, map_location=torch.device("cpu")))
     model.eval()
 

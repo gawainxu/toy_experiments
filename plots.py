@@ -42,44 +42,24 @@ plt.legend([l11, l12, l21, l22], ['E1 Histogram Distance', 'E2 Histogram Distanc
 plt.savefig("D:\projects\open_cross_entropy\code\differences_acc.png")
 """
 
+values1 = []
 
-steps = [0, 20, 40, 60, 80, 100]
-rectangle_blue_e1 = [0.2613, 0.7136, 0.8342, 0.8643, 0.8543, 0.8643]
-rectangle_blue_e2 = [0.2915, 0.9146, 0.9346, 0.9548, 0.9848, 0.9548]
+with open("results1.txt", "r") as f:
+    lines = f.readlines()
 
-circle_green_e1 = [0.9246, 0.9246, 0.9548, 0.9648,	0.9648,	0.9648]
-circle_green_e2 = [0.9246, 1, 1, 1, 1, 1]
-
-rectangle_green_e1 = [0.3317, 0.402, 0.402, 0.4523, 0.4422, 0.4422]
-rectangle_green_e2 = [0.412, 0.4824, 0.4522, 0.402,	0.4221,	0.4221]
-
-ellipse_blue_e1 = [0.4422, 0.7839, 0.8442, 0.8342, 0.8442, 0.8442]
-ellipse_blue_e2 = [0.412, 0.8844, 0.8945, 0.9045, 0.9146, 0.8945]
-
-ellipse_pink_e1 = [0.503, 0.9749, 1, 1,	1, 1]
-ellipse_pink_e2 = [0.6533, 1, 1, 1,	1, 1]
+for line in lines[2::2]:
+    values1.append(float(line.rstrip()))
 
 
-plt.plot(steps, rectangle_blue_e1, color="blue", marker='s', linestyle='--', linewidth=2.5, label="Blue Rectangle E1")
-plt.plot(steps, rectangle_blue_e2, color="blue", marker='s', linestyle='-', linewidth=2.5, label="Blue Rectangle E2")
+values2 = []
 
-plt.plot(steps, circle_green_e1, color="green", marker='o', linestyle='--', linewidth=2.5, label="Green Circle E1")
-plt.plot(steps, circle_green_e2, color="green", marker='o', linestyle='-', linewidth=2.5, label="Green Circle E2")
+with open("results2.txt", "r") as f:
+    lines = f.readlines()
 
-plt.plot(steps, rectangle_green_e1, color="green", marker='s', linestyle='--', linewidth=2.5, label="Green Rectangle E1")
-plt.plot(steps, rectangle_green_e2, color="green", marker='s', linestyle='-', linewidth=2.5, label="Green Rectangle E2")
+for line in lines[2::2]:
+    values2.append(float(line.rstrip()))
 
-plt.plot(steps, ellipse_blue_e1, color="blue", marker='*', linestyle='--', linewidth=2.5, label="Blue Ellipse E1")
-plt.plot(steps, ellipse_blue_e2, color="blue", marker='*', linestyle='-', linewidth=2.5, label="Blue Ellipse E2")
-
-plt.plot(steps, ellipse_pink_e1, color="pink", marker='*', linestyle='--', linewidth=2.5, label="Pink Ellipse E1")
-plt.plot(steps, ellipse_pink_e2, color="pink", marker='*', linestyle='-', linewidth=2.5, label="Pink Ellipse E2")
-
-
-plt.xlabel("Epochs", fontsize=15)
-plt.ylabel("Distance", fontsize=15)
-plt.title("Histogram Distances between Close- and Open-sets", fontsize=17)
+plt.plot(values1, label="E1")
+plt.plot(values2, label="E2")
 plt.legend()
-#plt.legend(loc="upper left", bbox_to_anchor=(1.05, 1))
-#plt.tight_layout()
-plt.savefig("Histogram Distances.pdf")
+plt.savefig("./plots/his_dis.pdf")
