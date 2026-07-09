@@ -11,17 +11,16 @@ import argparse
 from plot_utils import plot_confusion_matrix
 
 
-label_mappings = [{"circle_blue": 0, "rectangle_red": 1},  # E1
+label_mappings = [
+                  {"circle_blue": 0, "rectangle_red": 1},  # E1
                   {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}, # E2
-                  {"rectangle_blue": 2, "rectangle_green": 3}, # E3
-                  {"rectangle_blue": 3, "rectangle_green": 4}, # E4
-                  {"circle_green": 2, "rectangle_green": 3}, # E5
-                  {"circle_green": 3, "rectangle_green": 4}, # E6
-
-                  {"ellipse_blue": 2, "rectangle_blue": 3}, # E7
-                  {"ellipse_blue": 3, "rectangle_blue": 4}, # E8
-                  {"ellipse_pink": 2, "rectangle_blue": 3}, # E9
-                  {"ellipse_pink": 3, "rectangle_blue": 4}] # E10
+                  {"ellipse_red": 2, "rectangle_blue": 3}, # E3
+                  {}, # E4
+                  {}, # E5
+                  {"ellipse_red": 3, "rectangle_blue": 4}, # E6
+                  {}, # E7
+                  {}, # E8
+                 ]
 
 mnist_classes = [[0, 1,2],
                  [0, 1,2,3,4,5]]
@@ -48,6 +47,7 @@ def parse_options():
     parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--classes_idx", type=int, default=0)
     parser.add_argument("--old_classes_idx", type=int, default=0)
+    parser.add_argument("--experiment_name", type=str, default="E1")
 
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
     parser.add_argument("--model_path", type=str, default="")
@@ -58,13 +58,13 @@ def parse_options():
                         choices=["conv", "conv1", "conv2"])
 
     opt = parser.parse_args()
-    opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
+    #opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
     print(opt.experiment_name)
     if opt.freeze:
         model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx)
         losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + str(opt.old_classes_idx)
     else:
-        model_name = opt.model_name + "_" + opt.dataset  + "_" + opt.experiment_name
+        model_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
         losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
     opt.model_path = os.path.join("./models/", model_name)
     opt.losses_path = os.path.join("./losses/", losses_name)
