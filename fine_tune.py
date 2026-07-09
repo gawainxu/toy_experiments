@@ -24,11 +24,11 @@ def parse_options():
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_shapes")
     parser.add_argument("--data_size", type=int, default=64)
 
-    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--model_name", type=str, default="toy", choices=["toy", "cnn", "vgg"])
     parser.add_argument("--model_path", type=str, default="./models/")
-    parser.add_argument("--last_model_path", type=str, default="./models/cnn_toy_E2.pth")
-    parser.add_argument("--num_classes", type=int, default=3)
-    parser.add_argument("--freeze_layers", type=list, default=["conv1", "conv2", "linear1", "linear2"])
+    parser.add_argument("--last_model_path", type=str, default="./models/toy_toy_E1.pth")
+    parser.add_argument("--num_classes", type=int, default=2)
+    parser.add_argument("--freeze_layers", type=list, default=["conv1", "conv2"])   # "linear2" , "linear1"
 
     opt = parser.parse_args()
     opt.label_mapping = {"circle_black": 0, "rectangle_black": 1}

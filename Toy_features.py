@@ -37,7 +37,7 @@ def parse_options():
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
     parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--feature_save_path", type=str, default="./features/")
-    parser.add_argument("--training_data", type=bool, default=False)
+    parser.add_argument("--training_data", type=bool, default=True)
 
     opt = parser.parse_args()
     opt.num_classes = len(label_mappings[opt.inliers_id])

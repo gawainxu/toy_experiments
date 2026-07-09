@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def parse_options():
 
     parser = argparse.ArgumentParser("Arguments")
-    parser.add_argument("--feature_save_path", type=str, default="./features/E2_0")
+    parser.add_argument("--feature_save_path", type=str, default="./features/cnn_toy_E2_29_train")
 
     opt = parser.parse_args()
     return opt
@@ -18,7 +18,7 @@ def open_features(opt):
     with open(opt.feature_save_path, "rb") as f:
         features, labels = pickle.load(f)
 
-    convs = [f["conv2"] for f in features]
+    convs = [f["linear2"] for f in features]
     return convs, labels
 
 

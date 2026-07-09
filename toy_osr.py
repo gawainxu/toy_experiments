@@ -9,11 +9,12 @@ from Toy_model import toy_model, cnn
 from Toy_dataset import toy_dataset
 import torchvision.transforms as transforms
 
-import matplotlib.pyplot as plt
+from sklearn.preprocessing import normalize
 from sklearn.metrics import roc_curve, auc
 import numpy as np
 import argparse
 import pickle
+import math
 
 
 label_mappings = [{"circle_blue": 0, "rectangle_red": 1},    #E1
@@ -47,13 +48,13 @@ def parse_options():
     parser.add_argument("--inliers_id", type=int, default=1)
     parser.add_argument("--outliers_id", type=int, default=1)
 
-    parser.add_argument("--model_type", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
-    parser.add_argument("--model_path", type=str, default="./models/cnn_toy_E2.pth")
+    parser.add_argument("--model_type", type=str, default="toy", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--model_path", type=str, default="./models/toy_toy_E2.pth")
     parser.add_argument("--num_classes", type=int, default=3)
 
-    parser.add_argument("--train_feature_path", type=str, default="./features/cnn_toy_E2_train")
-    parser.add_argument("--inliers_feature_path", type=str, default="./features/cnn_toy_E2_test")
-    parser.add_argument("--outliers_feature_path", type=str, default="./features/cnn_toy_E2_rectangle_blue")
+    parser.add_argument("--train_feature_path", type=str, default="./features/toy_toy_E2_29_train")
+    parser.add_argument("--inliers_feature_path", type=str, default="./features/toy_toy_E2_29_test")
+    parser.add_argument("--outliers_feature_path", type=str, default="./features/toy_toy_E2_29_rectangle_blue")
     parser.add_argument("--feature_to_use", type=str, default="linear2")
 
     opt = parser.parse_args()
@@ -65,11 +66,11 @@ def parse_options():
 
 
 def entropy(preds):
-    preds = F.softmax(preds, dim=-1)
+    #preds = F.softmax(preds, dim=-1)
     logp = torch.log(preds + 1e-5)
-    entropy = torch.sum(-preds * logp, dim=-1)
+    entropy = torch.sum(-preds * logp, dim=-1) / math.log(preds.shape[1])
 
-    return entropy
+    return entropy.item()
 
 
 def osr_test(logits, mode="entropy"):
@@ -235,7 +236,9 @@ if __name__ == "__main__":
 
     opt = parse_options()
     data_transform = transforms.Compose([transforms.ToTensor(),
-                                         #transforms.RandomHorizontalFlip(),
+                                         transforms.RandomHorizontalFlip(),
+                                         transforms.RandomVerticalFlip(),
+                                         transforms.RandomRotation((90, 270))
                                          ])
     train_dataset = toy_dataset(opt.data_path_train, opt.inliers_mapping, data_transform)
     inliers_dataset = toy_dataset(opt.data_path_inliers, opt.inliers_mapping, data_transform)
@@ -257,12 +260,15 @@ if __name__ == "__main__":
     preds_inliers = []
     probs_inliers = []
     labels_inliers = []
+    entropies_inliers = []
     unequals = 0
     for i, (image, label) in enumerate(inliers_data_loader):
         image = image.float()
         label = label.numpy().item()
         pred = model(image)
         pred = m(pred)
+        e = entropy(pred)
+        entropies_inliers.append(e)
         prob = torch.max(pred)
         pred = torch.argmax(pred)
 
@@ -275,17 +281,21 @@ if __name__ == "__main__":
     #print("preds_inliers", preds_inliers)
     #print("labels_inliers", labels_inliers)
     #acc = 1 - unequals * 1.0 / len(inliers_dataset)
-    #print("testing accuracy is ", acc)
+    print("unequals", unequals)
     print("prob inliers", probs_inliers)
 
     preds_outliers = []
     probs_outliers = []
     labels_outliers = []
+    entropies_outliers = []
     unequals = 0
     for i, (image, label) in enumerate(outliers_data_loader):
         image = image.float()
         label = label.numpy().item()
         pred = model(image)
+        pred = m(pred)
+        e = entropy(pred)
+        entropies_outliers.append(e)
         pred = m(pred)
         prob = torch.max(pred)
         pred = torch.argmax(pred)
@@ -303,43 +313,76 @@ if __name__ == "__main__":
     binary_labels = [1 for _ in range(len(labels_inliers))] + [0 for _ in range(len(labels_outliers))]
     binary_labels = np.array(binary_labels)
     probs_binary = probs_inliers + probs_outliers
-    #probs_binary = [-i for i in probs_binary]
     probs_binary = np.array(probs_binary)
+    preds_binary = preds_inliers + preds_outliers
+    preds_binary = np.array(preds_binary)
     auroc_msp = AUROC(binary_labels, probs_binary)
     print("auroc_msp", auroc_msp)
+    preds = np.array(preds_inliers + preds_outliers)
+    labels = np.array(labels_inliers + labels_outliers)
+    oscr_msp = OSCR(-np.array(probs_inliers), -np.array(probs_outliers), np.array(preds_inliers), np.array(labels_inliers))
+    print("oscr_msp", oscr_msp)
+
+    entropies_binary = entropies_inliers + entropies_outliers
+    entropies_binary = np.array(entropies_binary)
+    auroc_entropy= AUROC(binary_labels, -entropies_binary)
+    print("auroc_entropy", auroc_entropy)
+    oscr_entropy = OSCR(np.array(entropies_inliers), np.array(entropies_outliers), np.array(preds_inliers), np.array(labels_inliers))
+    print("oscr_entropy", oscr_entropy)
 
     ################################ Mahalanobis ###############################################
     with open(opt.train_feature_path, "rb") as f:
         train_features, train_labels = pickle.load(f)
     train_features = [train_feature[opt.feature_to_use].detach().numpy() for train_feature in train_features]
     train_features = np.squeeze(np.array(train_features))
+    train_features = normalize(train_features, axis=1, norm='l2')
     train_features_sorted = seperate_class(train_features, train_labels, opt.num_classes)
 
     with open(opt.inliers_feature_path, "rb") as f:
         inlier_features, inlier_labels = pickle.load(f)
     inlier_features = [inlier_feature[opt.feature_to_use].detach().numpy() for inlier_feature in inlier_features]
     inlier_features = np.squeeze(np.array(inlier_features))
+    inlier_features_norms = np.linalg.norm(inlier_features, axis=1)
+    inlier_features = normalize(inlier_features, axis=1, norm='l2')
 
     with open(opt.outliers_feature_path, "rb") as f:
         outlier_features, outlier_labels = pickle.load(f)
     outlier_features = [outlier_feature[opt.feature_to_use].detach().numpy() for outlier_feature in outlier_features]
     outlier_features = np.squeeze(np.array(outlier_features))
+    outlier_features_norms = np.linalg.norm(outlier_features, axis=1)
+    outlier_features = normalize(outlier_features, axis=1, norm='l2')
 
-    centers = []
+    norm_scores = np.concatenate((inlier_features_norms, outlier_features_norms), axis=0)
+    auroc_norm = AUROC(binary_labels, norm_scores)
+    print("auroc_norm", auroc_norm)
+
     all_similarities_train = []
     centers = feature_stats(train_features_sorted)
 
     all_similarities_inliers = []
     for i in range(opt.num_classes):
-        all_similarities_inliers.append(mahalanobis_distances(inlier_features, centers[i]))
+        d = mahalanobis_distances(inlier_features, centers[i])
+        all_similarities_inliers.append(d)
     all_similarities_inliers = np.array(all_similarities_inliers)
 
     all_similarities_outliers = []
     for i in range(opt.num_classes):
-        all_similarities_outliers.append(mahalanobis_distances(outlier_features, centers[i]))
+        d = mahalanobis_distances(outlier_features, centers[i])
+        all_similarities_outliers.append(d)
     all_similarities_outliers = np.array(all_similarities_outliers)
 
+    if opt.inliers_id == 1:
+        all_similarities_outliers = np.delete(all_similarities_outliers, (1), axis=0)
     binary_scores = np.concatenate((-np.min(all_similarities_inliers, axis=0), -np.min(all_similarities_outliers, axis=0)))
+
+    preds_dis_inliers = np.argmin(all_similarities_inliers, axis=0)
+    preds_dis_outliers = np.argmin(all_similarities_outliers, axis=0)
+    preds_dis = np.concatenate((preds_dis_inliers, preds_dis_outliers))
+    oscr_norm = OSCR(-np.array(inlier_features_norms), -np.array(outlier_features_norms), np.array(preds_dis_inliers), np.array(labels_inliers))
+    print("oscr_norm", oscr_norm)
+
     auroc_dis = AUROC(binary_labels, binary_scores)
     print("auroc_dis", auroc_dis)
+    oscr_dis = OSCR(np.min(all_similarities_inliers, axis=0), np.min(all_similarities_outliers, axis=0), np.array(preds_dis_inliers), np.array(labels_inliers))
+    print("oscr_dis", oscr_dis)
 
