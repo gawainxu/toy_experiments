@@ -37,7 +37,6 @@ def circle(color, if_noise=False, thickness=-1):
         image = sp_noise(image, amount=sp_amount, salt_vs_pepper=sp_ratio)
 
     return image
-    
 
 
 def rectangle(color, if_noise=False, thickness=-1):

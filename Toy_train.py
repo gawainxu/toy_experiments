@@ -59,7 +59,7 @@ def parse_options():
 
     opt = parser.parse_args()
     opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
-    print( opt.experiment_name)
+    print(opt.experiment_name)
     if opt.freeze:
         model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx)
         losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + str(opt.old_classes_idx)
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
     if opt.last_model_path is not None:
         if "toy" in opt.model_name:
-            model = toy_model(len(opt.old_classes), in_channels=in_channels)
+            model = toy_model(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
         elif "cnn" in opt.model_name:
             model = cnn(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
         model.load_state_dict(torch.load(opt.last_model_path, weights_only=True))
