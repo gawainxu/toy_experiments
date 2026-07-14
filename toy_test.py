@@ -3,13 +3,31 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, ConcatDataset
 
 from Toy_model import toy_model, cnn
+from Toy_train import label_mapping
 from Toy_dataset import toy_dataset
 import torchvision.transforms as transforms
 
-import matplotlib.pyplot as plt
+import argparse
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from plot_utils import plot_confusion_matrix
+
+
+def parse_options():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--data_idx1', type=int, default=0)
+    parser.add_argument('--data_idx2', type=int, default=0)
+    parser.add_argument('--data_idx3', type=int, default=0)
+    parser.add_argument("--data_root", type=str, default="../datasets")
+    parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
+
+    parser.add_argument("--model_path", type=str, default="")
+    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
+
+    opt = parser.parse_args()
+    return opt
 
 
 def entropy(preds):
@@ -42,7 +60,7 @@ def feature_stats(inlier_features):
     return stats
 
 
-def knn(inlier_features, outlier_features, inlier_labels, k, mode = "cosine"):
+def knn(inlier_features, outlier_features, inlier_labels, k, mode="cosine"):
 
     inlier_features = np.concatenate(inlier_features, axis=0)
     inlier_features = np.squeeze(inlier_features)
@@ -159,8 +177,9 @@ def similarities(stats, inlier_features, outlier_features):
 
 if __name__ == "__main__":
 
-
     batch_size = 1
+    opt = parse_options()
+    """
     # data_path1 and data_path2 can either be two tasks in continual learning or inliers and outliers in OSR
     data_path1 = "/home/zhi/projects/open_cross_entropy/toy_data_test_shapes"
     data_path2 = None #"/home/zhi/projects/open_cross_entropy/toy_data_test_outliers"
@@ -177,13 +196,43 @@ if __name__ == "__main__":
         dataset = ConcatDataset([dataset1, dataset2])
     else:
         dataset = dataset1
+    """
+
+    data_transform = transforms.Compose([transforms.ToTensor(),
+                                         transforms.RandomHorizontalFlip(),
+                                         ])
+    if opt.data_idx1 > 0:
+        label_mapping1 = label_mapping[opt.data_idx1]
+        dataset = toy_dataset(opt.test_data_path, label_mapping1, data_transform)
+    else:
+        label_mapping1 = {}
+        dataset = None
+
+    if opt.data_idx2 > 0:
+        label_mapping2 = label_mapping[opt.data_idx2]
+        dataset2 = toy_dataset(opt.test_data_path, label_mapping2, data_transform)
+        dataset = ConcatDataset([dataset, dataset2])
+    else:
+        label_mapping2 = {}
+        dataset2 = None
+
+    if opt.data_idx3 > 0:
+        label_mapping3 = label_mapping[opt.data_idx3]
+        dataset3 = toy_dataset(opt.test_data_path, label_mapping2, data_transform)
+        dataset = ConcatDataset([dataset, dataset3])
+    else:
+        label_mapping3 = {}
+        dataset3 = None
 
     data_loader = DataLoader(dataset, batch_size, num_workers=4, shuffle=False)
 
-    model_path = "/home/zhi/projects/open_cross_entropy/models/cnn_E1_toy_1_0.pth"
-    num_classes = 3
-    model = cnn(num_classes, in_channels=3, img_size=64)
-    model.load_state_dict(torch.load(model_path))
+
+    num_classes = len(label_mapping1) + len(label_mapping2) + len(label_mapping3)
+    if "toy" in opt.model_name:
+        model = toy_model(len(opt.classes), in_channels=3, img_size=opt.data_size)
+    elif "cnn" in opt.model_name:
+        model = cnn(len(opt.classes), in_channels=3, img_size=opt.data_size)
+    model.load_state_dict(torch.load(opt.model_path))
 
     preds = []
     labels = []
