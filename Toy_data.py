@@ -6,7 +6,8 @@ from skimage.util import random_noise
 
 
 color_dict = {"black": (0,0,0), "white": (255, 255, 255), "blue": (255, 0, 0),
-              "red": (0, 0, 255), "green": (0, 255, 0), "pink": (153, 153, 255)}
+              "red": (0, 0, 255), "green": (0, 255, 0), "pink": (153, 153, 255),
+              "yellow": (0, 255, 255)}
 
 def circle(color, if_noise=False, thickness=-1):
 
@@ -78,7 +79,7 @@ def ellipse(color, if_noise=False, thickness=-1):
 
     back_image = np.ones((height, width, 3), np.uint8)
     choice_back = ["black", "white"]
-    back_color = "white"
+    back_color = "black"
 
     if back_color == "black":
         back_pixel = (0, 0, 0)
@@ -125,9 +126,9 @@ def sp_noise(image, amount, salt_vs_pepper):
  
 if __name__ == "__main__":
 
-    save_path = "./toy_data_test_outliers/"
-    num_imgs = 50
-    shape = "circle"
+    save_path = "./toy_data_train/"
+    num_imgs = 100
+    shape = "ellipse"
     color = "red"
     noising = False
     thickness=-1   # -1 for filling otherwise is edge thickness

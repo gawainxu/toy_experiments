@@ -3,4 +3,4 @@
 #done
 
 
-python3 Toy_finetune.py --experiment_name "E22" --dataset "toy" --old_classes_idx 1 --classes_idx 2 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E22"
+python3 Toy_finetune.py --experiment_name "E12" --dataset "toy" --classes_idx 2 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path ""
