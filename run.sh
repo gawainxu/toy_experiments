@@ -3,10 +3,10 @@
 #done
 
 
-python3 Toy_finetune.py --experiment_name "E13" --dataset "toy" --classes_idx 2 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E13"
-python3 Toy_finetune.py --experiment_name "E14" --dataset "toy" --classes_idx 3 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E14"
+#python3 Toy_finetune.py --experiment_name "E13" --dataset "toy" --classes_idx 2 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E13"
+#python3 Toy_finetune.py --experiment_name "E14" --dataset "toy" --classes_idx 3 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E14"
 python3 Toy_finetune.py --experiment_name "E15" --dataset "toy" --classes_idx 4 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E15"
-python3 Toy_finetune.py --experiment_name "E26" --dataset "toy" --classes_idx 5 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E26"
-python3 Toy_finetune.py --experiment_name "E27" --dataset "toy" --classes_idx 6 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E27"
+#python3 Toy_finetune.py --experiment_name "E26" --dataset "toy" --classes_idx 5 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E26"
+#python3 Toy_finetune.py --experiment_name "E27" --dataset "toy" --classes_idx 6 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E27"
 python3 Toy_finetune.py --experiment_name "E28" --dataset "toy" --classes_idx 7 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E28"
 
