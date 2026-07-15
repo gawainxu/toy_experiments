@@ -20,3 +20,4 @@
 #python3 Toy_train.py --experiment_name "E8" --dataset "toy" --classes_idx 7 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E8"
 
 python3 toy_test.py --experiment_name "E1" --dataset "toy" --classes_idx1 0 --model_name "toy" --model_path "./models/toy_toy_E1.pth"
+python3 toy_test.py --experiment_name "E2" --dataset "toy" --classes_idx1 1 --model_name "toy" --model_path "./models/toy_toy_E2.pth"
