@@ -16,10 +16,10 @@ label_mappings = [
                   {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}, # E2
                   {"ellipse_red": 2, "rectangle_blue": 3}, # E3
                   {"circle_yellow": 2, "rectangle_green": 3}, # E4
-                  {}, # E5
+                  {"circle_black": 2, "rectangle_black": 3}, # E5
                   {"ellipse_red": 3, "rectangle_blue": 4}, # E6
                   {"circle_yellow": 3, "rectangle_green": 4}, # E7
-                  {}, # E8
+                  {"circle_black": 3, "rectangle_black": 4}, # E8
                  ]
 
 mnist_classes = [[0, 1,2],

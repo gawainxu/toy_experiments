@@ -11,14 +11,14 @@ import argparse
 from plot_utils import plot_confusion_matrix
 
 label_mappings = [
-    {"circle_blue": 0, "rectangle_red": 1},  # E1
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2
-    {"ellipse_red": 0, "rectangle_blue": 1},  # E3
-    {},  # E4
-    {},  # E5
-    {"ellipse_red": 0, "rectangle_blue": 1},  # E6
-    {},  # E7
-    {},  # E8
+    {"circle_blue": 0, "rectangle_red": 1},  # E1, 0
+    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2, 1
+    {"ellipse_red": 0, "rectangle_blue": 1},  # E3, 2
+    {"circle_yellow": 0, "rectangle_green": 1},  # E4, 3
+    {"circle_black": 0, "rectangle_black": 1},  # E5, 4
+    {"ellipse_red": 0, "rectangle_blue": 1},  # E6, 5
+    {"circle_yellow": 0, "rectangle_green": 1},  # E7, 6
+    {"circle_black": 0, "rectangle_black": 1},  # E8, 7
 ]
 
 mnist_classes = [[0, 1, 2],
