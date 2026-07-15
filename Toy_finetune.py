@@ -10,7 +10,18 @@ import os
 import argparse
 from plot_utils import plot_confusion_matrix
 
-label_mappings = [
+label_mappings_full = [
+    {"circle_blue": 0, "rectangle_red": 1},  # E1, 0
+    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2, 1
+    {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},  # E3, 2
+    {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3},  # E4, 3
+    {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},  # E5, 4
+    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},  # E6, 5
+    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4},  # E7, 6
+    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},  # E8, 7
+]
+
+label_mappings_increment = [
     {"circle_blue": 0, "rectangle_red": 1},  # E1, 0
     {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2, 1
     {"ellipse_red": 0, "rectangle_blue": 1},  # E3, 2
@@ -67,8 +78,8 @@ def parse_options():
 if __name__ == "__main__":
 
     opt = parse_options()
-    opt.old_label_mapping = label_mappings[opt.old_classes_idx]
-    opt.label_mapping = label_mappings[opt.classes_idx]
+    opt.old_label_mapping = label_mappings_full[opt.old_classes_idx]
+    opt.label_mapping = label_mappings_increment[opt.classes_idx]
 
     if "mnist" in opt.dataset:
         opt.classes = mnist_classes[opt.classes_idx]
