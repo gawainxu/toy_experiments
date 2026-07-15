@@ -3,7 +3,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, ConcatDataset
 
 from Toy_model import toy_model, cnn
-from Toy_train import label_mapping
+from Toy_train import label_mappings
 from Toy_dataset import toy_dataset
 import torchvision.transforms as transforms
 
@@ -206,14 +206,14 @@ if __name__ == "__main__":
                                          transforms.RandomHorizontalFlip(),
                                          ])
     if opt.data_idx1 > 0:
-        label_mapping1 = label_mapping[opt.data_idx1]
+        label_mapping1 = label_mappings[opt.data_idx1]
         dataset = toy_dataset(opt.test_data_path, label_mapping1, data_transform)
     else:
         label_mapping1 = {}
         dataset = None
 
     if opt.data_idx2 > 0:
-        label_mapping2 = label_mapping[opt.data_idx2]
+        label_mapping2 = label_mappings[opt.data_idx2]
         dataset2 = toy_dataset(opt.test_data_path, label_mapping2, data_transform)
         dataset = ConcatDataset([dataset, dataset2])
     else:
@@ -221,7 +221,7 @@ if __name__ == "__main__":
         dataset2 = None
 
     if opt.data_idx3 > 0:
-        label_mapping3 = label_mapping[opt.data_idx3]
+        label_mapping3 = label_mappings[opt.data_idx3]
         dataset3 = toy_dataset(opt.test_data_path, label_mapping2, data_transform)
         dataset = ConcatDataset([dataset, dataset3])
     else:
