@@ -190,7 +190,7 @@ if __name__ == "__main__":
         #plot_confusion_matrix(conf_matrix, "D://projects//open_cross_entropy//save//confusion_class3_" + str(e) + ".png")
 
         acc = 1-unequals*1.0 / len(dataset_test)
-        torch.save(model.state_dict(), opt.model_path + "_" + str(e) + ".pth")
+        #torch.save(model.state_dict(), opt.model_path + "_" + str(e) + ".pth")
         print("testing accuracy is ", acc)
         accs.append(acc)
         if acc > acc_best:
