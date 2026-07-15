@@ -109,11 +109,17 @@ if __name__ == "__main__":
     test_data_loader = DataLoader(dataset_test, 1, num_workers=1, shuffle=True)
 
     if opt.last_model_path is not None:
+        # if last model path is not None, indicating it is continual training
         if "toy" in opt.model_name:
             model = toy_model(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
         elif "cnn" in opt.model_name:
             model = cnn(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
         model.load_state_dict(torch.load(opt.last_model_path, weights_only=True))
+        if opt.freeze:
+            for name, param in model.named_parameters():
+                if opt.freeze_layers in name:
+                    print(name)
+                    param.requires_grad = False
         updata_model(model, new_num_classes=len(opt.classes))
         if opt.buffer_size > 0:
             old_dataset = toy_dataset(opt.data_path, opt.last_label_mapping, data_transform)
@@ -129,12 +135,6 @@ if __name__ == "__main__":
 
     model.train()
     model = model.cuda()
-
-    if opt.freeze:
-        for name, param in model.named_parameters():
-            if opt.freeze_layers in name:
-                print(name)
-                param.requires_grad = False
 
     criteria = torch.nn.CrossEntropyLoss()
     optimizer = SGD(model.parameters(), lr=opt.lr)

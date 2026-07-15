@@ -127,6 +127,8 @@ def updata_model(model, new_num_classes):
          new_out_linear.weight[:old_num_clases, :] = model.linear3.weight
          model.linear3 = new_out_linear
 
+    model.linear3.requires_grad_(True)
+
     return  model
 
 
