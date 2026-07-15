@@ -12,19 +12,23 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 from plot_utils import plot_confusion_matrix
 
+num_classes_mapping = {"E1": 2, "E2": 3,
+                       "E3": 4, "E4": 4, "E5": 4,
+                       "E6": 5, "E7": 5, "E8": 5,}
 
 def parse_options():
 
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--data_idx1', type=int, default=0)
-    parser.add_argument('--data_idx2', type=int, default=0)
-    parser.add_argument('--data_idx3', type=int, default=0)
-    parser.add_argument("--data_root", type=str, default="../datasets")
+    parser.add_argument('--data_idx2', type=int, default=-1)
+    parser.add_argument('--data_idx3', type=int, default=-1)
+    parser.add_argument("--data_path", type=str, default="./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
 
     parser.add_argument("--model_path", type=str, default="")
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--experiment_name", type=str, default="E1")
 
     opt = parser.parse_args()
     return opt
@@ -227,11 +231,11 @@ if __name__ == "__main__":
     data_loader = DataLoader(dataset, batch_size, num_workers=4, shuffle=False)
 
 
-    num_classes = len(label_mapping1) + len(label_mapping2) + len(label_mapping3)
+    num_classes = num_classes_mapping[opt.experiment_name]
     if "toy" in opt.model_name:
-        model = toy_model(len(opt.classes), in_channels=3, img_size=opt.data_size)
+        model = toy_model(num_classes, in_channels=3, img_size=opt.data_size)
     elif "cnn" in opt.model_name:
-        model = cnn(len(opt.classes), in_channels=3, img_size=opt.data_size)
+        model = cnn(num_classes, in_channels=3, img_size=opt.data_size)
     model.load_state_dict(torch.load(opt.model_path))
 
     preds = []
@@ -251,8 +255,6 @@ if __name__ == "__main__":
         if p.item() != label:
             unequals += 1
 
-    print(preds)
-    print(labels)
     acc = 1 - unequals * 1.0 / len(dataset)
     print("testing accuracy is ", acc)
     #conf_matrix = confusion_matrix(preds, labels)
