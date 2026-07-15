@@ -9,5 +9,5 @@
 #done
 
 
-python3 Toy_train.py --experiment_name "E1" --dataset "toy" --classes_idx 0 --model_name "toy" --losses_path "toy_toy_E1"
-python3 Toy_train.py --experiment_name "E2" --dataset "toy" --classes_idx 1 --model_name "toy" --losses_path "toy_toy_E2"
+python3 Toy_train.py --experiment_name "E1" --dataset "toy" --classes_idx 0 --model_name "cnn" --losses_path "cnn_toy_E1"
+python3 Toy_train.py --experiment_name "E2" --dataset "toy" --classes_idx 1 --model_name "cnn" --losses_path "cnn_toy_E2"
