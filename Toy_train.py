@@ -12,14 +12,14 @@ from plot_utils import plot_confusion_matrix
 
 
 label_mappings = [
-                  {"circle_blue": 0, "rectangle_red": 1},  # E1
-                  {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}, # E2
-                  {"ellipse_red": 2, "rectangle_blue": 3}, # E3
-                  {"circle_yellow": 2, "rectangle_green": 3}, # E4
-                  {"circle_black": 2, "rectangle_black": 3}, # E5
-                  {"ellipse_red": 3, "rectangle_blue": 4}, # E6
-                  {"circle_yellow": 3, "rectangle_green": 4}, # E7
-                  {"circle_black": 3, "rectangle_black": 4}, # E8
+                  {"circle_blue": 0, "rectangle_red": 1},  # E1,0
+                  {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}, # E2,1
+                  {"ellipse_red": 2, "rectangle_blue": 3}, # E3,2
+                  {"circle_yellow": 2, "rectangle_green": 3}, # E4,3
+                  {"circle_black": 2, "rectangle_black": 3}, # E5,4
+                  {"ellipse_red": 3, "rectangle_blue": 4}, # E6,5
+                  {"circle_yellow": 3, "rectangle_green": 4}, # E7,6
+                  {"circle_black": 3, "rectangle_black": 4}, # E8,7
                  ]
 
 mnist_classes = [[0, 1,2],
