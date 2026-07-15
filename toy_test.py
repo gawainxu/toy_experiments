@@ -207,14 +207,14 @@ if __name__ == "__main__":
     data_transform = transforms.Compose([transforms.ToTensor(),
                                          transforms.RandomHorizontalFlip(),
                                          ])
-    if opt.data_idx1 > 0:
+    if opt.data_idx1 >= 0:
         label_mapping1 = label_mappings[opt.data_idx1]
         dataset = toy_dataset(opt.test_data_path, label_mapping1, data_transform)
     else:
         label_mapping1 = {}
         dataset = None
 
-    if opt.data_idx2 > 0:
+    if opt.data_idx2 >= 0:
         label_mapping2 = label_mappings[opt.data_idx2]
         dataset2 = toy_dataset(opt.test_data_path, label_mapping2, data_transform)
         dataset = ConcatDataset([dataset, dataset2])
@@ -222,15 +222,14 @@ if __name__ == "__main__":
         label_mapping2 = {}
         dataset2 = None
 
-    if opt.data_idx3 > 0:
+    if opt.data_idx3 >= 0:
         label_mapping3 = label_mappings[opt.data_idx3]
         dataset3 = toy_dataset(opt.test_data_path, label_mapping2, data_transform)
         dataset = ConcatDataset([dataset, dataset3])
     else:
         label_mapping3 = {}
         dataset3 = None
-
-    print("length dataset", len(dataset))
+        
     data_loader = DataLoader(dataset, batch_size, num_workers=4, shuffle=False)
 
 
