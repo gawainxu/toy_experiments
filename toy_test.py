@@ -24,6 +24,7 @@ def parse_options():
     parser.add_argument('--data_idx2', type=int, default=-1)
     parser.add_argument('--data_idx3', type=int, default=-1)
     parser.add_argument("--dataset", type=str, default="toy")
+    parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
 
