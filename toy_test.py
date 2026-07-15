@@ -230,6 +230,7 @@ if __name__ == "__main__":
         label_mapping3 = {}
         dataset3 = None
 
+    print("length dataset", len(dataset))
     data_loader = DataLoader(dataset, batch_size, num_workers=4, shuffle=False)
 
 
