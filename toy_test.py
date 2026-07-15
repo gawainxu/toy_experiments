@@ -229,7 +229,7 @@ if __name__ == "__main__":
     else:
         label_mapping3 = {}
         dataset3 = None
-        
+
     data_loader = DataLoader(dataset, batch_size, num_workers=4, shuffle=False)
 
 
