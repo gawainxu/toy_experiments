@@ -140,7 +140,7 @@ def renew_linear(model, num_classes):
     model.linear3 = new_out_linear
 
     for name, param in model.named_parameters():
-        if "linear3" not in name:
+        if "linear3" not in name or "linear2" not in name:
             param.requires_grad = False
 
     return model
@@ -150,7 +150,8 @@ if __name__ == "__main__":
 
     model = toy_model(num_classes=10)
     model.apply(init_weights)
-    print(model.linear3.weight.shape)
+    for name, param in model.named_parameters():
+        print(name)
 
 
 
