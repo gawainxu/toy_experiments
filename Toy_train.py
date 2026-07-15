@@ -50,7 +50,6 @@ def parse_options():
     parser.add_argument("--experiment_name", type=str, default="E1")
 
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
-    parser.add_argument("--model_path", type=str, default="")
     parser.add_argument("--losses_path", type=str, default="")
     parser.add_argument("--last_model_path", type=str, default=None)
     parser.add_argument("--freeze", type=bool, default=False)

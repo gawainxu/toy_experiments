@@ -132,12 +132,11 @@ def updata_model(model, new_num_classes):
     return  model
 
 
-def renew_linear(model):
+def renew_linear(model, num_classes):
 
-    num_clases = model.linear3.out_features
     input_dim = model.linear3.in_features
 
-    new_out_linear = nn.Linear(input_dim, num_clases)
+    new_out_linear = nn.Linear(input_dim, num_classes)
     model.linear3 = new_out_linear
 
     for name, param in model.named_parameters():
