@@ -140,7 +140,7 @@ def renew_linear(model, num_classes):
     model.linear3 = new_out_linear
 
     for name, param in model.named_parameters():
-        if "linear3" not in name or "linear2" not in name:
+        if "linear" not in name:
             param.requires_grad = False
 
     return model
