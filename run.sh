@@ -40,4 +40,5 @@
 #python3 Toy_finetune.py --experiment_name "E72" --dataset "toy" --classes_idx 0 --old_classes_idx 6 --model_name "toy" --last_model_path "./models/toy_toy_E7.pth" --losses_path "cnn_toy_E72"
 #python3 Toy_finetune.py --experiment_name "E82" --dataset "toy" --classes_idx 0 --old_classes_idx 7 --model_name "toy" --last_model_path "./models/toy_toy_E8.pth" --losses_path "cnn_toy_E82"
 
-python3 Toy_features.py --inliers_id 0 --model_name "toy" --model_path "./models/toy_toy_E1.pth"
+#python3 Toy_features.py --inliers_id 0 --model_name "toy" --model_path "./models/toy_toy_E1.pth"
+python3 Toy_features.py --inliers_id 2 --model_name "toy" --model_path "./models/toy_toy_E3.pth"
