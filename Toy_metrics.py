@@ -20,10 +20,10 @@ if __name__ == "__main__":
 
     opt = parse_options()
     with open(opt.feature_path1, "rb") as f:
-        features1, _, labels1 = pickle.load(f)
+        features1, labels1 = pickle.load(f)
 
     with open(opt.feature_path2, "rb") as f:
-        features2, _, labels2 = pickle.load(f)
+        features2, labels2 = pickle.load(f)
 
     if "cka" in opt.metric:
         print("cka is", linear_cka_gpt(features1, features2))
