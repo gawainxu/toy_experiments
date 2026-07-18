@@ -27,8 +27,8 @@ if __name__ == "__main__":
     with open(opt.feature_path2, "rb") as f:
         features2, labels2 = pickle.load(f)
 
-    features1 = features1[opt.feature_name]
-    features2 = features2[opt.feature_name]
+    features1 = [f[opt.feature_name].numpy() for f in features1]
+    features2 = [f[opt.feature_name].numpy() for f in features2]
     features1 = np.array(features1)
     features2 = np.array(features2)
 
