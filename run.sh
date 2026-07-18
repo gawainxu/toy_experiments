@@ -49,4 +49,10 @@
 #python3 Toy_features.py --inliers_id 0 --model_data_id 6 --model_name "toy" --model_path "./models/toy_toy_E7.pth"
 #python3 Toy_features.py --inliers_id 0 --model_data_id 7 --model_name "toy" --model_path "./models/toy_toy_E8.pth"
 
-python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_train" --feature_path2 "./features/toy_toy_E3_train" --num_classes 2
+python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_train" --feature_path2 "./features/toy_toy_E3_train" --num_classes 2 --feature_name "linear3"
+python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_train" --feature_path2 "./features/toy_toy_E4_train" --num_classes 2 --feature_name "linear3"
+python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_train" --feature_path2 "./features/toy_toy_E5_train" --num_classes 2 --feature_name "linear3"
+
+python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E2_train" --feature_path2 "./features/toy_toy_E6_train" --num_classes 2 --feature_name "linear3"
+python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E2_train" --feature_path2 "./features/toy_toy_E7_train" --num_classes 2 --feature_name "linear3"
+python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E2_train" --feature_path2 "./features/toy_toy_E8_train" --num_classes 2 --feature_name "linear3"
