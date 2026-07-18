@@ -12,4 +12,7 @@
 #python3 Toy_train.py --experiment_name "E1" --dataset "toy" --classes_idx 0 --model_name "cnn" --losses_path "cnn_toy_E1"
 #python3 Toy_train.py --experiment_name "E2" --dataset "toy" --classes_idx 1 --model_name "cnn" --losses_path "cnn_toy_E2"
 
-python3 Toy_train.py --experiment_name "cifar1" --dataset "cifar" --classes_idx 0 --old_classes_idx 0 --model_name "toy" --losses_path "toy_toy_cifar1" --data_size 32
+
+python3 main_ce.py --batch_size 64 --epochs 600 --learning_rate 0.1 --cosine True --lr_decay_rate 0.8 --model "resnet18" --datasets "cifar100_marco" --trail 0
+
+#python3 main_linear.py --model "resnet18" --datasets "cifar100_marco" --trail 7 --backbone_model_direct "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_0_128_128" --backbone_model_name "last.pth"
