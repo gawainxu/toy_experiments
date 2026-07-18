@@ -40,13 +40,13 @@
 #python3 Toy_finetune.py --experiment_name "E72" --dataset "toy" --classes_idx 0 --old_classes_idx 6 --model_name "toy" --last_model_path "./models/toy_toy_E7.pth" --losses_path "cnn_toy_E72"
 #python3 Toy_finetune.py --experiment_name "E82" --dataset "toy" --classes_idx 0 --old_classes_idx 7 --model_name "toy" --last_model_path "./models/toy_toy_E8.pth" --losses_path "cnn_toy_E82"
 
-#python3 Toy_features.py --inliers_id 0 --model_data_id 0 --model_name "toy" --model_path "./models/toy_toy_E1.pth"
-#python3 Toy_features.py --inliers_id 0 --model_data_id 1 --model_name "toy" --model_path "./models/toy_toy_E3.pth"
-#python3 Toy_features.py --inliers_id 0 --model_data_id 2 --model_name "toy" --model_path "./models/toy_toy_E4.pth"
-#python3 Toy_features.py --inliers_id 0 --model_data_id 3 --model_name "toy" --model_path "./models/toy_toy_E5.pth"
-#python3 Toy_features.py --inliers_id 0 --model_data_id 4 --model_name "toy" --model_path "./models/toy_toy_E6.pth"
-#python3 Toy_features.py --inliers_id 0 --model_data_id 5 --model_name "toy" --model_path "./models/toy_toy_E6.pth"
-#python3 Toy_features.py --inliers_id 0 --model_data_id 6 --model_name "toy" --model_path "./models/toy_toy_E7.pth"
-#python3 Toy_features.py --inliers_id 0 --model_data_id 7 --model_name "toy" --model_path "./models/toy_toy_E8.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 0 --model_name "toy" --model_path "./models/toy_toy_E1.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 1 --model_name "toy" --model_path "./models/toy_toy_E3.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 2 --model_name "toy" --model_path "./models/toy_toy_E4.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 3 --model_name "toy" --model_path "./models/toy_toy_E5.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 4 --model_name "toy" --model_path "./models/toy_toy_E6.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 5 --model_name "toy" --model_path "./models/toy_toy_E6.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 6 --model_name "toy" --model_path "./models/toy_toy_E7.pth"
+python3 Toy_features.py --inliers_id 0 --model_data_id 7 --model_name "toy" --model_path "./models/toy_toy_E8.pth"
 
 python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_train" --feature_path2 "./features/toy_toy_E3_train" --num_classes 2
