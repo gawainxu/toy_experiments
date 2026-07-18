@@ -88,7 +88,7 @@ if __name__ == "__main__":
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize(mean= (0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.2010))])
         dataset = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
-        dataset_test = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)
+        dataset_test = iCIFAR100(opt.data_root, train=False, classes=opt.classes, transform=data_transform)
         in_channels = 3
     else:
         opt.classes = [opt.label_mapping[k] for k in opt.label_mapping.keys()]
