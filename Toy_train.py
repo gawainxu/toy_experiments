@@ -5,10 +5,8 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torch.optim import SGD
 import pickle
-from sklearn.metrics import confusion_matrix
 import os
 import argparse
-from plot_utils import plot_confusion_matrix
 
 
 label_mappings = [
