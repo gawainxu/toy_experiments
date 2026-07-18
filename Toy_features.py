@@ -41,6 +41,7 @@ def parse_options():
     
     parser = argparse.ArgumentParser("Arguments")
 
+    parser.add_argument("--model_data_id", type=int, default=1)
     parser.add_argument("--inliers_id", type=int, default=1)
     parser.add_argument("--outliers_id", type=int, default=-1)    # >= 0 for outlier data
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
@@ -51,7 +52,7 @@ def parse_options():
     parser.add_argument("--training_data", type=bool, default=True)
 
     opt = parser.parse_args()
-    opt.num_classes = len(label_mappings_full[opt.inliers_id])
+    opt.num_classes = len(label_mappings_full[opt.model_data_id])
     model_name = opt.model_path.split("/")[-1].split(".")[0]
 
     if opt.outliers_id >= 0:
