@@ -112,7 +112,7 @@ def normalFeatureReading(model, opt):
         hook_output = model(img)
         if type(hook_output) is tuple:
             hook_output = hook_output[1]
-        outputs.append(activation.cpu().numpy())
+        outputs.append(activation)
         labels.append(label.numpy().item())
 
     with open(opt.feature_save_path, "wb") as f:
