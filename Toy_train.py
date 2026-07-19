@@ -9,16 +9,66 @@ import os
 import argparse
 
 
-label_mappings = [
-                  {"circle_blue": 0, "rectangle_red": 1},  # E1,0
-                  {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}, # E2,1
-                  {"ellipse_red": 2, "rectangle_blue": 3}, # E3,2
-                  {"circle_yellow": 2, "rectangle_green": 3}, # E4,3
-                  {"circle_black": 2, "rectangle_black": 3}, # E5,4
-                  {"ellipse_red": 3, "rectangle_blue": 4}, # E6,5
-                  {"circle_yellow": 3, "rectangle_green": 4}, # E7,6
-                  {"circle_black": 3, "rectangle_black": 4}, # E8,7
-                 ]
+label_mappings_full = [
+                       [{"circle_blue": 0, "rectangle_red": 1},],  # E1,0
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3, "ellipse_blue": 4, "triangle_red": 5}], # E3,2
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3, "triangle_red": 4, "rectangle_blue": 5}], # E4,3
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3,  "triangle_red": 4, "rectangle_blue": 5}], # E5,4
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E6,5
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4, "triangle_red": 5, "rectangle_blue": 6}], # E7,6
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4, "triangle_red": 5, "rectangle_blue": 6}], # E8,7
+                       ]
+
+label_mappings_increment = [
+                            [],  # E1,0
+
+                            [], # E2,1
+
+                            [{},
+                             {"ellipse_red": 2, "rectangle_blue": 3},
+                             {"ellipse_blue": 4, "triangle_red": 5}], # E3,2
+
+                             [{},
+                              {"circle_yellow": 2, "rectangle_green": 3},
+                              {"triangle_red": 4, "rectangle_blue": 5}], # E4,3
+
+                             [{},
+                              {"circle_black": 2, "rectangle_black": 3},
+                              {"triangle_red": 4, "rectangle_blue": 5}], # E5,4
+
+                             [{},
+                              {"ellipse_red": 3, "rectangle_blue": 4},
+                              {"ellipse_blue": 5, "triangle_red": 6}], # E6,5
+
+                             [{},
+                              {"circle_yellow": 3, "rectangle_green": 4},
+                              {"triangle_red": 5, "rectangle_blue": 6}], # E7,6
+
+                             [{},
+                             {"circle_black": 3, "rectangle_black": 4},
+                             {"triangle_red": 5, "rectangle_blue": 6}], # E8,7
+                             ]
+
 
 mnist_classes = [[0, 1,2],
                  [0, 1,2,3,4,5]]
@@ -43,8 +93,9 @@ def parse_options():
     parser.add_argument("--data_path", type=str, default= "./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
     parser.add_argument("--data_size", type=int, default=64)
-    parser.add_argument("--classes_idx", type=int, default=0)
+    parser.add_argument("--classes_idx", type=int, default=0, help="somehow like experiment idx")
     parser.add_argument("--old_classes_idx", type=int, default=0)
+    parser.add_argument("--task_idx", type=int, default=0)
     parser.add_argument("--experiment_name", type=str, default="E1")
 
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
@@ -58,11 +109,11 @@ def parse_options():
     #opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
     print(opt.experiment_name)
     if opt.freeze:
-        model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx)
-        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + str(opt.old_classes_idx)
+        model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx) + "_task_" + str(opt.task_idx)
+        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + str(opt.old_classes_idx) + "_task_" + str(opt.task_idx)
     else:
-        model_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
-        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
+        model_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx)
+        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx)
     opt.model_path = os.path.join("./models/", model_name)
     opt.losses_path = os.path.join("./losses/", losses_name)
     return opt
@@ -71,8 +122,8 @@ def parse_options():
 if __name__ == "__main__":
 
     opt = parse_options()
-    opt.old_label_mapping = label_mappings[opt.old_classes_idx]
-    opt.label_mapping = label_mappings[opt.classes_idx]
+    opt.old_label_mapping = label_mappings_full[opt.classes_idx][opt.task_idx]
+    opt.label_mapping = label_mappings_increment[opt.classes_idx][opt.task_idx]
 
     if "mnist" in opt.dataset:
         opt.classes = mnist_classes[opt.classes_idx]
