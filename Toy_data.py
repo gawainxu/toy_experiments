@@ -129,7 +129,7 @@ if __name__ == "__main__":
     save_path = "./toy_data_train/"
     num_imgs = 100
     shape = "ellipse"
-    color = "red"
+    color = "blue"
     noising = False
     thickness=-1   # -1 for filling otherwise is edge thickness
 
