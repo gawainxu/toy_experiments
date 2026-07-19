@@ -43,7 +43,7 @@ label_mappings_full = [
 label_mappings_increment = [
                             [{"circle_blue": 0, "rectangle_red": 1}],  # E1,0
 
-                            [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+                            [{"circle_blue": 0, "rectangle_red": 1}], # E2,1 , "circle_red": 2
 
                             [{"circle_blue": 0, "rectangle_red": 1},
                              {"ellipse_red": 2, "rectangle_blue": 3},
