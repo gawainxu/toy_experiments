@@ -102,6 +102,32 @@ def ellipse(color, if_noise=False, thickness=-1):
     return img
 
 
+def triangle(color, if_noise=False, thickness=-1):
+    
+    height = 64
+    width = 64
+    
+    back_image = np.ones((height, width, 3), np.uint8)
+    choice_back = ["black", "white"]
+    back_color = "black"
+
+    if back_color == "black":
+        back_pixel = (0, 0, 0)
+    elif back_color == "white":
+        back_pixel = (255, 255, 255)
+    
+    back_image[:, :] = back_pixel
+        
+    h1, w1 = random.randint(4, 60), random.randint(4, 60)
+    h2, w2 = random.randint(4, 60), random.randint(4, 60)
+    h3, w3 = random.randint(4, 60), random.randint(4, 60)
+    
+    pts = [(h1, w1), (h2, w2), (h3, w3)]
+    img = cv2.fillPoly(back_image, np.array([pts]), color=color)
+    
+    return img
+    
+
 def sp_noise(image, amount, salt_vs_pepper):
 
     white_num = int(64*64*amount*salt_vs_pepper)
@@ -128,8 +154,8 @@ if __name__ == "__main__":
 
     save_path = "./toy_data_train/"
     num_imgs = 100
-    shape = "rectangle"
-    color = "blue"
+    shape = "triangle"
+    color = "red"
     noising = False
     thickness=-1   # -1 for filling otherwise is edge thickness
 
@@ -141,6 +167,8 @@ if __name__ == "__main__":
             img = rectangle(color_dict[color], noising, thickness)
         elif "ellipse" in shape:
             img = ellipse(color_dict[color], noising, thickness)
+        elif "triangle" in shape:
+            img = triangle(color_dict[color], noising, thickness)
 
         img_name = shape + "_" + color + "_" + str(i) + ".png"
         cv2.imwrite(save_path + img_name, img)
