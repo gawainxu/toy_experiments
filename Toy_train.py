@@ -40,31 +40,31 @@ label_mappings_full = [
                        ]
 
 label_mappings_increment = [
-                            [],  # E1,0
+                            [{"circle_blue": 0, "rectangle_red": 1}],  # E1,0
 
-                            [], # E2,1
+                            [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
 
-                            [{},
+                            [{"circle_blue": 0, "rectangle_red": 1},
                              {"ellipse_red": 2, "rectangle_blue": 3},
                              {"ellipse_blue": 4, "triangle_red": 5}], # E3,2
 
-                             [{},
+                             [{"circle_blue": 0, "rectangle_red": 1},
                               {"circle_yellow": 2, "rectangle_green": 3},
                               {"triangle_red": 4, "rectangle_blue": 5}], # E4,3
 
-                             [{},
+                             [{"circle_blue": 0, "rectangle_red": 1},
                               {"circle_black": 2, "rectangle_black": 3},
                               {"triangle_red": 4, "rectangle_blue": 5}], # E5,4
 
-                             [{},
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                               {"ellipse_red": 3, "rectangle_blue": 4},
                               {"ellipse_blue": 5, "triangle_red": 6}], # E6,5
 
-                             [{},
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                               {"circle_yellow": 3, "rectangle_green": 4},
                               {"triangle_red": 5, "rectangle_blue": 6}], # E7,6
 
-                             [{},
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                              {"circle_black": 3, "rectangle_black": 4},
                              {"triangle_red": 5, "rectangle_blue": 6}], # E8,7
                              ]
@@ -122,8 +122,11 @@ def parse_options():
 if __name__ == "__main__":
 
     opt = parse_options()
-    opt.old_label_mapping = label_mappings_full[opt.classes_idx][opt.task_idx]
     opt.label_mapping = label_mappings_increment[opt.classes_idx][opt.task_idx]
+    if opt.task_idx > 0:
+        opt.old_label_mapping = label_mappings_full[opt.classes_idx][opt.task_idx-1]
+    else:
+        opt.old_label_mapping = label_mappings_full[opt.classes_idx][0]
 
     if "mnist" in opt.dataset:
         opt.classes = mnist_classes[opt.classes_idx]
