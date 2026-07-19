@@ -109,8 +109,8 @@ def parse_options():
     #opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
     print(opt.experiment_name)
     if opt.freeze:
-        model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + str(opt.old_classes_idx) + "_task_" + str(opt.task_idx)
-        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + str(opt.old_classes_idx) + "_task_" + str(opt.task_idx)
+        model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + "_task_" + str(opt.task_idx)
+        losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_" + "_task_" + str(opt.task_idx)
     else:
         model_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx)
         losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx)
