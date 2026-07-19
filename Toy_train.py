@@ -93,8 +93,7 @@ def parse_options():
     parser.add_argument("--data_path", type=str, default= "./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
     parser.add_argument("--data_size", type=int, default=64)
-    parser.add_argument("--classes_idx", type=int, default=0, help="somehow like experiment idx")
-    parser.add_argument("--old_classes_idx", type=int, default=0)
+    parser.add_argument("--experiment_idx", type=int, default=0, help="somehow like experiment idx")
     parser.add_argument("--task_idx", type=int, default=0)
     parser.add_argument("--experiment_name", type=str, default="E1")
 
@@ -106,7 +105,6 @@ def parse_options():
                         choices=["conv", "conv1", "conv2"])
 
     opt = parser.parse_args()
-    #opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
     print(opt.experiment_name)
     if opt.freeze:
         model_name = opt.model_name+"_"+opt.dataset+"_" + opt.experiment_name+"_" + "_task_" + str(opt.task_idx)
@@ -122,23 +120,23 @@ def parse_options():
 if __name__ == "__main__":
 
     opt = parse_options()
-    opt.label_mapping = label_mappings_increment[opt.classes_idx][opt.task_idx]
+    opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx]
     if opt.task_idx > 0:
-        opt.old_label_mapping = label_mappings_full[opt.classes_idx][opt.task_idx-1]
+        opt.old_label_mapping = label_mappings_full[opt.experiment_idx][opt.task_idx-1]
     else:
-        opt.old_label_mapping = label_mappings_full[opt.classes_idx][0]
+        opt.old_label_mapping = label_mappings_full[opt.experiment_idx][0]
 
     if "mnist" in opt.dataset:
-        opt.classes = mnist_classes[opt.classes_idx]
-        opt.old_classes = mnist_classes[opt.old_classes_idx]
+        opt.classes = mnist_classes[opt.experiment_idx]
+        opt.old_classes = mnist_classes[opt.experiment_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                          transforms.Normalize(mean=(0.1307,), std=(0.3081,))])
         dataset = mnist(opt.data_root, classes=opt.classes, transform=data_transform)
         dataset_test = mnist(opt.data_root, transform=data_transform)
         in_channels = 1
     elif "cifar" in opt.dataset:
-        opt.classes = cifar_classes[opt.classes_idx]
-        opt.old_classes = cifar_classes[opt.old_classes_idx]
+        opt.classes = cifar_classes[opt.experiment_idx]
+        opt.old_classes = cifar_classes[opt.experiment_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize(mean= (0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.2010))])
         dataset = iCIFAR100(opt.data_root, classes=opt.classes, transform=data_transform)

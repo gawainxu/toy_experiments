@@ -11,26 +11,64 @@ import argparse
 from plot_utils import plot_confusion_matrix
 
 label_mappings_full = [
-    {"circle_blue": 0, "rectangle_red": 1},  # E1, 0
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2, 1
-    {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},  # E3, 2
-    {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3},  # E4, 3
-    {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},  # E5, 4
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},  # E6, 5
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4},  # E7, 6
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},  # E8, 7
-]
+                       [{"circle_blue": 0, "rectangle_red": 1},],  # E1,0
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3, "ellipse_blue": 4, "triangle_red": 5}], # E3,2
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3, "triangle_red": 4, "rectangle_blue": 5}], # E4,3
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3,  "triangle_red": 4, "rectangle_blue": 5}], # E5,4
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E6,5
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4, "triangle_red": 5, "rectangle_blue": 6}], # E7,6
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4, "triangle_red": 5, "rectangle_blue": 6}], # E8,7
+                       ]
 
 label_mappings_increment = [
-    {"circle_blue": 0, "rectangle_red": 1},  # E1, 0
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2, 1
-    {"ellipse_red": 0, "rectangle_blue": 1},  # E3, 2
-    {"circle_yellow": 0, "rectangle_green": 1},  # E4, 3
-    {"circle_black": 0, "rectangle_black": 1},  # E5, 4
-    {"ellipse_red": 0, "rectangle_blue": 1},  # E6, 5
-    {"circle_yellow": 0, "rectangle_green": 1},  # E7, 6
-    {"circle_black": 0, "rectangle_black": 1},  # E8, 7
-]
+                            [{"circle_blue": 0, "rectangle_red": 1}],  # E1,0
+
+                            [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+
+                            [{"circle_blue": 0, "rectangle_red": 1},
+                             {"ellipse_red": 2, "rectangle_blue": 3},
+                             {"ellipse_blue": 4, "triangle_red": 5}], # E3,2
+
+                             [{"circle_blue": 0, "rectangle_red": 1},
+                              {"circle_yellow": 2, "rectangle_green": 3},
+                              {"triangle_red": 4, "rectangle_blue": 5}], # E4,3
+
+                             [{"circle_blue": 0, "rectangle_red": 1},
+                              {"circle_black": 2, "rectangle_black": 3},
+                              {"triangle_red": 4, "rectangle_blue": 5}], # E5,4
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                              {"ellipse_red": 3, "rectangle_blue": 4},
+                              {"ellipse_blue": 5, "triangle_red": 6}], # E6,5
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                              {"circle_yellow": 3, "rectangle_green": 4},
+                              {"triangle_red": 5, "rectangle_blue": 6}], # E7,6
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                             {"circle_black": 3, "rectangle_black": 4},
+                             {"triangle_red": 5, "rectangle_blue": 6}], # E8,7
+                             ]
 
 mnist_classes = [[0, 1, 2],
                  [0, 1, 2, 3, 4, 5]]
@@ -54,8 +92,9 @@ def parse_options():
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
     parser.add_argument("--test_data_path", type=str, default="./toy_data_test_inliers")
     parser.add_argument("--data_size", type=int, default=64)
-    parser.add_argument("--classes_idx", type=int, default=0)
-    parser.add_argument("--old_classes_idx", type=int, default=0)
+    parser.add_argument("--experiment_idx", type=int, default=0, help="somehow like experiment idx")
+    parser.add_argument("--task_idx_model", type=int, default=0)
+    parser.add_argument("--task_idx_data", type=int, default=0)
     parser.add_argument("--experiment_name", type=str, default="E1")
 
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
@@ -65,11 +104,10 @@ def parse_options():
                         choices=["conv", "conv1", "conv2"])
 
     opt = parser.parse_args()
-    # opt.experiment_name = "E1" if opt.classes_idx==0 else "E2"
     print(opt.experiment_name)
 
-    model_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
-    losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name
+    model_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data)
+    losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data)
     opt.model_path = os.path.join("./models/", model_name)
     opt.losses_path = os.path.join("./losses/", losses_name)
     return opt
@@ -78,11 +116,11 @@ def parse_options():
 if __name__ == "__main__":
 
     opt = parse_options()
-    opt.old_label_mapping = label_mappings_full[opt.old_classes_idx]
-    opt.label_mapping = label_mappings_increment[opt.classes_idx]
+    opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
+    opt.old_label_mapping = label_mappings_full[opt.experiment_idx][opt.task_idx_model]
 
     if "mnist" in opt.dataset:
-        opt.classes = mnist_classes[opt.classes_idx]
+        opt.classes = mnist_classes[opt.experiment_idx]
         opt.old_classes = mnist_classes[opt.old_classes_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize(mean=(0.1307,), std=(0.3081,))])
@@ -90,7 +128,7 @@ if __name__ == "__main__":
         dataset_test = mnist(opt.data_root, transform=data_transform)
         in_channels = 1
     elif "cifar" in opt.dataset:
-        opt.classes = cifar_classes[opt.classes_idx]
+        opt.classes = cifar_classes[opt.experiment_idx]
         opt.old_classes = cifar_classes[opt.old_classes_idx]
         data_transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize(mean=(0.4914, 0.4822, 0.4465),
@@ -126,7 +164,6 @@ if __name__ == "__main__":
             old_dataset = continual_buffer(old_dataset, opt.buffer_size)
             dataset = torch.utils.data.ConcatDataset([dataset, old_dataset])
         print("model loaded")
-
 
     model.train()
     model = model.cuda()
