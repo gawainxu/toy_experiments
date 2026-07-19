@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     save_path = "./toy_data_test_inliers/"
     num_imgs = 50
-    shape = "ellipse"
+    shape = "rectangle"
     color = "blue"
     noising = False
     thickness=-1   # -1 for filling otherwise is edge thickness
