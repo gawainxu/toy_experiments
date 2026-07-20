@@ -8,26 +8,65 @@ from Toy_model import toy_model, cnn
 import torchvision.transforms as transforms
 
 label_mappings_full = [
-    {"circle_blue": 0, "rectangle_red": 1},  # E1, 0
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2, 1
-    {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},  # E3, 2
-    {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3},  # E4, 3
-    {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},  # E5, 4
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},  # E6, 5
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4},  # E7, 6
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},  # E8, 7
-]
+                       [{"circle_blue": 0, "rectangle_red": 1},],  # E1,0
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3, "ellipse_blue": 4, "triangle_red": 5}], # E3,2
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3, "triangle_red": 4, "rectangle_blue": 5}], # E4,3
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3,  "triangle_red": 4, "rectangle_blue": 5}], # E5,4
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E6,5
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4, "triangle_red": 5, "rectangle_blue": 6}], # E7,6
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4, "triangle_red": 5, "rectangle_blue": 6}], # E8,7
+                       ]
 
 label_mappings_increment = [
-    {"circle_blue": 0, "rectangle_red": 1},  # E1, 0
-    {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  # E2, 1
-    {"ellipse_red": 0, "rectangle_blue": 1},  # E3, 2
-    {"circle_yellow": 0, "rectangle_green": 1},  # E4, 3
-    {"circle_black": 0, "rectangle_black": 1},  # E5, 4
-    {"ellipse_red": 0, "rectangle_blue": 1},  # E6, 5
-    {"circle_yellow": 0, "rectangle_green": 1},  # E7, 6
-    {"circle_black": 0, "rectangle_black": 1},  # E8, 7
-]
+                            [{"circle_blue": 0, "rectangle_red": 1}],  # E1,0
+
+                            [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+
+                            [{"circle_blue": 0, "rectangle_red": 1},
+                             {"ellipse_red": 0, "rectangle_blue": 1},
+                             {"ellipse_blue": 0, "triangle_red": 1}], # E3,2
+
+                             [{"circle_blue": 0, "rectangle_red": 1},
+                              {"circle_yellow": 0, "rectangle_green": 1},
+                              {"triangle_red": 0, "rectangle_blue": 1}], # E4,3
+
+                             [{"circle_blue": 0, "rectangle_red": 1},
+                              {"circle_black": 0, "rectangle_black": 1},
+                              {"triangle_red": 0, "rectangle_blue": 1}], # E5,4
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},   #, "circle_red": 2
+                              {"ellipse_red": 0, "rectangle_blue": 1},
+                              {"ellipse_blue": 0, "triangle_red": 1}], # E6,5
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  #, "circle_red": 2
+                              {"circle_yellow": 0, "rectangle_green": 1},
+                              {"triangle_red": 0, "rectangle_blue": 1}], # E7,6
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  #, "circle_red": 2
+                             {"circle_black": 0, "rectangle_black": 1},
+                             {"triangle_red": 0, "rectangle_blue": 1}], # E8,7
+                             ]
+
 
 label_mappings_osr = [{"circle_red": 0},
                       {"rectangle_blue": 0},
@@ -41,7 +80,7 @@ def parse_options():
     
     parser = argparse.ArgumentParser("Arguments")
 
-    parser.add_argument("--model_data_id", type=int, default=1)
+    parser.add_argument("--experiment_idx", type=int, default=1)
     parser.add_argument("--inliers_id", type=int, default=1)
     parser.add_argument("--outliers_id", type=int, default=-1)    # >= 0 for outlier data
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
@@ -52,7 +91,7 @@ def parse_options():
     parser.add_argument("--training_data", type=bool, default=True)
 
     opt = parser.parse_args()
-    opt.num_classes = len(label_mappings_full[opt.model_data_id])
+    opt.num_classes = len(label_mappings_full[opt.experiment_idx][opt.inliers_id])
     model_name = opt.model_path.split("/")[-1].split(".")[0]
 
     if opt.outliers_id >= 0:
@@ -61,12 +100,12 @@ def parse_options():
         opt.feature_save_path = opt.feature_save_path + model_name + "_" + class_name
         opt.data_path = "toy_data_test_outliers"
     elif opt.outliers_id == -1 and opt.training_data:
-        opt.label_mapping = label_mappings_increment[opt.inliers_id]
+        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.inliers_id]
         class_name = list(label_mappings_increment[opt.inliers_id].keys())
         opt.feature_save_path = opt.feature_save_path + model_name + "_train"
         opt.data_path = "toy_data_train"
     else:
-        opt.label_mapping = label_mappings_increment[opt.inliers_id]
+        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.inliers_id]
         class_name = list(label_mappings_increment[opt.inliers_id].keys())
         opt.feature_save_path = opt.feature_save_path + model_name + "_test"
         opt.data_path = "toy_data_test_inliers"

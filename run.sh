@@ -95,9 +95,9 @@
 
 
 # feature reading for task2
-python3 Toy_features.py --inliers_id 0 --model_data_id 2 --model_name "toy" --model_path "./models/toy_toy_E3_task_2.pth"
-python3 Toy_features.py --inliers_id 0 --model_data_id 3 --model_name "toy" --model_path "./models/toy_toy_E4_task_2.pth"
-python3 Toy_features.py --inliers_id 0 --model_data_id 4 --model_name "toy" --model_path "./models/toy_toy_E5_task_2.pth"
-python3 Toy_features.py --inliers_id 0 --model_data_id 5 --model_name "toy" --model_path "./models/toy_toy_E6_task_2.pth"
-python3 Toy_features.py --inliers_id 0 --model_data_id 6 --model_name "toy" --model_path "./models/toy_toy_E7_task_2.pth"
-python3 Toy_features.py --inliers_id 0 --model_data_id 7 --model_name "toy" --model_path "./models/toy_toy_E8_task_2.pth"
+python3 Toy_features.py --inliers_id 0 --experiment_idx 2 --model_name "toy" --model_path "./models/toy_toy_E3_task_2.pth"
+python3 Toy_features.py --inliers_id 0 --experiment_idx 3 --model_name "toy" --model_path "./models/toy_toy_E4_task_2.pth"
+python3 Toy_features.py --inliers_id 0 --experiment_idx 4 --model_name "toy" --model_path "./models/toy_toy_E5_task_2.pth"
+python3 Toy_features.py --inliers_id 0 --experiment_idx 5 --model_name "toy" --model_path "./models/toy_toy_E6_task_2.pth"
+python3 Toy_features.py --inliers_id 0 --experiment_idx 6 --model_name "toy" --model_path "./models/toy_toy_E7_task_2.pth"
+python3 Toy_features.py --inliers_id 0 --experiment_idx 7 --model_name "toy" --model_path "./models/toy_toy_E8_task_2.pth"
