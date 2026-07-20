@@ -95,9 +95,9 @@
 
 
 # feature reading for task2
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 2 --model_name "toy" --model_path "./models/toy_toy_E3"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 3 --model_name "toy" --model_path "./models/toy_toy_E4"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 4 --model_name "toy" --model_path "./models/toy_toy_E5"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 5 --model_name "toy" --model_path "./models/toy_toy_E6"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 6 --model_name "toy" --model_path "./models/toy_toy_E7"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 7 --model_name "toy" --model_path "./models/toy_toy_E8"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 2 --model_name "toy" --model_path "./models/toy_toy_E3.pth"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 3 --model_name "toy" --model_path "./models/toy_toy_E4.pth"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 4 --model_name "toy" --model_path "./models/toy_toy_E5.pth"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 5 --model_name "toy" --model_path "./models/toy_toy_E6.pth"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 6 --model_name "toy" --model_path "./models/toy_toy_E7.pth"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 7 --model_name "toy" --model_path "./models/toy_toy_E8.pth"
