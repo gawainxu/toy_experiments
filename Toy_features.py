@@ -37,6 +37,7 @@ label_mappings_full = [
                         {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4, "triangle_red": 5, "rectangle_blue": 6}], # E8,7
                        ]
 
+# read the features of the base models data in most cases
 label_mappings_increment = [
                             [{"circle_blue": 0, "rectangle_red": 1}],  # E1,0
 
@@ -81,7 +82,8 @@ def parse_options():
     parser = argparse.ArgumentParser("Arguments")
 
     parser.add_argument("--experiment_idx", type=int, default=1)
-    parser.add_argument("--inliers_id", type=int, default=1)
+    parser.add_argument("--task_idx_model", type=int, default=0)
+    parser.add_argument("--task_idx_data", type=int, default=0)
     parser.add_argument("--outliers_id", type=int, default=-1)    # >= 0 for outlier data
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
     parser.add_argument("--model_path", type=str, default="./models/cnn_toy_E2.pth")
@@ -91,7 +93,7 @@ def parse_options():
     parser.add_argument("--training_data", type=bool, default=True)
 
     opt = parser.parse_args()
-    opt.num_classes = len(label_mappings_full[opt.experiment_idx][opt.inliers_id])
+    opt.num_classes = len(label_mappings_full[opt.experiment_idx][opt.task_idx_model])
     model_name = opt.model_path.split("/")[-1].split(".")[0]
 
     if opt.outliers_id >= 0:
@@ -100,14 +102,14 @@ def parse_options():
         opt.feature_save_path = opt.feature_save_path + model_name + "_" + class_name
         opt.data_path = "toy_data_test_outliers"
     elif opt.outliers_id == -1 and opt.training_data:
-        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.inliers_id]
-        class_name = list(label_mappings_increment[opt.inliers_id].keys())
-        opt.feature_save_path = opt.feature_save_path + model_name + "_train"
+        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
+        class_name = list(label_mappings_increment[opt.experiment_idx][opt.task_idx_data].keys())
+        opt.feature_save_path = opt.feature_save_path + model_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data) + "_train"
         opt.data_path = "toy_data_train"
     else:
-        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.inliers_id]
-        class_name = list(label_mappings_increment[opt.inliers_id].keys())
-        opt.feature_save_path = opt.feature_save_path + model_name + "_test"
+        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
+        class_name = list(label_mappings_increment[opt.experiment_idx][opt.task_idx_data].keys())
+        opt.feature_save_path = opt.feature_save_path + model_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data) + "_test"
         opt.data_path = "toy_data_test_inliers"
 
     print(class_name)
