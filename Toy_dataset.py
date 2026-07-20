@@ -2,8 +2,8 @@ import os
 import cv2
 import torch
 import numpy as np
-from torch.utils.data import Dataset
-import torchvision.transforms as transforms
+from torchvision import datasets, transforms
+from torch.utils.data import Dataset, DataLoader
 
 from torchvision.datasets import CIFAR100, MNIST
 from PIL import Image
@@ -187,6 +187,37 @@ class mnist(MNIST):
     def get_image_class(self, label):
         return self.traindata[np.array(self.trainlabels) == label]
 
+
+class ColoredMNIST(Dataset):
+    def __init__(self, train=True):
+        self.mnist = datasets.MNIST(
+            root='./dataset',
+            train=train,
+            download=True,
+            transform=transforms.ToTensor()
+        )
+        self.color_map = torch.tensor([
+            [1.0, 0.0, 0.0],  # 0 - red
+            [0.0, 1.0, 0.0],  # 1 - green
+            [0.0, 0.0, 1.0],  # 2 - blue
+            [1.0, 1.0, 0.0],  # 3 - yellow
+            [1.0, 0.0, 1.0],  # 4 - magenta
+            [0.0, 1.0, 1.0],  # 5 - cyan
+            [0.5, 0.0, 0.0],  # 6 - dark red
+            [0.0, 0.5, 0.0],  # 7 - dark green
+            [0.0, 0.0, 0.5],  # 8 - dark blue
+            [0.5, 0.5, 0.5]  # 9 - gray
+        ], device="gpu")
+
+    def __len__(self):
+        return len(self.mnist)
+
+    def __getitem__(self, idx):
+        img, label = self.mnist[idx]
+        img = img.to("gpu")
+        color = self.color_map[label]
+        colored_img = img.repeat(3, 1, 1) * color.view(3, 1, 1)
+        return img, colored_img, label
 
 
 def continual_buffer(dataset, buffer_size):
