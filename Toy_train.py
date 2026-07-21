@@ -16,27 +16,27 @@ label_mappings_full = [
 
                        [{"circle_blue": 0, "rectangle_red": 1},
                         {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},
-                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3, "ellipse_blue": 4, "triangle_red": 5}], # E3,2
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3, "triangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E3,2
 
                        [{"circle_blue": 0, "rectangle_red": 1},
                         {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3},
-                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3, "triangle_red": 4, "rectangle_blue": 5}], # E4,3
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_yellow": 2, "rectangle_green": 3, "triangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E4,3
 
                        [{"circle_blue": 0, "rectangle_red": 1},
                         {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},
-                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3,  "triangle_red": 4, "rectangle_blue": 5}], # E5,4
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3,  "triangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E5,4
 
                        [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                         {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},
-                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E6,5
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4, "triangle_blue": 5, "ellipse_blue": 6, "triangle_red": 7}], # E6,5
 
                        [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                         {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4},
-                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_green": 4, "triangle_red": 5, "rectangle_blue": 6}], # E7,6
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_yellow": 3, "rectangle_blue": 4, "triangle_blue": 5, "ellipse_blue": 6, "triangle_red":7}], # E7,6
 
                        [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                         {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},
-                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4, "triangle_red": 5, "rectangle_blue": 6}], # E8,7
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_blue": 4, "triangle_blue": 5, "ellipse_blue": 6, "triangle_red":7}], # E8,7
                        ]
 
 label_mappings_increment = [
@@ -46,27 +46,27 @@ label_mappings_increment = [
 
                             [{"circle_blue": 0, "rectangle_red": 1},
                              {"ellipse_red": 2, "rectangle_blue": 3},
-                             {"ellipse_blue": 4, "triangle_red": 5}], # E3,2
+                             {"triangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E3,2
 
                              [{"circle_blue": 0, "rectangle_red": 1},
                               {"circle_yellow": 2, "rectangle_green": 3},
-                              {"triangle_red": 4, "rectangle_blue": 5}], # E4,3
+                              {"triangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E4,3
 
                              [{"circle_blue": 0, "rectangle_red": 1},
                               {"circle_black": 2, "rectangle_black": 3},
-                              {"triangle_red": 4, "rectangle_blue": 5}], # E5,4
+                              {"triangle_blue": 4, "ellipse_blue": 5, "triangle_red": 6}], # E5,4
 
                              [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                               {"ellipse_red": 3, "rectangle_blue": 4},
-                              {"ellipse_blue": 5, "triangle_red": 6}], # E6,5
+                              {"triangle_blue": 5, "ellipse_blue": 6, "triangle_red": 7}], # E6,5
 
                              [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                               {"circle_yellow": 3, "rectangle_green": 4},
-                              {"triangle_red": 5, "rectangle_blue": 6}], # E7,6
+                              {"triangle_blue": 5, "ellipse_blue": 6, "triangle_red": 7}], # E7,6
 
                              [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                              {"circle_black": 3, "rectangle_black": 4},
-                             {"triangle_red": 5, "rectangle_blue": 6}], # E8,7
+                             {"triangle_blue": 5, "ellipse_blue": 6, "triangle_red": 7}], # E8,7
                              ]
 
 
