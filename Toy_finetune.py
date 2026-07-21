@@ -59,15 +59,15 @@ label_mappings_increment = [
 
                              [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                               {"ellipse_red": 0, "rectangle_blue": 1},
-                              {"triangle_blue": 0, "ellipse_blue": 1, "triangle_red": 2}], # E6,5
+                              {"triangle_blue": 0, "ellipse_blue": 1}], # E6,5 , "triangle_red": 2
 
                              [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                               {"circle_yellow": 0, "rectangle_green": 1},
-                              {"triangle_blue": 0, "ellipse_blue": 1, "triangle_red": 2}], # E7,6
+                              {"triangle_blue": 0, "ellipse_blue": 1}], # E7,6 , "triangle_red": 2
 
                              [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                              {"circle_black": 0, "rectangle_black": 1},
-                             {"triangle_blue": 0, "ellipse_blue": 1, "triangle_red": 2}], # E8,7
+                             {"triangle_blue": 0, "ellipse_blue": 1}], # E8,7 , "triangle_red": 2
                              ]
 
 
