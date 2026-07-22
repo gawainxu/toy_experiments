@@ -108,11 +108,11 @@ label_mappings_increment = [
                               {"circle_black": 0, "rectangle_black": 1},
                               {"ellipse_red": 0, "rectangle_blue": 1}],  # E4, 3
 
-                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}, #
+                             [{"circle_blue": 0, "rectangle_red": 1,}, #  "circle_red": 2
                               {"ellipse_red": 0, "rectangle_blue": 1},
                               {"circle_black": 0, "rectangle_black": 1}],   # E5, 4
 
-                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},  #
+                             [{"circle_blue": 0, "rectangle_red": 1, },  # "circle_red": 2
                              {"circle_black": 0, "rectangle_black": 1},
                              {"ellipse_red": 0, "rectangle_blue": 1}],   # E6, 5
                              ]
