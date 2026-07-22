@@ -69,13 +69,10 @@ python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 2 
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 3 --model_name "toy" --model_path "./models4/toy_toy_E4_task_1.pth" --feature_save_path "./features4/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 4 --model_name "toy" --model_path "./models4/toy_toy_E5_task_1.pth" --feature_save_path "./features4/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 5 --model_name "toy" --model_path "./models4/toy_toy_E6_task_1.pth" --feature_save_path "./features4/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 6 --model_name "toy" --model_path "./models4/toy_toy_E7_task_1.pth" --feature_save_path "./features4/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 7 --model_name "toy" --model_path "./models4/toy_toy_E8_task_1.pth" --feature_save_path "./features4/"
+
 
 echo "feature reading for task2"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 2 --model_name "toy" --model_path "./models4/toy_toy_E3_task_2.pth" --feature_save_path "./features4/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 3 --model_name "toy" --model_path "./models4/toy_toy_E4_task_2.pth" --feature_save_path "./features4/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 4 --model_name "toy" --model_path "./models4/toy_toy_E5_task_2.pth" --feature_save_path "./features4/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 5 --model_name "toy" --model_path "./models4/toy_toy_E6_task_2.pth" --feature_save_path "./features4/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 6 --model_name "toy" --model_path "./models4/toy_toy_E7_task_2.pth" --feature_save_path "./features4/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 7 --model_name "toy" --model_path "./models4/toy_toy_E8_task_2.pth" --feature_save_path "./features4/"

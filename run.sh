@@ -71,16 +71,12 @@ python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 2 
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 3 --model_name "toy" --model_path "./models/toy_toy_E4_task_1.pth" --feature_save_path "./features/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 4 --model_name "toy" --model_path "./models/toy_toy_E5_task_1.pth" --feature_save_path "./features/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 5 --model_name "toy" --model_path "./models/toy_toy_E6_task_1.pth" --feature_save_path "./features/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 6 --model_name "toy" --model_path "./models/toy_toy_E7_task_1.pth" --feature_save_path "./features/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 7 --model_name "toy" --model_path "./models/toy_toy_E8_task_1.pth" --feature_save_path "./features/"
 
 echo "feature reading for task2"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 2 --model_name "toy" --model_path "./models/toy_toy_E3_task_2.pth" --feature_save_path "./features/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 3 --model_name "toy" --model_path "./models/toy_toy_E4_task_2.pth" --feature_save_path "./features/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 4 --model_name "toy" --model_path "./models/toy_toy_E5_task_2.pth" --feature_save_path "./features/"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 5 --model_name "toy" --model_path "./models/toy_toy_E6_task_2.pth" --feature_save_path "./features/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 6 --model_name "toy" --model_path "./models/toy_toy_E7_task_2.pth" --feature_save_path "./features/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 2 --experiment_idx 7 --model_name "toy" --model_path "./models/toy_toy_E8_task_2.pth" --feature_save_path "./features/"
 
 # CKA between base model data between the task 1 and task 2 models
 #python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_task_0_data_0_train" --feature_path2 "./features/toy_toy_E3_task_2_task_2_data_0_train" --num_classes 2 --feature_name "linear3"
