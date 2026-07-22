@@ -10,6 +10,7 @@ import os
 import argparse
 from plot_utils import plot_confusion_matrix
 
+"""
 label_mappings_full = [
                        [{"circle_blue": 0, "rectangle_red": 1},],  # E1,0
 
@@ -68,6 +69,52 @@ label_mappings_increment = [
                              [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
                              {"circle_black": 0, "rectangle_black": 1},
                              {"triangle_blue": 0, "ellipse_blue": 1}], # E8,7 , "triangle_red": 2
+                             ]
+"""
+
+label_mappings_full = [
+                       [{"circle_blue": 0, "rectangle_red": 1},],  # E1,0
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "ellipse_red": 2, "rectangle_blue": 3, "circle_black": 4, "rectangle_black": 5}], # E3,2
+
+                       [{"circle_blue": 0, "rectangle_red": 1},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_black": 2, "rectangle_black": 3, "ellipse_red": 4, "triangle_blue": 5}], # E4,3
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "ellipse_red": 3, "rectangle_blue": 4, "circle_black": 5, "triangle_black": 6}], # E5,4
+
+                       [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4},
+                        {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_black": 3, "rectangle_black": 4, "ellipse_red": 5, "triangle_blue": 6}], # E6,5
+
+                       ]
+
+label_mappings_increment = [
+                            [{"circle_blue": 0, "rectangle_red": 1}],  # E1,0
+
+                            [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2}], # E2,1
+
+                            [{"circle_blue": 0, "rectangle_red": 1},
+                             {"ellipse_red": 0, "rectangle_blue": 1},
+                             {"circle_black": 0, "rectangle_black": 1}], # E3,2
+
+                             [{"circle_blue": 0, "rectangle_red": 1},
+                              {"circle_black": 0, "rectangle_black": 1},
+                              {"ellipse_red": 0, "rectangle_blue": 1}],  # E4, 3
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                              {"ellipse_red": 0, "rectangle_blue": 1},
+                              {"circle_black": 0, "rectangle_black": 1}],   # E5, 4
+
+                             [{"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
+                             {"circle_black": 0, "rectangle_black": 1},
+                             {"ellipse_red": 0, "rectangle_blue": 1}],   # E6, 5
                              ]
 
 

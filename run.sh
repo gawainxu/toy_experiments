@@ -14,12 +14,12 @@
 #python3 Toy_finetune.py --experiment_name "E28" --dataset "toy" --classes_idx 7 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E28"
 
 # continue training for session 1
-#python3 Toy_train.py --experiment_name "E3" --dataset "toy" --classes_idx 2 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E3"
-#python3 Toy_train.py --experiment_name "E4" --dataset "toy" --classes_idx 3 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E4"
-#python3 Toy_train.py --experiment_name "E5" --dataset "toy" --classes_idx 4 --old_classes_idx 0 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E5"
-#python3 Toy_train.py --experiment_name "E6" --dataset "toy" --classes_idx 5 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E6"
-#python3 Toy_train.py --experiment_name "E7" --dataset "toy" --classes_idx 6 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E7"
-#python3 Toy_train.py --experiment_name "E8" --dataset "toy" --classes_idx 7 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E8"
+python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E3"
+python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E1.pth" --losses_path "toy_toy_E4"
+python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E5"
+python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E6"
+#python3 Toy_train.py --experiment_name "E7" --dataset "toy" --experiment_idx 6 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E7"
+#python3 Toy_train.py --experiment_name "E8" --dataset "toy" --experiment_idx 7 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E8"
 
 # direct testing for session 1
 #python3 toy_test.py --experiment_name "E1" --dataset "toy" --data_idx1 0 --model_name "toy" --model_path "./models/toy_toy_E1.pth"
@@ -86,12 +86,12 @@
 
 
 # finetune to evalute the models after task1 on task 2 data
-python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E3.pth"
-python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E4.pth"
-python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E5.pth"
-python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E6.pth"
-python3 Toy_finetune.py --experiment_name "E7" --dataset "toy" --experiment_idx 6 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E7.pth"
-python3 Toy_finetune.py --experiment_name "E8" --dataset "toy" --experiment_idx 7 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E8.pth"
+#python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E3.pth"
+#python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E4.pth"
+#python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E5.pth"
+#python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E6.pth"
+#python3 Toy_finetune.py --experiment_name "E7" --dataset "toy" --experiment_idx 6 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E7.pth"
+#python3 Toy_finetune.py --experiment_name "E8" --dataset "toy" --experiment_idx 7 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models/toy_toy_E8.pth"
 
 
 # finetune to evalute the init models  on task 2 data

@@ -152,10 +152,10 @@ def sp_noise(image, amount, salt_vs_pepper):
  
 if __name__ == "__main__":
 
-    save_path = "./toy_data_train/"
+    save_path = "./toy_data_test_inliers/"
     num_imgs = 100
     shape = "triangle"
-    color = "red"
+    color = "blue"
     noising = False
     thickness=-1   # -1 for filling otherwise is edge thickness
 
