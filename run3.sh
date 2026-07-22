@@ -3,10 +3,10 @@ python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 -
 python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models3/" --losses_root "./losses3/"
 
 echo "continue training for task 1"
-python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E1.pth" --losses_path "toy_toy_E3_task_0" --model_root "./models3/" --losses_root "./losses3/"
-python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E1.pth" --losses_path "toy_toy_E4_task_0" --model_root "./models3/" --losses_root "./losses3/"
-python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E2.pth" --losses_path "toy_toy_E5_task_0" --model_root "./models3/" --losses_root "./losses3/"
-python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E2.pth" --losses_path "toy_toy_E6_task_0" --model_root "./models3/" --losses_root "./losses3/"
+python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E1_task_0.pth" --losses_path "toy_toy_E3_task_0" --model_root "./models3/" --losses_root "./losses3/"
+python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E1_task_0.pth" --losses_path "toy_toy_E4_task_0" --model_root "./models3/" --losses_root "./losses3/"
+python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E2_task_0.pth" --losses_path "toy_toy_E5_task_0" --model_root "./models3/" --losses_root "./losses3/"
+python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 1 --model_name "toy" --last_model_path "./models3/toy_toy_E2_task_0.pth" --losses_path "toy_toy_E6_task_0" --model_root "./models3/" --losses_root "./losses3/"
 
 
 
