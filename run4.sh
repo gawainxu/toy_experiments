@@ -61,8 +61,8 @@
 
 
 echo "feature reading for task0"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 0 --experiment_idx 0 --model_name "toy" --model_path "./models4/toy_toy_E1.pth" --feature_save_path "./features4/"
-python3 Toy_features.py --task_idx_data 0 --task_idx_model 0 --experiment_idx 1 --model_name "toy" --model_path "./models4/toy_toy_E2.pth" --feature_save_path "./features4/"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 0 --experiment_idx 0 --model_name "toy" --model_path "./models4/toy_toy_E1_task_0.pth" --feature_save_path "./features4/"
+python3 Toy_features.py --task_idx_data 0 --task_idx_model 0 --experiment_idx 1 --model_name "toy" --model_path "./models4/toy_toy_E2_task_0.pth" --feature_save_path "./features4/"
 
 echo "feature reading for task1"
 python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 2 --model_name "toy" --model_path "./models4/toy_toy_E3_task_1.pth" --feature_save_path "./features4/"
