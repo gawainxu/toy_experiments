@@ -14,8 +14,8 @@
 #python3 Toy_finetune.py --experiment_name "E28" --dataset "toy" --classes_idx 7 --old_classes_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E28"
 
 echo "init training"
-python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E1" --model_root "./models4/" --losses_root "./losses4/"
-python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models4/" --losses_root "./losses4/"
+python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E1" --model_root "./models/" --losses_root "./losses/"
+python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models/" --losses_root "./losses/"
 
 echo "continue training for task 1"
 python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E1_task_0.pth" --losses_path "toy_toy_E3" --model_root "./models/" --losses_root "./losses/"
