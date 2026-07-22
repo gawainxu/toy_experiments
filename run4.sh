@@ -1,3 +1,7 @@
+echo "init training"
+python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E1" --model_root "./models4/" --losses_root "./losses4/"
+python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models4/" --losses_root "./losses4/"
+
 echo "continue training for task 1"
 python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models4/toy_toy_E1.pth" --losses_path "toy_toy_E3" --model_root "./models4/" --losses_root "./losses4/"
 python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 1 --model_name "toy" --last_model_path "./models4/toy_toy_E1.pth" --losses_path "toy_toy_E4" --model_root "./models4/" --losses_root "./losses4/"
