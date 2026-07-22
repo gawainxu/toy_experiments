@@ -1,36 +1,56 @@
-#echo "For E2"
-#RESULTS_FILE="results2.txt"
-#echo "inliers_id, result" > $RESULTS_FILE
-
-#for i in $(seq 0 99); do
-#  echo "Running iteration $i"
-#  result=$(python3 Toy_distances.py --feature_path "./features/toy_toy_E2_${i}_train" --feature_path_test "./features/toy_toy_E2_${i}_rectangle_blue" --num_classes 3 --feature_to_visualize "linear2" --fig_save_path "./plots/hist_E2_${i}.png")
-#  echo "$i, $result" >> $RESULTS_FILE
-#done
+echo "continue training for task 1"
+python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models2/toy_toy_E1.pth" --losses_path "toy_toy_E3" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 1 --model_name "toy" --last_model_path "./models2/toy_toy_E1.pth" --losses_path "toy_toy_E4" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 1 --model_name "toy" --last_model_path "./models2/toy_toy_E2.pth" --losses_path "toy_toy_E5" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 1 --model_name "toy" --last_model_path "./models2/toy_toy_E2.pth" --losses_path "toy_toy_E6" --model_root "./models2/" --losses_root "./losses2/"
 
 
-#python3 Toy_train.py --experiment_name "E1" --dataset "toy" --classes_idx 0 --model_name "cnn" --losses_path "cnn_toy_E1"
-#python3 Toy_train.py --experiment_name "E2" --dataset "toy" --classes_idx 1 --model_name "cnn" --losses_path "cnn_toy_E2"
+
+echo "linear probe of the init model with the task 1 data"
+python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 0 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 0 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 0 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 0 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E2.pth" --model_root "./models2/" --losses_root "./losses2/"
 
 
-#python3 main_ce.py --batch_size 64 --epochs 300 --learning_rate 0.1 --cosine True --lr_decay_rate 0.8 --model "resnet18" --datasets "cifar100_marco" --trail 0
-#python3 main_ce.py --batch_size 64 --epochs 300 --learning_rate 0.1 --cosine True --lr_decay_rate 0.8 --model "resnet18" --datasets "cifar100_marco" --trail 1
-#python3 main_ce.py --batch_size 64 --epochs 300 --learning_rate 0.1 --cosine True --lr_decay_rate 0.8 --model "resnet18" --datasets "cifar100_marco" --trail 2
-#python3 main_ce.py --batch_size 64 --epochs 300 --learning_rate 0.1 --cosine True --lr_decay_rate 0.8 --model "resnet18" --datasets "cifar100_marco" --trail 3
-
-#python3 main_linear.py --model "resnet18" --datasets "cifar100_marco" --trail 7 --backbone_model_direct "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_0_128_128" --backbone_model_name "last.pth"
-
-#python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_task_0_data_0_train" --feature_path2 "./features/toy_toy_E3_task_2_task_2_data_0_train" --num_classes 2 --feature_name "linear1"
-#python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_task_0_data_0_train" --feature_path2 "./features/toy_toy_E4_task_2_task_2_data_0_train" --num_classes 2 --feature_name "linear1"
-#python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E1_task_0_data_0_train" --feature_path2 "./features/toy_toy_E5_task_2_task_2_data_0_train" --num_classes 2 --feature_name "linear1"
-#python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E2_task_0_data_0_train" --feature_path2 "./features/toy_toy_E6_task_2_task_2_data_0_train" --num_classes 2 --feature_name "linear1"
-#python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E2_task_0_data_0_train" --feature_path2 "./features/toy_toy_E7_task_2_task_2_data_0_train" --num_classes 2 --feature_name "linear1"
-#python3 Toy_metrics.py --feature_path1 "./features/toy_toy_E2_task_0_data_0_train" --feature_path2 "./features/toy_toy_E8_task_2_task_2_data_0_train" --num_classes 2 --feature_name "linear1"
+echo "linear probe of the task 1 model with the task 0 data"
+python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 1 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E3_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 1 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E4_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 1 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E5_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 1 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E6_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
 
 
-#python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E5"
-#python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 1 --model_name "toy" --last_model_path "./models/toy_toy_E2.pth" --losses_path "toy_toy_E6"
+
+echo "continual training for task 2"
+python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 2 --model_name "toy" --last_model_path "./models2/toy_toy_E3_task_1.pth" --losses_path "toy_toy_E3_task_2" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 2 --model_name "toy" --last_model_path "./models2/toy_toy_E4_task_1.pth" --losses_path "toy_toy_E4_task_2" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 2 --model_name "toy" --last_model_path "./models2/toy_toy_E5_task1.pth" --losses_path "toy_toy_E5_task_2" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 2 --model_name "toy" --last_model_path "./models2/toy_toy_E6_task1.pth" --losses_path "toy_toy_E6_task_2" --model_root "./models2/" --losses_root "./losses2/"
 
 
-python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 2 --task_idx_data 1 --model_name "toy" --last_model_path "./models/toy_toy_E5_task_2.pth"
-python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 2 --task_idx_data 1 --model_name "toy" --last_model_path "./models/toy_toy_E6_task_2.pth"
+echo "linear probe of the init model with the task 2 data"
+python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 0 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 0 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 0 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 0 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E2.pth" --model_root "./models2/" --losses_root "./losses2/"
+
+
+echo "linear probe of the task 1 model with the task 2 data"
+python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E3_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E4_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E2_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 1 --task_idx_data 2 --model_name "toy" --last_model_path "./models2/toy_toy_E2_task_1.pth" --model_root "./models2/" --losses_root "./losses2/"
+
+
+echo "linear probe of the task 2 model with the task 0 data"
+python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 2 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E3_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 2 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E4_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 2 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E5_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 2 --task_idx_data 0 --model_name "toy" --last_model_path "./models2/toy_toy_E6_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"
+
+
+echo "linear probe of the task 2 model with the task 1 data"
+python3 Toy_finetune.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx_model 2 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E3_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx_model 2 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E4_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx_model 2 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E5_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"
+python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx_model 2 --task_idx_data 1 --model_name "toy" --last_model_path "./models2/toy_toy_E6_task_2.pth" --model_root "./models2/" --losses_root "./losses2/"

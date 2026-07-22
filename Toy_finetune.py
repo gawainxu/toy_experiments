@@ -148,6 +148,8 @@ def parse_options():
     parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
     parser.add_argument("--losses_path", type=str, default="")
     parser.add_argument("--last_model_path", type=str, default=None)
+    parser.add_argument("--model_root", type=str, default="./models/")
+    parser.add_argument("--losses_root", type=str, default="./losses/")
     parser.add_argument("--freeze_layers", type=str, default="conv",
                         choices=["conv", "conv1", "conv2"])
 
@@ -156,8 +158,8 @@ def parse_options():
 
     model_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data)
     losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data)
-    opt.model_path = os.path.join("./models/", model_name)
-    opt.losses_path = os.path.join("./losses/", losses_name)
+    opt.model_path = os.path.join(opt.model_root, model_name)
+    opt.losses_path = os.path.join(opt.losses_root, losses_name)
     return opt
 
 
