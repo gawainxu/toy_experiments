@@ -1,12 +1,35 @@
 from __future__ import print_function
 
+import os
 import math
+import random
 import numpy as np
 import torch
 import torch.optim as optim
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
 
+
+def set_seed(seed: int = 42):
+    # 1. Python built-in random module
+    random.seed(seed)
+
+    # 2. NumPy random module
+    np.random.seed(seed)
+
+    # 3. PyTorch CPU seed
+    torch.manual_seed(seed)
+
+    # 4. PyTorch GPU seeds (for both single-GPU and multi-GPU setups)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+    # 5. Environment variable for Python hash seed
+    os.environ["PYTHONHASHSEED"] = str(seed)
+
+    # 6. Force cuDNN to use deterministic algorithms (prevents CUDA non-determinism)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 class TwoCropTransform:
     """Create two crops of the same image"""
