@@ -66,6 +66,10 @@ python3 Toy_finetune.py --experiment_name "E6" --dataset "toy" --experiment_idx 
 #python3 Toy_features.py --task_idx_data 0 --task_idx_model 0 --experiment_idx 0 --model_name "toy" --model_path "./models/toy_toy_E1_task_0.pth" --feature_save_path "./features/"
 #python3 Toy_features.py --task_idx_data 0 --task_idx_model 0 --experiment_idx 1 --model_name "toy" --model_path "./models/toy_toy_E2_task_0.pth" --feature_save_path "./features/"
 
+#echo "feature reading for model 0 with task 1 data"
+#python3 Toy_features.py --task_idx_data 1 --task_idx_model 0 --experiment_idx 2 --model_name "toy" --model_path "./models/toy_toy_E1_task_0.pth" --feature_save_path "./features/"
+#python3 Toy_features.py --task_idx_data 1 --task_idx_model 0 --experiment_idx 4 --model_name "toy" --model_path "./models/toy_toy_E2_task_0.pth" --feature_save_path "./features/"
+
 #echo "feature reading for task1"
 #python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 2 --model_name "toy" --model_path "./models/toy_toy_E3_task_1.pth" --feature_save_path "./features/"
 #python3 Toy_features.py --task_idx_data 0 --task_idx_model 1 --experiment_idx 3 --model_name "toy" --model_path "./models/toy_toy_E4_task_1.pth" --feature_save_path "./features/"

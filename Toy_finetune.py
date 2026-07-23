@@ -221,7 +221,7 @@ if __name__ == "__main__":
     model = model.cuda()
 
     criteria = torch.nn.CrossEntropyLoss()
-    optimizer = SGD(model.parameters(), lr=opt.lr)
+    optimizer = SGD(model.linear3.parameters(), lr=opt.lr)
 
     loss_best = 1e10
     acc_best = -1e10

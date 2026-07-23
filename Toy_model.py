@@ -182,8 +182,9 @@ if __name__ == "__main__":
 
     model = toy_model(num_classes=10)
     model.apply(init_weights)
-    for name, param in model.named_parameters():
-        print(name)
+    print(model.linear1.parameters())
+    #for name, param in model.named_parameters():
+    #    print(name)
 
 
 

@@ -210,11 +210,11 @@ if __name__ == "__main__":
     opt = parse_options()
 
     if opt.model_name == "toy":
-        model = toy_model(len(opt.old_classes), in_channels=3, img_size=opt.data_size)
+        model = toy_model(len(opt.num_classes), in_channels=3, img_size=opt.data_size)
     if opt.model_name == "toy_small":
-        model = toy_model_small(len(opt.old_classes), in_channels=3, img_size=opt.data_size)
+        model = toy_model_small(len(opt.num_classes), in_channels=3, img_size=opt.data_size)
     elif opt.model_name == "cnn":
-        model = cnn(len(opt.old_classes), in_channels=3, img_size=opt.data_size)
+        model = cnn(len(opt.num_classes), in_channels=3, img_size=opt.data_size)
     model.load_state_dict(torch.load(opt.model_path, map_location=torch.device("cpu")))
     model.eval()
 
