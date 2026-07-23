@@ -217,7 +217,7 @@ if __name__ == "__main__":
             dataset = torch.utils.data.ConcatDataset([dataset, old_dataset])
         print("model loaded")
 
-    #model.train()
+    model.train()
     model = model.cuda()
 
     criteria = torch.nn.CrossEntropyLoss()
