@@ -1,5 +1,5 @@
 import torch
-from Toy_model import toy_model, renew_linear, init_weights, cnn
+from Toy_model import toy_model, renew_linear, init_weights, cnn, toy_model_small
 from Toy_dataset import toy_dataset, continual_buffer, iCIFAR100, mnist
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
@@ -145,7 +145,7 @@ def parse_options():
     parser.add_argument("--task_idx_data", type=int, default=0)
     parser.add_argument("--experiment_name", type=str, default="E1")
 
-    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg", "toy_small"])
     parser.add_argument("--losses_path", type=str, default="")
     parser.add_argument("--last_model_path", type=str, default=None)
     parser.add_argument("--model_root", type=str, default="./models/")
@@ -203,9 +203,11 @@ if __name__ == "__main__":
 
     if opt.last_model_path is not None:
         # if last model path is not None, indicating it is continual training
-        if "toy" in opt.model_name:
+        if opt.model_name == "toy":
             model = toy_model(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
-        elif "cnn" in opt.model_name:
+        if opt.model_name == "toy_small":
+            model = toy_model_small(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
+        elif opt.model_name == "cnn":
             model = cnn(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
         model.load_state_dict(torch.load(opt.last_model_path, weights_only=True))
         renew_linear(model, num_classes=len(opt.classes))

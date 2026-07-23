@@ -4,7 +4,7 @@ import argparse
 import torch
 from torch.utils.data import DataLoader
 from Toy_dataset import toy_dataset
-from Toy_model import toy_model, cnn
+from Toy_model import toy_model, cnn, toy_model_small
 import torchvision.transforms as transforms
 
 """
@@ -130,7 +130,7 @@ def parse_options():
     parser.add_argument("--task_idx_model", type=int, default=0)
     parser.add_argument("--task_idx_data", type=int, default=0)
     parser.add_argument("--outliers_id", type=int, default=-1)    # >= 0 for outlier data
-    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg"])
+    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg", "toy_small"])
     parser.add_argument("--model_path", type=str, default="./models/cnn_toy_E2.pth")
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
     parser.add_argument("--data_size", type=int, default=64)
@@ -209,10 +209,12 @@ if __name__ == "__main__":
 
     opt = parse_options()
 
-    if "toy" in opt.model_name:
-        model = toy_model(num_classes=opt.num_classes, in_channels=3, img_size=opt.data_size)
-    else:
-        model = cnn(num_classes=opt.num_classes, in_channels=3, img_size=opt.data_size)
+    if opt.model_name == "toy":
+        model = toy_model(len(opt.old_classes), in_channels=3, img_size=opt.data_size)
+    if opt.model_name == "toy_small":
+        model = toy_model_small(len(opt.old_classes), in_channels=3, img_size=opt.data_size)
+    elif opt.model_name == "cnn":
+        model = cnn(len(opt.old_classes), in_channels=3, img_size=opt.data_size)
     model.load_state_dict(torch.load(opt.model_path, map_location=torch.device("cpu")))
     model.eval()
 
