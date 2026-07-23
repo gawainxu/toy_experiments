@@ -34,7 +34,7 @@ class toy_model(nn.Module):
 
 class toy_model_small(nn.Module):
 
-    def __init__(self, num_classes, in_channels=3, img_size=32, inter_size=500) -> None:
+    def __init__(self, num_classes, in_channels=3, img_size=32, inter_size=2000) -> None:
         super(toy_model_small, self).__init__()
 
         self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=10, kernel_size=5, padding=2, padding_mode="reflect")
