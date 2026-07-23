@@ -226,10 +226,12 @@ if __name__ == "__main__":
             dataset = torch.utils.data.ConcatDataset([dataset, old_dataset])
         print("model loaded")
     else:
-        if "toy" in opt.model_name:
-            model = toy_model(len(opt.classes), in_channels=in_channels, img_size=opt.data_size)
-        elif "cnn" in opt.model_name:
-            model = cnn(len(opt.classes), in_channels=in_channels, img_size=opt.data_size)
+        if opt.model_name == "toy":
+            model = toy_model(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
+        if opt.model_name == "toy_small":
+            model = toy_model_small(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
+        elif opt.model_name == "cnn":
+            model = cnn(len(opt.old_classes), in_channels=in_channels, img_size=opt.data_size)
     model.apply(init_weights)
 
     model.train()
