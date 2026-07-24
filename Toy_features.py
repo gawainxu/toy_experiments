@@ -148,11 +148,11 @@ def parse_options():
     elif opt.outliers_id == -1 and opt.training_data:
         opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
         class_name = list(label_mappings_increment[opt.experiment_idx][opt.task_idx_data].keys())
-        opt.feature_save_path = opt.feature_save_path + model_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data) + "_train"
+        opt.feature_save_path = opt.feature_save_path + model_name + "_exp_" + str(opt.experiment_idx) + "_data_" + str(opt.task_idx_data) + "_train"
     else:
         opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
         class_name = list(label_mappings_increment[opt.experiment_idx][opt.task_idx_data].keys())
-        opt.feature_save_path = opt.feature_save_path + model_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data) + "_test"
+        opt.feature_save_path = opt.feature_save_path + model_name + "_exp_" + str(opt.experiment_idx) + "_data_" + str(opt.task_idx_data) + "_test"
 
     print(class_name)
     return opt
