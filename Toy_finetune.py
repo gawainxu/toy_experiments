@@ -162,7 +162,7 @@ def parse_options():
     losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data)
     opt.model_path = os.path.join(opt.model_root, model_name)
     opt.losses_path = os.path.join(opt.losses_root, losses_name)
-    set_seed(opt.seed)
+    #set_seed(opt.seed)
 
     return opt
 
