@@ -135,7 +135,7 @@ def parse_options():
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
     parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--feature_save_path", type=str, default="./features/")
-    parser.add_argument("--training_data", type=bool, default=True)
+    parser.add_argument("--training_data", type=int, default=1)
 
     opt = parser.parse_args()
     opt.num_classes = len(label_mappings_full[opt.experiment_idx][opt.task_idx_model])
@@ -145,7 +145,7 @@ def parse_options():
         opt.label_mapping = label_mappings_osr[opt.outliers_id]
         class_name = list(label_mappings_osr[opt.outliers_id].keys())[0]
         opt.feature_save_path = opt.feature_save_path + model_name + "_" + class_name
-    elif opt.outliers_id == -1 and opt.training_data:
+    elif opt.outliers_id == -1 and opt.training_data == 1:
         opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
         class_name = list(label_mappings_increment[opt.experiment_idx][opt.task_idx_data].keys())
         opt.feature_save_path = opt.feature_save_path + model_name + "_exp_" + str(opt.experiment_idx) + "_data_" + str(opt.task_idx_data) + "_train"
