@@ -9,6 +9,7 @@ from sklearn.metrics import confusion_matrix
 import os
 import argparse
 from plot_utils import plot_confusion_matrix
+from util import set_seed
 
 """
 label_mappings_full = [
@@ -152,6 +153,7 @@ def parse_options():
     parser.add_argument("--losses_root", type=str, default="./losses/")
     parser.add_argument("--freeze_layers", type=str, default="conv",
                         choices=["conv", "conv1", "conv2"])
+    parser.add_argument("--seed", type=int, default=42)
 
     opt = parser.parse_args()
     print(opt.experiment_name)
@@ -160,6 +162,8 @@ def parse_options():
     losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx_model) + "_data_" + str(opt.task_idx_data)
     opt.model_path = os.path.join(opt.model_root, model_name)
     opt.losses_path = os.path.join(opt.losses_root, losses_name)
+    set_seed(opt.seed)
+
     return opt
 
 
