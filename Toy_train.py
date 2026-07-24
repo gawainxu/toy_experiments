@@ -125,7 +125,7 @@ cifar_classes = [list(range(10)),
                  list(range(30)),
                  list(range(40))]
 
-set_seed(44)
+set_seed(43)
 def parse_options():
 
     parser = argparse.ArgumentParser("Arguments")
