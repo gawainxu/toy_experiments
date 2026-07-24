@@ -125,7 +125,6 @@ cifar_classes = [list(range(10)),
                  list(range(30)),
                  list(range(40))]
 
-set_seed(44)
 def parse_options():
 
     parser = argparse.ArgumentParser("Arguments")
@@ -152,6 +151,7 @@ def parse_options():
     parser.add_argument("--freeze", type=bool, default=False)
     parser.add_argument("--freeze_layers", type=str, default="conv",
                         choices=["conv", "conv1", "conv2"])
+    parser.add_argument("--seed", type=int, default=42)
 
     opt = parser.parse_args()
     print(opt.experiment_name)
@@ -163,6 +163,8 @@ def parse_options():
         losses_name = opt.model_name + "_" + opt.dataset + "_" + opt.experiment_name + "_task_" + str(opt.task_idx)
     opt.model_path = os.path.join(opt.model_root, model_name)
     opt.losses_path = os.path.join(opt.losses_root, losses_name)
+    set_seed(opt.seed)
+
     return opt
 
 
