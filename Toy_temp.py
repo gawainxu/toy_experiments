@@ -7,8 +7,8 @@ from sklearn.linear_model import LogisticRegression
 def getArgs():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--feature_path_train", type=str, default="./features10/toy_toy_E2_task_0_exp_5_data_1_train")
-    parser.add_argument("--feature_path_test", type=str, default="./features10/toy_toy_E2_task_0_exp_5_data_1_test")
+    parser.add_argument("--feature_path_train", type=str, default="./features10/toy_toy_E1_task_0_exp_3_data_1_train")
+    parser.add_argument("--feature_path_test", type=str, default="./features10/toy_toy_E1_task_0_exp_3_data_1_test")
 
     opt = parser.parse_args()
     return opt
