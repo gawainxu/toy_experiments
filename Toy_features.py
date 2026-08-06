@@ -130,7 +130,7 @@ def parse_options():
     parser.add_argument("--task_idx_model", type=int, default=0)
     parser.add_argument("--task_idx_data", type=int, default=0)
     parser.add_argument("--outliers_id", type=int, default=-1)    # >= 0 for outlier data
-    parser.add_argument("--model_name", type=str, default="cnn", choices=["toy", "cnn", "vgg", "toy_small"])
+    parser.add_argument("--model", type=str, default="toy", choices=["toy", "cnn", "vgg", "toy_small"])
     parser.add_argument("--model_path", type=str, default="./models/cnn_toy_E2.pth")
     parser.add_argument("--data_path", type=str, default="./toy_data_train")
     parser.add_argument("--data_size", type=int, default=64)
@@ -143,18 +143,14 @@ def parse_options():
 
     if opt.outliers_id >= 0:
         opt.label_mapping = label_mappings_osr[opt.outliers_id]
-        class_name = list(label_mappings_osr[opt.outliers_id].keys())[0]
-        opt.feature_save_path = opt.feature_save_path + model_name + "_" + class_name
+        opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_outliers"
     elif opt.outliers_id == -1 and opt.training_data == 1:
         opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
-        class_name = list(label_mappings_increment[opt.experiment_idx][opt.task_idx_data].keys())
-        opt.feature_save_path = opt.feature_save_path + model_name + "_exp_" + str(opt.experiment_idx) + "_data_" + str(opt.task_idx_data) + "_train"
+        opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_train"
     else:
         opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
-        class_name = list(label_mappings_increment[opt.experiment_idx][opt.task_idx_data].keys())
-        opt.feature_save_path = opt.feature_save_path + model_name + "_exp_" + str(opt.experiment_idx) + "_data_" + str(opt.task_idx_data) + "_test"
+        opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_test"
 
-    print(class_name)
     return opt
         
 
@@ -206,11 +202,11 @@ if __name__ == "__main__":
 
     opt = parse_options()
 
-    if opt.model_name == "toy":
+    if opt.model == "toy":
         model = toy_model(opt.num_classes, in_channels=3, img_size=opt.data_size)
-    if opt.model_name == "toy_small":
+    if opt.model == "toy_small":
         model = toy_model_small(opt.num_classes, in_channels=3, img_size=opt.data_size)
-    elif opt.model_name == "cnn":
+    elif opt.model == "cnn":
         model = cnn(opt.num_classes, in_channels=3, img_size=opt.data_size)
     model.load_state_dict(torch.load(opt.model_path, map_location=torch.device("cpu")))
     model.eval()
