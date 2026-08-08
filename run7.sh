@@ -1,20 +1,32 @@
-echo "init training"
-python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E1" --model_root "./models7/" --losses_root "./losses7/"
-python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models7/" --losses_root "./losses7/"
+#echo "init training"
+#python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E1" --model_root "./models7/" --losses_root "./losses7/"
+#python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models7/" --losses_root "./losses7/"
 
-echo "continue training for task 1"
-python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E1_task_0.pth" --losses_path "toy_toy_E3" --model_root "./models7/" --losses_root "./losses7/"
-python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E1_task_0.pth" --losses_path "toy_toy_E4" --model_root "./models7/" --losses_root "./losses7/"
-python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E2_task_0.pth" --losses_path "toy_toy_E5" --model_root "./models7/" --losses_root "./losses7/"
-python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E2_task_0.pth" --losses_path "toy_toy_E6" --model_root "./models7/" --losses_root "./losses7/"
+#echo "continue training for task 1"
+#python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E1_task_0.pth" --losses_path "toy_toy_E3" --model_root "./models7/" --losses_root "./losses7/"
+#python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E1_task_0.pth" --losses_path "toy_toy_E4" --model_root "./models7/" --losses_root "./losses7/"
+#python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E2_task_0.pth" --losses_path "toy_toy_E5" --model_root "./models7/" --losses_root "./losses7/"
+#python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 1 --model_name "toy" --last_model_path "./models7/toy_toy_E2_task_0.pth" --losses_path "toy_toy_E6" --model_root "./models7/" --losses_root "./losses7/"
 
-echo "continual training for task 2"
-python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E3_task_1.pth" --losses_path "toy_toy_E3_task_2" --model_root "./models7/" --losses_root "./losses7/"
-python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E4_task_1.pth" --losses_path "toy_toy_E4_task_2" --model_root "./models7/" --losses_root "./losses7/"
-python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E5_task_1.pth" --losses_path "toy_toy_E5_task_2" --model_root "./models7/" --losses_root "./losses7/"
-python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E6_task_1.pth" --losses_path "toy_toy_E6_task_2" --model_root "./models7/" --losses_root "./losses7/"
+#echo "continual training for task 2"
+#python3 Toy_train.py --experiment_name "E3" --dataset "toy" --experiment_idx 2 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E3_task_1.pth" --losses_path "toy_toy_E3_task_2" --model_root "./models7/" --losses_root "./losses7/"
+#python3 Toy_train.py --experiment_name "E4" --dataset "toy" --experiment_idx 3 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E4_task_1.pth" --losses_path "toy_toy_E4_task_2" --model_root "./models7/" --losses_root "./losses7/"
+#python3 Toy_train.py --experiment_name "E5" --dataset "toy" --experiment_idx 4 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E5_task_1.pth" --losses_path "toy_toy_E5_task_2" --model_root "./models7/" --losses_root "./losses7/"
+#python3 Toy_train.py --experiment_name "E6" --dataset "toy" --experiment_idx 5 --task_idx 2 --model_name "toy" --last_model_path "./models7/toy_toy_E6_task_1.pth" --losses_path "toy_toy_E6_task_2" --model_root "./models7/" --losses_root "./losses7/"
 
 
+
+# Linear probe on the frozen representations
+echo "E1 task 0 data 1"
+python3 Toy_temp.py --feature_path_train "./features7/toy_toy_E1_task_0_data_1_train" --feature_path_test "./features7/toy_toy_E1_task_0_data_1_test"
+echo "E2 task 0 data 1"
+python3 Toy_temp.py --feature_path_train "./features7/toy_toy_E2_task_0_data_1_train" --feature_path_test "./features7/toy_toy_E2_task_0_data_1_test"
+
+
+echo "E1 task 0 data 2"
+python3 Toy_temp.py --feature_path_train "./features7/toy_toy_E1_task_0_data_2_train" --feature_path_test "./features7/toy_toy_E1_task_0_data_2_test"
+echo "E2 task 0 data 2"
+python3 Toy_temp.py --feature_path_train "./features7/toy_toy_E2_task_0_data_2_train" --feature_path_test "./features7/toy_toy_E2_task_0_data_2_test"
 
 
 #echo "feature reading for task0"

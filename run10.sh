@@ -1,6 +1,6 @@
-echo "init training"
-python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E1" --model_root "./models10/" --losses_root "./losses10/"
-python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models10/" --losses_root "./losses10/"
+#echo "init training"
+#python3 Toy_train.py --experiment_name "E1" --dataset "toy" --experiment_idx 0 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E1" --model_root "./models10/" --losses_root "./losses10/"
+#python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 --task_idx 0 --model_name "toy" --losses_path "toy_toy_E2" --model_root "./models10/" --losses_root "./losses10/"
 
 
 #echo "continue training for task 1"
@@ -18,8 +18,16 @@ python3 Toy_train.py --experiment_name "E2" --dataset "toy" --experiment_idx 1 -
 
 
 # Linear probe on the frozen representations
-python3 Toy_temp.py --feature_path_test "./features10/toy_toy_E1_task_0_data_1_test" --feature_path_train "./features10/toy_toy_E1_task_0_data_1_train"
+echo "E1 task 0 data 1"
+python3 Toy_temp.py --feature_path_train "./features10/toy_toy_E1_task_0_data_1_train" --feature_path_test "./features10/toy_toy_E1_task_0_data_1_test"
+echo "E2 task 0 data 1"
+python3 Toy_temp.py --feature_path_train "./features10/toy_toy_E2_task_0_data_1_train" --feature_path_test "./features10/toy_toy_E2_task_0_data_1_test"
 
+
+echo "E1 task 0 data 2"
+python3 Toy_temp.py --feature_path_train "./features10/toy_toy_E1_task_0_data_2_train" --feature_path_test "./features10/toy_toy_E1_task_0_data_2_test"
+echo "E2 task 0 data 2"
+python3 Toy_temp.py --feature_path_train "./features10/toy_toy_E2_task_0_data_2_train" --feature_path_test "./features10/toy_toy_E2_task_0_data_2_test"
 
 
 
