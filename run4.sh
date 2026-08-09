@@ -19,16 +19,16 @@
 
 
 # Linear probe on the frozen representations
-#echo "E1 task 0 data 1"
-#python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E1_task_0_data_1_train" --feature_path_test "./features4/toy_toy_E1_task_0_data_1_test"
-#echo "E2 task 0 data 1"
-#python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E2_task_0_data_1_train" --feature_path_test "./features4/toy_toy_E2_task_0_data_1_test"
+echo "E1 task 0 data 1"
+python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E1_task_0_data_1_train" --feature_path_test "./features4/toy_toy_E1_task_0_data_1_test"
+echo "E2 task 0 data 1"
+python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E2_task_0_data_1_train" --feature_path_test "./features4/toy_toy_E2_task_0_data_1_test"
 
 
-#echo "E1 task 0 data 2"
-#python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E1_task_0_data_2_train" --feature_path_test "./features4/toy_toy_E1_task_0_data_2_test"
-#echo "E2 task 0 data 2"
-#python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E2_task_0_data_2_train" --feature_path_test "./features4/toy_toy_E2_task_0_data_2_test"
+echo "E1 task 0 data 2"
+python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E1_task_0_data_2_train" --feature_path_test "./features4/toy_toy_E1_task_0_data_2_test"
+echo "E2 task 0 data 2"
+python3 Toy_temp.py --feature_path_train "./features4/toy_toy_E2_task_0_data_2_train" --feature_path_test "./features4/toy_toy_E2_task_0_data_2_test"
 
 
 echo "E3 task 1 data 0"
