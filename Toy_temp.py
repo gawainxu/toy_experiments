@@ -9,7 +9,7 @@ def getArgs():
     parser = argparse.ArgumentParser()
     parser.add_argument("--feature_path_train", type=str, default="./features10/toy_toy_E1_task_0_exp_3_data_1_train")
     parser.add_argument("--feature_path_test", type=str, default="./features10/toy_toy_E1_task_0_exp_3_data_1_test")
-    parser.add_argument("--remove_third_class", type=int, default=1)
+    parser.add_argument("--remove_third_class", type=int, default=0)
 
     opt = parser.parse_args()
     return opt
@@ -40,8 +40,8 @@ if __name__ == "__main__":
     with open(opt.feature_path_test, "rb") as f:
         features_test, labels_test = pickle.load(f)
     
-    features_train = [np.squeeze(f["linear2"].numpy()) for f in features_train]
-    features_test = [np.squeeze(f["linear2"].numpy()) for f in features_test]
+    features_train = [np.squeeze(f["linear1"].numpy()) for f in features_train]
+    features_test = [np.squeeze(f["linear1"].numpy()) for f in features_test]
     features_train = np.array(features_train)
     features_test = np.array(features_test)
     labels_train = [i-min(labels_train) for i in labels_train]
