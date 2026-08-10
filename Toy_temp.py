@@ -9,6 +9,7 @@ def getArgs():
     parser = argparse.ArgumentParser()
     parser.add_argument("--feature_path_train", type=str, default="./features10/toy_toy_E1_task_0_exp_3_data_1_train")
     parser.add_argument("--feature_path_test", type=str, default="./features10/toy_toy_E1_task_0_exp_3_data_1_test")
+    parser.add_argument("--remove_third_class", type=int, default=1)
 
     opt = parser.parse_args()
     return opt
@@ -45,5 +46,13 @@ if __name__ == "__main__":
     features_test = np.array(features_test)
     labels_train = [i-min(labels_train) for i in labels_train]
     labels_test = [i-min(labels_test) for i in labels_test]
+
+    if opt.remove_third_class == 0:
+        third_class_train = [i for i, l in enumerate(labels_train) if l == 2]
+        third_class_test = [i for i, l in enumerate(labels_test) if l == 2]
+        features_train = features_train[third_class_train]
+        labels_train = labels_train[third_class_train]
+        features_test = features_test[third_class_test]
+        labels_test = labels_test[third_class_test]
 
     accuracy = regression(features_train, labels_train, features_test, labels_test)
