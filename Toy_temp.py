@@ -48,8 +48,8 @@ if __name__ == "__main__":
     labels_test = [i-min(labels_test) for i in labels_test]
 
     if opt.remove_third_class == 1:
-        third_class_train = [i for i, l in enumerate(labels_train) if l == 2]
-        third_class_test = [i for i, l in enumerate(labels_test) if l == 2]
+        third_class_train = [i for i, l in enumerate(labels_train) if l < 2]
+        third_class_test = [i for i, l in enumerate(labels_test) if l < 2]
         features_train = features_train[third_class_train]
         labels_train = [labels_train[i] for i in third_class_train]
         features_test = features_test[third_class_test]
