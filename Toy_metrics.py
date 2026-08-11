@@ -13,8 +13,15 @@ def parse_options():
     parser.add_argument("--feature_name", type=str, default="linear3")
     parser.add_argument("--num_classes", type=int, default=6, help="Number of classes")
     parser.add_argument("--metric", type=str, default="cka")
+    parser.add_argument("--if_data0", type=int, default=0)
 
     opt = parser.parse_args()
+
+    if opt.feature_path1.split("/")[-1].split("_")[-2] == "0":
+        opt.if_data0 = 1
+    else:
+        opt.if_data0 = 0
+
     return opt
 
 
@@ -32,10 +39,11 @@ if __name__ == "__main__":
     features1 = np.array(features1)
     features2 = np.array(features2)
 
-    indices1 = [i for i, l in enumerate(labels1) if l < 2]
-    indices2 = [i for i, l in enumerate(labels2) if l < 2]
-    features1 = features1[indices1]
-    features2 = features2[indices2]
+    if opt.if_data0 == 1:
+        indices1 = [i for i, l in enumerate(labels1) if l < 2]
+        indices2 = [i for i, l in enumerate(labels2) if l < 2]
+        features1 = features1[indices1]
+        features2 = features2[indices2]
 
     if "cka" in opt.metric:
         print("cka is", linear_cka_gpt(features1, features2))
