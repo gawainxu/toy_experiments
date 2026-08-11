@@ -32,5 +32,10 @@ if __name__ == "__main__":
     features1 = np.array(features1)
     features2 = np.array(features2)
 
+    indices1 = [i for i, l in enumerate(labels1) if l < 2]
+    indices2 = [i for i, l in enumerate(labels2) if l < 2]
+    features1 = features1[indices1]
+    features2 = features2[indices2]
+
     if "cka" in opt.metric:
         print("cka is", linear_cka_gpt(features1, features2))
