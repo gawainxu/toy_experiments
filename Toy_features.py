@@ -120,6 +120,38 @@ label_mappings_increment = [
                              {"ellipse_red": 5, "rectangle_blue": 6}],   # E6, 5
                              ]
 
+label_mappings_conditional = [
+                              [{"circle_blue": 0, "rectangle_blue": 1},
+                               {"circle_red": 0, "rectangle_red": 1},
+                                {"circle_black": 0, "rectangle_black": 1}
+                              ],
+
+                              [{"circle_blue": 0, "rectangle_blue": 1},
+                               {"circle_red": 0, "rectangle_red": 1},
+                               {"circle_black": 0, "rectangle_black": 1}
+                              ],
+
+                              [{"circle_blue": 0, "rectangle_blue": 1},
+                               {"circle_red": 0, "rectangle_red": 1},
+                                {"circle_black": 0, "rectangle_black": 1}
+                              ],
+
+                              [{"circle_blue": 0, "rectangle_blue": 1},
+                               {"circle_red": 0, "rectangle_red": 1},
+                               {"circle_black": 0, "rectangle_black": 1}
+                              ],
+
+                              [{"circle_blue": 0, "rectangle_blue": 1},
+                               {"circle_red": 0, "rectangle_red": 1},
+                               {"circle_black": 0, "rectangle_black": 1}
+                              ],
+
+                              [{"circle_blue": 0, "rectangle_blue": 1},
+                               {"circle_red": 0, "rectangle_red": 1},
+                               {"circle_black": 0, "rectangle_black": 1}
+                               ],
+                              ]
+
 label_mappings_osr = [{"circle_red": 0},
                       {"rectangle_blue": 0},
                       {"rectangle_green": 0},
@@ -142,20 +174,29 @@ def parse_options():
     parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--feature_save_path", type=str, default="./features/")
     parser.add_argument("--training_data", type=int, default=1)
+    parser.add_argument("--conditional_features", type=int, default=0)
 
     opt = parser.parse_args()
     opt.num_classes = len(label_mappings_full[opt.experiment_idx][opt.task_idx_model])
     model_name = opt.model_path.split("/")[-1].split(".")[0]
 
-    if opt.outliers_id >= 0:
-        opt.label_mapping = label_mappings_osr[opt.outliers_id]
-        opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_outliers"
-    elif opt.outliers_id == -1 and opt.training_data == 1:
-        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
-        opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_train"
+    if opt.conditional_features:
+        if opt.training_data == 1:
+            opt.label_mapping = label_mappings_conditional[opt.experiment_idx][opt.task_idx_data]
+            opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_train_conditional"
+        else:
+            opt.label_mapping = label_mappings_conditional[opt.experiment_idx][opt.task_idx_data]
+            opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_test_conditional"
     else:
-        opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
-        opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_test"
+        if opt.outliers_id >= 0:
+            opt.label_mapping = label_mappings_osr[opt.outliers_id]
+            opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_outliers"
+        elif opt.outliers_id == -1 and opt.training_data == 1:
+            opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
+            opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_train"
+        else:
+            opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx_data]
+            opt.feature_save_path = opt.feature_save_path + model_name + "_data_" + str(opt.task_idx_data) + "_test"
 
     return opt
         
