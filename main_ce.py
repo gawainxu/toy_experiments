@@ -75,7 +75,7 @@ def parse_option():
     parser.add_argument('--size', type=int, default=32, help='parameter for RandomResizedCrop')
 
     # method
-    parser.add_argument("--trail", type=int, default=0, choices=[0,1,2,3,4,5,6], help="index of repeating training")
+    parser.add_argument("--trail", type=int, default=0, help="index of repeating training")
         
     # other setting
     parser.add_argument('--cosine', type=bool, default=False,
