@@ -3,7 +3,7 @@ import dataUtil
 import numpy as np
 from PIL import Image
 import torchvision.transforms as transforms
-
+from dataUtil import osr_splits_inliers
 
 
 class iCIFAR10(CIFAR10):
@@ -194,8 +194,8 @@ if __name__ == "__main__":
     # for i, (img, l) in enumerate(train_loader):
     #     if i == 0:
     #         break
-    print("testing")
+
+    classes = osr_splits_inliers["cifar100_marco"][8]
     root_path = "../datasets"
-    dataset = iCIFAR100(root='../datasets', classes=[0])
-    print(dataset[0][1])
+    dataset = iCIFAR100(root='../datasets', classes=classes)
     print(len(dataset))

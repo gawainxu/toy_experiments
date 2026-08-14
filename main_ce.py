@@ -48,7 +48,7 @@ def parse_option():
                         help='batch_size')
     parser.add_argument('--num_workers', type=int, default=4,
                         help='num of workers to use')
-    parser.add_argument('--epochs', type=int, default=200,
+    parser.add_argument('--epochs', type=int, default=300,
                         help='number of training epochs')
 
     # optimization
@@ -65,7 +65,7 @@ def parse_option():
     parser.add_argument("--pretrained", type=int, default=1)
 
     # model dataset
-    parser.add_argument('--model', type=str, default='vgg16', choices=["resnet18", "resnet34", "vgg16", "simCNN", "MLP", "lenet"])
+    parser.add_argument('--model', type=str, default='resnet18', choices=["resnet18", "resnet34", "vgg16", "simCNN", "MLP", "lenet"])
     parser.add_argument("--resnet_wide", type=int, default=1, help="factor for expanding channels in wide resnet")
     parser.add_argument('--datasets', type=str, default='cifar100_marco',
                         choices=['cifar10', "tinyimgnet", 'mnist', "svhn", "cifar100_marco"], help='dataset')
