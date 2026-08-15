@@ -439,3 +439,9 @@ class SupConResNet_MultiHead_remix(nn.Module):
         feat3 = F.normalize(self.output_head3(out), dim=1)
 
         return feat1, feat2, feat3
+
+
+if __name__ == "__main__":
+
+    model = SupCEResNet()
+    print(model)

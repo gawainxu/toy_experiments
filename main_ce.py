@@ -63,7 +63,7 @@ def parse_option():
     parser.add_argument('--momentum', type=float, default=0.9,
                         help='momentum')
     parser.add_argument("--last_model_path", type=str, default=None)
-    parser.add_argument("--last_trail", type=int, default=0)
+    parser.add_argument("--last_trail", type=str, default="0")
 
     # model dataset
     parser.add_argument('--model', type=str, default='resnet18', choices=["resnet18", "resnet34", "vgg16", "simCNN", "MLP", "lenet"])
@@ -110,7 +110,7 @@ def parse_option():
     opt.model_name += 'trail_{}'.format(opt.trail) + "_" + str(opt.feat_dim) + "_" + str(opt.batch_size)
 
     if opt.last_model_path is not None:
-        opt.model_name += "_last_" + str(opt.last_trail)
+        opt.model_name += "_last_" + opt.last_trail
 
     opt.save_folder = os.path.join(opt.model_path, opt.model_name)
     if not os.path.isdir(opt.save_folder):
