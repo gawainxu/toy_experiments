@@ -169,8 +169,9 @@ def load_model(opt, model=None):
 
     new_state_dict = {}
     for k, v in state_dict.items():
-        k = k.replace("module.", "")
-        new_state_dict[k] = v
+        if "fc2" not in k:
+            k = k.replace("module.", "")
+            new_state_dict[k] = v
 
     state_dict = new_state_dict
     model.load_state_dict(state_dict)
