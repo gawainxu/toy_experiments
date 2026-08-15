@@ -174,7 +174,7 @@ def load_model(opt, model=None):
             new_state_dict[k] = v
 
     state_dict = new_state_dict
-    model.load_state_dict(state_dict)
+    model.load_state_dict(state_dict, strict=False)
     model.cuda()
     model.eval()
 
