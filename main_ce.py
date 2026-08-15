@@ -62,7 +62,8 @@ def parse_option():
                         help='weight decay')
     parser.add_argument('--momentum', type=float, default=0.9,
                         help='momentum')
-    parser.add_argument("--pretrained", type=int, default=1)
+    parser.add_argument("--last_model_path", type=str, default=None)
+    parser.add_argument("--last_trail", type=int, default=0)
 
     # model dataset
     parser.add_argument('--model', type=str, default='resnet18', choices=["resnet18", "resnet34", "vgg16", "simCNN", "MLP", "lenet"])
@@ -107,6 +108,9 @@ def parse_option():
     opt.model_name = opt.datasets + "_" + opt.model + "_" + str(opt.resnet_wide)
    
     opt.model_name += 'trail_{}'.format(opt.trail) + "_" + str(opt.feat_dim) + "_" + str(opt.batch_size)
+
+    if opt.last_model_path is not None:
+        opt.model_name += "_last_" + str(opt.last_trail)
 
     opt.save_folder = os.path.join(opt.model_path, opt.model_name)
     if not os.path.isdir(opt.save_folder):
@@ -159,8 +163,6 @@ def set_model(opt):
 
 
 def load_model(opt, model=None):
-    if model is None:
-        model = SupCEResNet(name=opt.model, num_classes=opt.num_classes)
 
     ckpt = torch.load(opt.last_model_path, map_location='cpu')
     state_dict = ckpt['model']
@@ -312,6 +314,8 @@ def main():
 
     # build model and criterion
     model, criterion = set_model(opt)
+    if opt.last_model_path is not None:
+        model = load_model(opt, model=model)
 
     # build optimizer
     optimizer, train_scheduler = set_optimizer(opt, model)
