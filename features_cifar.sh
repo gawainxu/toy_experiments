@@ -1,0 +1,1 @@
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 0
