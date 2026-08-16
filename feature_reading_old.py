@@ -134,7 +134,7 @@ if __name__ == "__main__":
     
     opt = parse_option()
 
-    model, linear_model = load_model(opt)
+    model, linear_model = set_model(opt)
     print("Model loaded!!")
     
     featurePaths= []
