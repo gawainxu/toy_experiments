@@ -68,14 +68,9 @@ def set_model(opt):
     else:
         in_channels = 3
 
-    if "resnet" in opt.model:
-        model = SupCEResNet(name=opt.model, in_channels=in_channels, num_classes=opt.num_classes)
-    elif "vgg" in opt.model:
-        model = vgg16(num_classes=opt.num_classes)
-    elif "lenet" in opt.model:
-        model = LeNet5(num_classes=opt.num_classes)
+    model = SupCEResNet(name=opt.model, in_channels=in_channels, num_classes=opt.num_classes)
+    model = load_model(opt, model=model)
 
-    model = load_model(opt, model)
     return model
 
 
