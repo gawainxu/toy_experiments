@@ -139,5 +139,4 @@ if __name__ == "__main__":
 
     train_loader, test_loader = set_loader(opt)
 
-    opt.save_path = opt.save_path_all
-    normalFeatureReading(train_loader, model, linear_model, opt)
+    normalFeatureReading(train_loader, model, opt)
