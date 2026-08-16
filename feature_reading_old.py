@@ -33,14 +33,13 @@ def parse_option():
     parser.add_argument('--datasets', type=str, default='cifar100_marco',
                         choices=['cifar100_marco'], help='dataset')
     parser.add_argument('--model', type=str, default="resnet18", choices=["resnet18", "vgg16", "resnet50_pretrain"])
-    parser.add_argument("--model_path", type=str,
-                        default=None)
+    parser.add_argument("--model_path", type=str, default=None)
+
     parser.add_argument("--model_trail", type=int, default=0)
     parser.add_argument("--trail", type=int, default=0, help="data trail")
     parser.add_argument("--action", type=str, default="feature_reading",
                         choices=["training_supcon", "trainging_linear", "testing_known", "testing_unknown", "feature_reading"])
     parser.add_argument("--feature_save", type=str, default="/features/")
-    parser.add_argument("--if_merge", type=bool, default=False)
 
     parser.add_argument("--if_train", type=str, default="test_known", choices=['train', 'val', 'test_known', 'test_unknown', "full"])
     parser.add_argument('--batch_size', type=int, default=1, help='batch_size')
