@@ -97,13 +97,15 @@ class iCIFAR100(CIFAR100):
                  transform=None,
                  target_transform=None,
                  download=False,
-                 label_dict = None):
+                 label_dict = None,
+                 multiplier = 1):
         super(iCIFAR100, self).__init__(root,
                                         train=train,
                                         transform=transform,
                                         target_transform=target_transform,
                                         download=download)
         self.label_dict = label_dict
+        self.multiplier = multiplier
 
         if superClass is not None:
             classes = [dataUtil.classMap[n] for n in dataUtil.superClasses[superClass]] 
@@ -134,9 +136,14 @@ class iCIFAR100(CIFAR100):
             self.test_labels = test_labels
 
     def __getitem__(self, index):
+
         if self.train:
+            if self.multiplier > 1:
+                index = index % len(self.train_data)
             img, target = self.train_data[index], self.train_labels[index]
         else:
+            if self.multiplier > 1:
+                index = index % len(self.test_data)
             img, target = self.test_data[index], self.test_labels[index]
 
         if self.transform is not None:
@@ -153,9 +160,9 @@ class iCIFAR100(CIFAR100):
 
     def __len__(self):
         if self.train:
-            return len(self.train_data)
+            return len(self.train_data) * int(self.multiplier)
         else:
-            return len(self.test_data)
+            return len(self.test_data) * int(self.multiplier)
 
     def get_image_class(self, label):
         return self.train_data[np.array(self.train_labels) == label]
@@ -175,36 +182,6 @@ class iCIFAR100(CIFAR100):
 
         self.train_data = np.concatenate((self.train_data, images), axis=0)
         self.train_labels = self.train_labels + labels        
-
-
-
-class AugmentedDatasetWrapper(Dataset):
-    def __init__(self, dataset, transform=None, multiplier=3, label_dict=None):
-        """
-        multiplier: How many times to replicate the dataset size.
-        """
-        self.dataset = dataset
-        self.transform = transform
-        self.multiplier = multiplier
-        self.label_dict = label_dict
-
-    def __len__(self):
-        return len(self.dataset) * int(self.multiplier)
-
-    def __getitem__(self, idx):
-        # Map scaled index back to original dataset index
-        original_idx = idx % len(self.dataset)
-        img, target = self.dataset[original_idx]
-
-        # Apply random augmentation on every access
-        if self.transform:
-            img = Image.fromarray(img)
-            img = self.transform(img)
-
-        if self.label_dict is not None:
-            target = self.label_dict[str(target)]
-
-        return img, target
 
 
 if __name__ == "__main__":

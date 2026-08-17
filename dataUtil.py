@@ -101,7 +101,7 @@ def pickClass(classIdx):
     return classList
 
 
-from data_loader import iCIFAR100, AugmentedDatasetWrapper
+from data_loader import iCIFAR100
 from torchvision import transforms
 
 data_root = "../datasets"
@@ -158,9 +158,8 @@ def get_train_datasets(opt, class_idx=None,):
     train = True
     train_dataset = data_fun(root=data_root, train=train,
                              classes=classes, download=True,
-                             transform=train_transform, label_dict=label_dict,)
-    if opt.expand_data > 1:
-        train_dataset = AugmentedDatasetWrapper(train_dataset,  transform=train_transform, multiplier=opt.expand_data)
+                             transform=train_transform, label_dict=label_dict,
+                             multiplier=opt.expand_data)
 
     print("dataset size", len(train_dataset))
     return train_dataset
