@@ -139,4 +139,7 @@ if __name__ == "__main__":
 
     train_loader, test_loader = set_loader(opt)
 
-    normalFeatureReading(train_loader, model, opt)
+    if "train" in opt.if_train:
+        normalFeatureReading(train_loader, model, opt)
+    else:
+        normalFeatureReading(test_loader, model, opt)
