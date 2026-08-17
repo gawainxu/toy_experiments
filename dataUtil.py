@@ -101,7 +101,7 @@ def pickClass(classIdx):
     return classList
 
 
-from data_loader import iCIFAR100
+from data_loader import iCIFAR100, AugmentedDatasetWrapper
 from torchvision import transforms
 
 data_root = "../datasets"
@@ -141,11 +141,9 @@ def get_train_datasets(opt, class_idx=None,):
 
     train_transform = transforms.Compose(
                 [transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8),
-                 # transforms.Resize((size, size)),
-                 transforms.RandomResizedCrop(size=size, scale=(0.2, 1.)),  # !!!!!!
+                 transforms.RandomResizedCrop(size=size, scale=(0.2, 1.)),
                  transforms.RandomHorizontalFlip(),
                  transforms.RandomGrayscale(p=0.2),
-                 # transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 2.0)),    # !!!!!!!!!!!
                  transforms.ToTensor(),
                  normalize, ])  # normalize,
 
@@ -157,15 +155,13 @@ def get_train_datasets(opt, class_idx=None,):
     else:
         classes = osr_splits_inliers[opt.datasets][opt.trail]
 
-    if opt.datasets == "svhn":
-        train = "train"
-    else:
-        train = True
-
+    train = True
     train_dataset = data_fun(root=data_root, train=train,
                              classes=classes, download=True,
-                             transform=train_transform, label_dict=label_dict,
-                             )
+                             transform=train_transform, label_dict=label_dict,)
+    if opt.expand_data > 1:
+        train_dataset = AugmentedDatasetWrapper(train_dataset,  transform=train_transform, multiplier=opt.expand_data)
+
     print("dataset size", len(train_dataset))
     return train_dataset
 

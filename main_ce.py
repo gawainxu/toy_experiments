@@ -77,6 +77,7 @@ def parse_option():
 
     # method
     parser.add_argument("--trail", type=int, default=0, help="index of repeating training")
+    parser.add_argument("--expand_data", type=float, default=1)
         
     # other setting
     parser.add_argument('--cosine', type=bool, default=False,
@@ -321,6 +322,7 @@ def main():
     # build optimizer
     optimizer, train_scheduler = set_optimizer(opt, model)
     losses = []
+    accs = []
 
     # training routine
     for epoch in range(0, opt.epochs):
@@ -335,6 +337,7 @@ def main():
         print('epoch {}, total time {:.2f}'.format(epoch, time2 - time1))
 
         losses.append(loss)
+        accs.append(acc_val)
         if epoch % opt.save_freq == 0:
             save_file = os.path.join(
                 opt.save_folder, 'ckpt_epoch_{epoch}.pth'.format(epoch=epoch))
@@ -345,7 +348,7 @@ def main():
         opt.save_folder, 'last.pth')
     save_model(model, optimizer, opt, opt.epochs, save_file)
     with open(os.path.join(opt.save_folder, "loss_" + str(opt.trail)), "wb") as f:
-         pickle.dump(losses, f)
+         pickle.dump((losses, accs), f)
 
 
 if __name__ == '__main__':

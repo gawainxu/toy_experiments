@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 import torchvision.transforms as transforms
 from dataUtil import osr_splits_inliers
-
+from torch.utils.data import Dataset
 
 class iCIFAR10(CIFAR10):
     def __init__(self, root, classes=range(10), train=True, transform=None,
@@ -159,13 +159,11 @@ class iCIFAR100(CIFAR100):
 
     def get_image_class(self, label):
         return self.train_data[np.array(self.train_labels) == label]
-    
-    
+
     def get_part_data(self, xidxs):
         
         self.train_data = np.delete(self.train_data, xidxs, 0)
         self.train_labels = np.delete(self.train_labels, xidxs, 0)
-
 
     def append(self, images, labels):
         """Append dataset with images and labels
@@ -180,22 +178,40 @@ class iCIFAR100(CIFAR100):
 
 
 
+class AugmentedDatasetWrapper(Dataset):
+    def __init__(self, dataset, transform=None, multiplier=3):
+        """
+        multiplier: How many times to replicate the dataset size.
+        """
+        self.dataset = dataset
+        self.transform = transform
+        self.multiplier = multiplier
+
+    def __len__(self):
+        return len(self.dataset) * int(self.multiplier)
+
+    def __getitem__(self, idx):
+        # Map scaled index back to original dataset index
+        original_idx = idx % len(self.dataset)
+        sample, label = self.dataset[original_idx]
+
+        # Apply random augmentation on every access
+        if self.transform:
+            sample = self.transform(sample)
+
+        return sample, label
+
+
 if __name__ == "__main__":
     transform = transforms.Compose([
        # transforms.RandomCrop(32, padding=4),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),])                                      # (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
-    # train_set = iCIFAR100(root='../datasets/', train=True,
-    #                        classes=range(0, 10),
-    #                        download=False, transform=None)
-    # train_set = apply_transform(train_set, TwoCropTransform(transform))
-    # train_loader = torch.utils.data.DataLoader(train_set, batch_size=200, shuffle=True, num_workers=1)
-    # for i, (img, l) in enumerate(train_loader):
-    #     if i == 0:
-    #         break
 
-    classes = osr_splits_inliers["cifar100_marco"][8]
+    classes = osr_splits_inliers["cifar100_marco"][0]
     root_path = "../datasets"
-    dataset = iCIFAR100(root='../datasets', classes=classes)
+    dataset = iCIFAR100(root='../datasets', classes=classes, transform=transform)
+    dataset_expand = AugmentedDatasetWrapper(dataset, transform)
     print(len(dataset))
+    print(len(dataset_expand))
