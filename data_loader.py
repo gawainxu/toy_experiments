@@ -179,13 +179,14 @@ class iCIFAR100(CIFAR100):
 
 
 class AugmentedDatasetWrapper(Dataset):
-    def __init__(self, dataset, transform=None, multiplier=3):
+    def __init__(self, dataset, transform=None, multiplier=3, label_dict=None):
         """
         multiplier: How many times to replicate the dataset size.
         """
         self.dataset = dataset
         self.transform = transform
         self.multiplier = multiplier
+        self.label_dict = label_dict
 
     def __len__(self):
         return len(self.dataset) * int(self.multiplier)
@@ -193,13 +194,17 @@ class AugmentedDatasetWrapper(Dataset):
     def __getitem__(self, idx):
         # Map scaled index back to original dataset index
         original_idx = idx % len(self.dataset)
-        sample, label = self.dataset[original_idx]
+        img, target = self.dataset[original_idx]
 
         # Apply random augmentation on every access
         if self.transform:
-            sample = self.transform(sample)
+            img = Image.fromarray(img)
+            img = self.transform(img)
 
-        return sample, label
+        if self.label_dict is not None:
+            target = self.label_dict[str(target)]
+
+        return img, target
 
 
 if __name__ == "__main__":
