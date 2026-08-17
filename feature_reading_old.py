@@ -34,6 +34,7 @@ def parse_option():
                         choices=['cifar100_marco'], help='dataset')
     parser.add_argument('--model', type=str, default="resnet18", choices=["resnet18", "vgg16", "resnet50_pretrain"])
     parser.add_argument("--model_path", type=str, default=None)
+    parser.add_argument("--expand_data", type=float, default=1)
 
     parser.add_argument("--model_trail", type=int, default=0)
     parser.add_argument("--trail", type=int, default=0, help="data trail")
