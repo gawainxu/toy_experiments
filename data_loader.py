@@ -193,7 +193,8 @@ if __name__ == "__main__":
 
     classes = osr_splits_inliers["cifar100_marco"][0]
     root_path = "../datasets"
-    dataset = iCIFAR100(root='../datasets', classes=classes, transform=transform)
-    dataset_expand = AugmentedDatasetWrapper(dataset, transform)
+    dataset = iCIFAR100(root='../datasets', classes=[95], transform=None)
     print(len(dataset))
-    print(len(dataset_expand))
+    img, l = dataset[0]
+    img = Image.fromarray(img)
+    img.save("95.png")
