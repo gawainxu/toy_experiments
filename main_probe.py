@@ -40,8 +40,8 @@ if __name__ == "__main__":
     with open(opt.feature_path_test, "rb") as f:
         features_head_test, features_backbone_test, labels_test = pickle.load(f)
 
-    features_train = [np.squeeze(f.numpy()) for f in features_head_train]
-    features_test = [np.squeeze(f.numpy()) for f in features_head_test]
+    features_train = [np.squeeze(f) for f in features_head_train]
+    features_test = [np.squeeze(f) for f in features_head_test]
     features_train = np.array(features_train)
     features_test = np.array(features_test)
     labels_train = [i - min(labels_train) for i in labels_train]
