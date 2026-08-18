@@ -9,7 +9,7 @@ def getArgs():
     parser = argparse.ArgumentParser()
     parser.add_argument("--feature_path_train", type=str,
                         default="./features/cifar100_marco_resnet18_1trail_0_128_128_data_3_train")
-    parser.add_argument("--feature_path_test", type=str, default="./features/cifar100_marco_resnet18_1trail_0_128_128_data_3_test")
+    parser.add_argument("--feature_path_test", type=str, default="./features/cifar100_marco_resnet18_1trail_0_128_128_data_3_test_known")
 
     opt = parser.parse_args()
 
