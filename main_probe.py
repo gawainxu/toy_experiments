@@ -10,6 +10,7 @@ def getArgs():
     parser.add_argument("--feature_path_train", type=str,
                         default="./features/cifar100_marco_resnet18_1trail_0_128_128_data_3_train")
     parser.add_argument("--feature_path_test", type=str, default="./features/cifar100_marco_resnet18_1trail_0_128_128_data_3_test_known")
+    parser.add_argument("--remove_extra_classes", type=int, default=0)
 
     opt = parser.parse_args()
 
@@ -46,5 +47,13 @@ if __name__ == "__main__":
     features_test = np.array(features_test)
     labels_train = [i - min(labels_train) for i in labels_train]
     labels_test = [i - min(labels_test) for i in labels_test]
+
+    if opt.remove_extra_classes == 1:
+        classes_train = [i for i, l in enumerate(labels_train) if l < 10]
+        classes_test = [i for i, l in enumerate(labels_test) if l < 10]
+        features_train = features_train[classes_train]
+        labels_train = [labels_train[i] for i in classes_train]
+        features_test = features_test[classes_test]
+        labels_test = [labels_test[i] for i in classes_test]
 
     accuracy = regression(features_train, labels_train, features_test, labels_test)
