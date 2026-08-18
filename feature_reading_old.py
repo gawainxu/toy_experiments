@@ -40,7 +40,7 @@ def parse_option():
     parser.add_argument("--trail", type=int, default=0, help="data trail")
     parser.add_argument("--action", type=str, default="feature_reading",
                         choices=["training_supcon", "trainging_linear", "testing_known", "testing_unknown", "feature_reading"])
-    parser.add_argument("--feature_save", type=str, default="/features/")
+    parser.add_argument("--feature_save", type=str, default="/features2/")
 
     parser.add_argument("--if_train", type=str, default="test_known", choices=['train', 'val', 'test_known', 'test_unknown', "full"])
     parser.add_argument('--batch_size', type=int, default=1, help='batch_size')
