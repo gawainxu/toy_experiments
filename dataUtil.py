@@ -68,6 +68,9 @@ osr_splits_inliers = {
                    [23, 15, 34, 26, 2, 27, 36, 47, 8, 41],   # 9, far semantic 0
                    [33, 19, 63, 45, 11, 29, 50, 52, 13, 69], # 10, far semantic 1
 
+                   [23, 15, 34, 26, 2, 86, 84, 18, 88, 68],   # 11, moderate semantic 0
+                   [33, 19, 63, 45, 11, 87, 94, 24, 97, 76], # 12, moderate semantic 1
+
                    list(range(100))
                        ],
 }
