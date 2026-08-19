@@ -92,3 +92,70 @@
 #python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_4_128_128_last_43_data_3_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_4_128_128_last_43_data_3_test_known"
 #python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_4_128_128_last_53_data_3_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_4_128_128_last_53_data_3_test_known"
 #python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_4_128_128_last_63_data_3_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_4_128_128_last_63_data_3_test_known"
+
+
+
+#  Session 1 models on Session 0 data
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 0 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_0/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 0 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_0/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 1 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_1/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 1 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_1/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 2 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_2/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 2 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_2/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 5 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_5/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 5 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_5/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 6 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_6/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 6 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_6/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 7 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_7/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 7 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_7/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 8 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_8/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 8 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_8/last.pth" --if_train 'test_known'
+########################################################################################################################################
+echo "Session 0 models on F0"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_0_128_128_data_9_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_0_128_128_data_9_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_1_128_128_data_9_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_1_128_128_data_9_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_2_128_128_data_9_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_2_128_128_data_9_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_5_128_128_data_9_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_5_128_128_data_9_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_6_128_128_data_9_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_6_128_128_data_9_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_7_128_128_data_9_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_7_128_128_data_9_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_8_128_128_data_9_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_8_128_128_data_9_test_known"
+
+########################################################################################################################################
+echo "Session 0 models on F1"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_0_128_128_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_0_128_128_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_1_128_128_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_1_128_128_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_2_128_128_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_2_128_128_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_5_128_128_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_5_128_128_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_6_128_128_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_6_128_128_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_7_128_128_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_7_128_128_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_8_128_128_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_8_128_128_data_10_test_known"
+
+########################################################################################################################################
+echo "Session 1 models on F1"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_0_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_0_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_1_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_1_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_2_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_2_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_3_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_3_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_4_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_4_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_5_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_5_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_6_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_6_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_7_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_7_data_10_test_known"
+python3 main_probe.py --feature_path_train "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_8_data_10_train" --feature_path_test "./features2/cifar100_marco_resnet18_1trail_9_128_128_last_8_data_10_test_known"
+
+########################################################################################################################################
+echo "Session 1 models on Session 0 data"
+#--remove_extra_classes 1
+
+########################################################################################################################################
+echo "Session 2 models on Session 0 data"
+#--remove_extra_classes 1
+
+########################################################################################################################################
+echo "Session 2 models on Session 1 data"
+
