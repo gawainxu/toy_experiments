@@ -73,6 +73,8 @@ osr_splits_inliers = {
 
                    list(range(100))
                        ],
+
+    "imagenet100": [list(range(100))]
 }
 
 

@@ -1,10 +1,12 @@
 from torchvision.datasets import CIFAR10, CIFAR100
 import dataUtil
+import os
 import numpy as np
 from PIL import Image
 import torchvision.transforms as transforms
 from dataUtil import osr_splits_inliers
 from torch.utils.data import Dataset
+from torchvision.datasets import ImageFolder
 
 class iCIFAR10(CIFAR10):
     def __init__(self, root, classes=range(10), train=True, transform=None,
@@ -182,6 +184,56 @@ class iCIFAR100(CIFAR100):
 
         self.train_data = np.concatenate((self.train_data, images), axis=0)
         self.train_labels = self.train_labels + labels        
+
+
+class ImageNet100(Dataset):
+
+    def __init__(self, root, classes=range(100), train=True, opt=None, transform=None,
+                target_transform=None, download=False, label_dict = None, last_features_list=None,
+                last_feature_labels_list=None, last_model=None, subsample_transform=None, portion_out=0.1, upsample_times=1):
+
+        if train:
+            data_path = root + "/imagenet100_train"
+        else:
+            data_path = root + "/imagenet100_test"
+
+        dataset = SelectImageFolder(data_path, classes)
+        self.images = []
+        self.labels = []
+        self.transform = transform
+
+        for img, l in dataset:
+            self.images.append(img)
+            self.labels.append(l)
+
+    def __getitem__(self, idx):
+        if self.transform is not None:
+            return self.transform(self.images[idx]), self.labels[idx]
+        else:
+            return self.images[idx], self.labels[idx]
+
+    def __len__(self):
+
+        return len(self.images)
+
+
+class SelectImageFolder(ImageFolder):
+    def __init__(self, root, classes=range(100), **kwargs):
+
+        self.target_class_indices = classes
+        super().__init__(root, **kwargs)
+
+    def find_classes(self, directory):
+
+        classes_all = [d.name for i, d in enumerate(os.scandir(directory)) if d.is_dir()]
+        classes_all.sort()
+
+        classes = [n for i, n in enumerate(classes_all)
+                            if i in self.target_class_indices]
+        classes_to_idx = {cls_name: i for cls_name, i in zip(classes, self.target_class_indices)}
+
+        return classes, classes_to_idx
+
 
 
 if __name__ == "__main__":
