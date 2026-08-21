@@ -103,25 +103,26 @@ def pickClass(classIdx):
     return classList
 
 
-from data_loader import iCIFAR100
+from data_loader import iCIFAR100, ImageNet100
 from torchvision import transforms
 
 data_root = "../datasets"
 
-num_inlier_classes_mapping = {"cifar100_marco": 20,}
+num_inlier_classes_mapping = {"cifar100_marco": 20,
+                              "imagenet100": 100,}
 
 
-data_function_mapping = {"cifar100_marco": iCIFAR100,}
+data_function_mapping = {"cifar100_marco": iCIFAR100, "imagenet100": ImageNet100}
 
-data_function_mapping_testing = {"cifar100_marco": iCIFAR100}
-
-
-mean_mapping = {"cifar100_marco": (0.4914, 0.4822, 0.4465),}
-
-std_mapping = {"cifar100_marco": (0.2023, 0.1994, 0.2010),}
+data_function_mapping_testing = {"cifar100_marco": iCIFAR100, "ImageNet100": ImageNet100}
 
 
-image_size_mapping = {"cifar100_marco": 32,}
+mean_mapping = {"cifar100_marco": (0.4914, 0.4822, 0.4465), "imagenet100": (0.4914, 0.4822, 0.4465)}
+
+std_mapping = {"cifar100_marco": (0.2023, 0.1994, 0.2010), "imagenet100": (0.2023, 0.1994, 0.2010)}
+
+
+image_size_mapping = {"cifar100_marco": 32, "imagenet100": 224}
 
 
 def label_to_dict(labels, outliers=False):
