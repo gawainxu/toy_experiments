@@ -188,7 +188,7 @@ class iCIFAR100(CIFAR100):
 
 class ImageNet100(Dataset):
 
-    def __init__(self, root, classes=range(100), train=True, opt=None, transform=None,
+    def __init__(self, root, classes=range(100), train=True, opt=None, transform=None, multiplier = 1,
                 target_transform=None, download=False, label_dict = None, last_features_list=None,
                 last_feature_labels_list=None, last_model=None, subsample_transform=None, portion_out=0.1, upsample_times=1):
 
