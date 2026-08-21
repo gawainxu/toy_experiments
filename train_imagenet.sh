@@ -1,0 +1,1 @@
+python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'imagenet100' --trail 0
