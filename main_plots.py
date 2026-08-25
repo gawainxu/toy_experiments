@@ -37,6 +37,6 @@ if __name__ == '__main__':
         plt.plot(accs, label=name)
 
     plt.legend()
-    plt.savefig(os.path.join(opt.plot_save_path, "accs.pdf"))
+    plt.savefig(opt.plot_save_path)
 
 
