@@ -30,7 +30,7 @@ if __name__ == '__main__':
         with open(loss_file_path, 'rb') as f:
             losses, accs = pickle.load(f)
             all_losses[base_names[i]] = losses
-            all_accs[base_names[i]] = accs*100
+            all_accs[base_names[i]] = accs
 
 
     for name, accs in all_accs.items():
