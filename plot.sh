@@ -1,0 +1,3 @@
+python3 main_plots.py --loss_file_paths "cifar100_marco_resnet18_1trail_11_128_128_last_0/loss_11" "cifar100_marco_resnet18_1trail_11_128_128_last_1/loss_11" \
+"cifar100_marco_resnet18_1trail_11_128_128_last_2/loss_11" "cifar100_marco_resnet18_1trail_11_128_128_last_5/loss_11" "cifar100_marco_resnet18_1trail_11_128_128_last_6/loss_11" \
+"cifar100_marco_resnet18_1trail_11_128_128_last_7/loss_11" "cifar100_marco_resnet18_1trail_11_128_128_last_8/loss_11" --plot_save_path "./plots/m0.pdf"
