@@ -26,8 +26,8 @@ if __name__ == '__main__':
     all_losses = {}
 
     for i, loss_file_path in enumerate(opt.loss_file_paths):
+        loss_file_path = os.path.join("./save/CE/cifar100_marco_models", loss_file_path)
         with open(loss_file_path, 'rb') as f:
-            loss_file_path = os.path.join("./save/CE/cifar100_marco_models", loss_file_path)
             losses, accs = pickle.load(f)
             all_losses[base_names[i]] = losses
             all_accs[base_names[i]] = accs
