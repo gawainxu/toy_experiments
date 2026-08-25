@@ -30,13 +30,15 @@ if __name__ == '__main__':
         with open(loss_file_path, 'rb') as f:
             losses, accs = pickle.load(f)
             all_losses[base_names[i]] = losses
-            all_accs[base_names[i]] = accs
+            all_accs[base_names[i]] = accs*100
 
 
     for name, accs in all_accs.items():
         plt.plot(accs, label=name)
 
     plt.legend()
+    plt.xlabel("Epochs", fontsize=16)
+    plt.ylabel("Accuracy (%)", fontsize=16)
     plt.savefig(opt.plot_save_path)
 
 
