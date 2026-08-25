@@ -42,6 +42,6 @@ if __name__ == '__main__':
     plt.yticks(fontsize=15)
     plt.xlabel("Epochs", fontsize=18)
     plt.ylabel("Accuracy (%)", fontsize=18)
-    plt.savefig(opt.plot_save_path)
+    plt.savefig(opt.plot_save_path, bbox_inches='tight', dpi=300)
 
 
