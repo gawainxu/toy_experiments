@@ -38,8 +38,10 @@ if __name__ == '__main__':
         plt.plot(accs, label=name)
 
     plt.legend()
-    plt.xlabel("Epochs", fontsize=26)
-    plt.ylabel("Accuracy (%)", fontsize=26)
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("Epochs", fontsize=22)
+    plt.ylabel("Accuracy (%)", fontsize=22)
     plt.savefig(opt.plot_save_path)
 
 
