@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def parse_arguments():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--loss_file_paths', type=str, default='')
+    parser.add_argument('--loss_file_paths', type=str, nargs='*', default='')
     parser.add_argument('--plot_save_path', type=str, default='')
 
     opt = parser.parse_args()
