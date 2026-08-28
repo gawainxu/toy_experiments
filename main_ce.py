@@ -69,7 +69,7 @@ def parse_option():
     parser.add_argument('--model', type=str, default='resnet18', choices=["resnet18", "resnet34", "vgg16", "simCNN", "MLP", "lenet"])
     parser.add_argument("--resnet_wide", type=int, default=1, help="factor for expanding channels in wide resnet")
     parser.add_argument('--datasets', type=str, default='cifar100_marco',
-                        choices=['cifar10', "imagenet100"], help='dataset')
+                        choices=['cifar10', "imagenet100", 'cifar100_marco'], help='dataset')
     parser.add_argument('--mean', type=str, help='mean of dataset in path in form of str tuple')
     parser.add_argument('--std', type=str, help='std of dataset in path in form of str tuple')
     parser.add_argument('--data_folder', type=str, default=None, help='path to custom dataset')
