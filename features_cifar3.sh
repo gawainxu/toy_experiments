@@ -91,26 +91,26 @@
 
 
 #  Session 2 models on Session 1 data
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_09/last.pth" --if_train 'train'
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_09/last.pth" --if_train 'test_known'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_09/last.pth" --if_train 'train'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_09/last.pth" --if_train 'test_known'
 
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_19/last.pth" --if_train 'train'
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_19/last.pth" --if_train 'test_known'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_19/last.pth" --if_train 'train'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_19/last.pth" --if_train 'test_known'
 
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_29/last.pth" --if_train 'train'
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_29/last.pth" --if_train 'test_known'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_29/last.pth" --if_train 'train'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_29/last.pth" --if_train 'test_known'
 
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_39/last.pth" --if_train 'train'
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_39/last.pth" --if_train 'test_known'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_39/last.pth" --if_train 'train'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_39/last.pth" --if_train 'test_known'
 
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_49/last.pth" --if_train 'train'
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_49/last.pth" --if_train 'test_known'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_49/last.pth" --if_train 'train'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_49/last.pth" --if_train 'test_known'
 
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_59/last.pth" --if_train 'train'
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_59/last.pth" --if_train 'test_known'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_59/last.pth" --if_train 'train'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_59/last.pth" --if_train 'test_known'
 
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_69/last.pth" --if_train 'train'
-python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_69/last.pth" --if_train 'test_known'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_69/last.pth" --if_train 'train'
+#python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 10 --trail 9 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_10_128_128_last_69/last.pth" --if_train 'test_known'
 
 
 #  Session 1 models on Session 0 data
@@ -134,3 +134,27 @@ python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --
 
 #python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 8 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_8/last.pth" --if_train 'train'
 #python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --model_trail 9 --trail 8 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_9_128_128_last_8/last.pth" --if_train 'test_known'
+
+
+
+
+# session 2 models on session 0 data
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 13 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_113/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 13 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_113/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 14 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_114/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 14 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_114/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 15 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_115/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 15 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_115/last.pth" --if_train 'test_known'
+
+
+# session 2 models on session 1 data
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 3 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_113/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 3 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_113/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 3 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_114/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 3 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_114/last.pth" --if_train 'test_known'
+
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 3 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_115/last.pth" --if_train 'train'
+python3 feature_reading_old.py --datasets 'cifar100_marco' --model "resnet18" --trail 3 --model_trail 4 --model_path "/save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_4_128_128_last_115/last.pth" --if_train 'test_known'

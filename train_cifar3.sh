@@ -2,9 +2,9 @@ python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 
 python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 14 --expand_data 1.5
 python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 15 --expand_data 1.5
 
-python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 3 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_0_128_128/last.pth" --last_trail "13"
-python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 3 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_1_128_128/last.pth" --last_trail "14"
-python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 3 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_2_128_128/last.pth" --last_trail "15"
+python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 3 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_13_128_128/last.pth" --last_trail "13"
+python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 3 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_14_128_128/last.pth" --last_trail "14"
+python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 3 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_15_128_128/last.pth" --last_trail "15"
 
 python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 4 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_3_128_128_last_13/last.pth" --last_trail "113"
 python3 main_ce.py --print_freq 20 --save_freq 50 --batch_size 128 --epochs 300 --model 'resnet18' --datasets 'cifar100_marco' --trail 4 --last_model_path "./save/CE/cifar100_marco_models/cifar100_marco_resnet18_1trail_3_128_128_last_14/last.pth" --last_trail "114"
