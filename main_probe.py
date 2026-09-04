@@ -8,8 +8,8 @@ def getArgs():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--feature_path_train", type=str,
-                        default="./features/cifar100_marco_resnet18_1trail_0_128_128_data_3_train")
-    parser.add_argument("--feature_path_test", type=str, default="./features/cifar100_marco_resnet18_1trail_0_128_128_data_3_test_known")
+                        default="./features/cifar100_marco_resnet18_1trail_19_128_128_data_19_train")
+    parser.add_argument("--feature_path_test", type=str, default="./features/cifar100_marco_resnet18_1trail_19_128_128_data_19_test_known")
     parser.add_argument("--remove_extra_classes", type=int, default=0)
 
     opt = parser.parse_args()
