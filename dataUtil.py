@@ -164,8 +164,8 @@ def get_train_datasets(opt, class_idx=None,):
     size = image_size_mapping[opt.datasets]
 
     train_transform = transforms.Compose(
-                [transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8),
-                 transforms.RandomResizedCrop(size=size, scale=(0.2, 1.)),
+                [#transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8),
+                 #transforms.RandomResizedCrop(size=size, scale=(0.2, 1.)),
                  transforms.RandomHorizontalFlip(),
                  transforms.RandomGrayscale(p=0.2),
                  transforms.ToTensor(),
