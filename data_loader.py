@@ -1,9 +1,9 @@
 from torchvision.datasets import CIFAR10, CIFAR100
-import dataUtil
 import os
 import numpy as np
 from PIL import Image
 import torchvision.transforms as transforms
+import dataUtil
 from dataUtil import osr_splits_inliers
 from torch.utils.data import Dataset
 from torchvision.datasets import ImageFolder
@@ -243,9 +243,10 @@ if __name__ == "__main__":
         transforms.ToTensor(),
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),])                                      # (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
 
-    classes = osr_splits_inliers["cifar100_marco"][0]
+    classes = osr_splits_inliers["cifar100_marco"][7]
     root_path = "../datasets"
-    dataset = iCIFAR100(root='../datasets', classes=[95], transform=None)
+    label_dict = dataUtil.label_to_dict(osr_splits_inliers["cifar100_marco"][7], cifar_marco_class=True)
+    dataset = iCIFAR100(root='../datasets', classes=classes, transform=None, label_dict=label_dict)
     print(len(dataset))
     img, l = dataset[0]
     img = Image.fromarray(img)

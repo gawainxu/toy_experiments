@@ -22,7 +22,7 @@ from util import AverageMeter
 from util import adjust_learning_rate
 from util import accuracy
 import torch.optim as optim
-from dataUtil import osr_splits_inliers, get_train_datasets, get_test_datasets
+from dataUtil import osr_splits_inliers, get_train_datasets, get_test_datasets, num_marco_classes_mapping
 from networks.resnet_big import SupCEResNet
 from  networks.vgg import vgg16, vgg11_bn
 from networks.LeNet import LeNet5
@@ -78,6 +78,7 @@ def parse_option():
     # method
     parser.add_argument("--trail", type=int, default=0, help="index of repeating training")
     parser.add_argument("--expand_data", type=float, default=1)
+    parser.add_argument("--marco_classes", type=bool, default=False)
         
     # other setting
     parser.add_argument('--cosine', type=bool, default=False,
@@ -116,8 +117,11 @@ def parse_option():
     opt.save_folder = os.path.join(opt.model_path, opt.model_name)
     if not os.path.isdir(opt.save_folder):
         os.makedirs(opt.save_folder)
-    
-    opt.num_classes = len(osr_splits_inliers[opt.datasets][opt.trail])
+
+    if opt.marco_classes:
+        opt.num_classes = num_marco_classes_mapping(osr_splits_inliers[opt.datasets][opt.trail])
+    else:
+        opt.num_classes = len(osr_splits_inliers[opt.datasets][opt.trail])
 
     return opt
 

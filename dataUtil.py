@@ -28,28 +28,28 @@ classMap = {0: "apples", 1: "aquarium_fish", 2: "baby", 3: "bear", 4: "beaver",
             90: "train", 91: "trout", 92: "tulips", 93: "turtle", 94: "wardrobe",
             95: "whale", 96: "willow", 97: "wolf", 98: "woman", 99: "worm"}
 
-classMap = {v : k for k, v in classMap.items()}
+#classMap = {v : k for k, v in classMap.items()}
 
-superClasses = [["beaver", "dolphin", "otter", "seal", "whale"],
-                ["aquarium_fish", "flatfish", "ray", "shark", "trout"],
-                ["orchids", "poppies", "roses", "sunflowers", "tulips"],
-                ["bottles", "bowls", "cans", "cups", "plates"],
-                ["apples", "mushrooms", "oranges", "pears", "peppers"],
-                ["clock", "keyboard", "lamp", "telephone", "television"],
-                ["bed", "chair", "couch", "table", "wardrobe"],
-                ["bee", "beetle", "butterfly", "caterpillar", "cockroach"],
-                ["bear", "leopard", "lion", "tiger", "wolf"],
-                ["bridge", "castle", "house", "road", "skyscraper"],
-                ["cloud", "forest", "mountain", "plain", "sea"],
-                ["camel", "cattle", "chimpanzee", "elephant", "kangaroo"],
-                ["fox", "porcupine", "possum", "raccoon", "skunk"],
-                ["crab", "lobster", "snail", "spider", "worm"],
-                ["baby", "boy", "girl", "man", "woman"],
-                ["crocodile", "dinosaur", "lizard", "snake", "turtle"],
-                ["hamster", "mouse", "rabbit", "shrew", "squirrel"],
-                ["maple", "oak", "palm", "pine", "willow"],
-                ["bicycle", "bus", "motorcycle", "pickup_truck", "train"],
-                ["lawn_mower", "rocket", "streetcar", "tank", "tractor"]]
+superClasses = {"beaver" : 0, "dolphin": 0, "otter" : 0, "seal": 0, "whale": 0,
+                "aquarium_fish": 1, "flatfish": 1, "ray": 1, "shark": 1, "trout": 1,
+                "orchids": 2, "poppies": 2, "roses": 2, "sunflowers": 2, "tulips": 2,
+                "bottles": 3, "bowls": 3, "cans": 3, "cups": 3, "plates": 3,
+                "apples": 4, "mushrooms" : 4, "oranges" : 4, "pears" : 4, "peppers" : 4,
+                "clock": 5, "keyboard": 5, "lamp": 5, "telephone": 5, "television": 5,
+                "bed": 6, "chair": 6, "couch": 6, "table": 6, "wardrobe": 6,
+                "bee": 7, "beetle": 7, "butterfly": 7, "caterpillar": 7, "cockroach": 7,
+                "bear": 8, "leopard": 8, "lion": 8, "tiger": 8, "wolf": 8,
+                "bridge": 9, "castle": 9, "house": 9, "road": 9, "skyscraper": 9,
+                "cloud": 10, "forest": 10, "mountain": 10, "plain": 10, "sea": 10,
+                "camel": 11, "cattle": 11, "chimpanzee": 11, "elephant": 11, "kangaroo": 11,
+                "fox": 12, "porcupine": 12, "possum": 12, "raccoon": 12, "skunk": 12,
+                "crab": 13, "lobster": 13, "snail": 13, "spider": 13, "worm": 13,
+                "baby": 14, "boy": 14, "girl": 14, "man": 14, "woman": 14,
+                "crocodile": 15, "dinosaur": 15, "lizard": 15, "snake": 15, "turtle": 15,
+                "hamster": 16, "mouse": 16, "rabbit": 16, "shrew": 16, "squirrel": 16,
+                "maple": 17, "oak": 17, "palm": 17, "pine": 17, "willow": 17,
+                "bicycle": 18, "bus": 18, "motorcycle": 18, "pickup_truck": 18, "train": 18,
+                "lawn_mower": 19, "rocket": 19, "streetcar": 19, "tank": 19, "tractor": 19}
 
 
 osr_splits_inliers = {
@@ -129,8 +129,11 @@ from torchvision import transforms
 
 data_root = "../datasets"
 
-num_inlier_classes_mapping = {"cifar100_marco": 20,
-                              "imagenet100": 100,}
+def num_marco_classes_mapping(labels):
+
+    macro_labels = [superClasses[classMap[label]] for label in labels]
+    return len(list(set(macro_labels)))
+
 
 
 data_function_mapping = {"cifar100_marco": iCIFAR100, "imagenet100": ImageNet100}
@@ -146,11 +149,18 @@ std_mapping = {"cifar100_marco": (0.2023, 0.1994, 0.2010), "imagenet100": (0.202
 image_size_mapping = {"cifar100_marco": 32, "imagenet100": 224}
 
 
-def label_to_dict(labels, outliers=False):
+def label_to_dict(labels, outliers=False, cifar_marco_class=False):
     label_dict = dict()
+    if cifar_marco_class:
+        macro_labels = [superClasses[classMap[label]] for label in labels]
+        marco_fine_map = {str(label): marco_label for label, marco_label in zip(labels, macro_labels)}
+        marco_normalize_map = {str(marco_label): i for i, marco_label in enumerate(list(set(macro_labels)))}
     for i, l in enumerate(labels):
         if outliers is False:
-            label_dict[str(l)] = i
+            if cifar_marco_class:
+                label_dict[str(l)] = marco_normalize_map[str(marco_fine_map[str(l)])]
+            else:
+                label_dict[str(l)] = i
         else:
             label_dict[str(l)] = 1000
 
@@ -171,14 +181,13 @@ def get_train_datasets(opt, class_idx=None,):
                  transforms.ToTensor(),
                  normalize, ])  # normalize,
 
-    data_fun = data_function_mapping[opt.datasets]
-    label_dict = label_to_dict(osr_splits_inliers[opt.datasets][opt.trail])
-
     if class_idx is not None:
         classes = [osr_splits_inliers[opt.datasets][opt.trail][class_idx]]
     else:
         classes = osr_splits_inliers[opt.datasets][opt.trail]
 
+    data_fun = data_function_mapping[opt.datasets]
+    label_dict = label_to_dict(classes, cifar_marco_class=opt.marco_classes)
     train = True
     train_dataset = data_fun(root=data_root, train=train,
                              classes=classes, download=True,
@@ -197,14 +206,14 @@ def get_test_datasets(opt, class_idx = None):
     size = image_size_mapping[opt.datasets]
     test_transform = transforms.Compose([transforms.ToTensor(), normalize])
 
-    data_fun = data_function_mapping[opt.datasets]
-    label_dict = label_to_dict(osr_splits_inliers[opt.datasets][opt.trail])
-
     if class_idx is not None:
         classes = [osr_splits_inliers[opt.datasets][opt.trail][class_idx]]
     else:
         classes = osr_splits_inliers[opt.datasets][opt.trail]
     print(classes)
+    data_fun = data_function_mapping[opt.datasets]
+    label_dict = label_to_dict(classes, cifar_marco_class=opt.marco_classes)
+
     train = False
     test_dataset = data_fun(root=data_root, train=train,
                             classes=classes, download=True, 
@@ -237,24 +246,4 @@ def get_outlier_datasets(opt, class_idx=None):
     return outlier_dataset
 
 
-"""       
-    "cifar100_marco": [[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95], # 0
-                       [1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76, 81, 86, 91, 96], # 1
-                       [2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97], # 2
-                       [3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58, 63, 68, 73, 78, 83, 88, 93, 98], # 3
-                       [4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59, 64, 69, 74, 79, 84, 89, 94, 99], # 4
 
-                       [0, 1, 5, 6, 10, 11, 15, 16, 20, 21, 25, 26, 30, 31, 35, 36, 40, 41, 45, 46, 50,
-                        51, 55, 56, 60, 61, 65, 66, 70, 71, 75, 76, 80, 81, 85, 86, 90, 91, 95, 96] ,   # 5, 0+1
-                       [0, 2, 5, 7, 10, 12, 15, 17, 20, 22, 25, 27, 30, 32, 35, 37, 40, 42, 45, 47, 50,
-                        52, 55, 57, 60, 62, 65, 67, 70, 72, 75, 77, 80, 82, 85, 87, 90, 92, 95, 97],    # 6, 0+2
-                       [1, 2, 6, 7, 11, 12, 16, 17, 21, 22, 26, 27, 31, 32, 36, 37, 41, 42, 46, 47,
-                        51, 52, 56, 57, 61, 62, 66, 67, 71, 72, 76, 77, 81, 82, 86, 87, 91, 92, 96, 97], # 7, 1+2
-
-                       [0, 1, 2, 5, 6, 7, 10, 11, 12, 15, 16, 17, 20, 21, 22, 25, 26, 27, 30, 31, 32, 35,
-                        36, 37, 40, 41, 42, 45, 46, 47, 50, 51, 52, 55, 56, 57, 60, 61, 62, 65, 66, 67, 70,
-                        71, 72, 75, 76, 77, 80, 81, 82, 85, 86, 87, 90, 91, 92, 95, 96, 97], # 8, 0+1+2
-
-                       list(range(100))
-                       ],
-"""
