@@ -78,7 +78,7 @@ def parse_option():
     # method
     parser.add_argument("--trail", type=int, default=0, help="index of repeating training")
     parser.add_argument("--expand_data", type=float, default=1)
-    parser.add_argument("--marco_classes", type=bool, default=False)
+    parser.add_argument("--marco_classes", type=int, default=0)
         
     # other setting
     parser.add_argument('--cosine', type=bool, default=False,
@@ -111,6 +111,9 @@ def parse_option():
    
     opt.model_name += 'trail_{}'.format(opt.trail) + "_" + str(opt.feat_dim) + "_" + str(opt.batch_size)
 
+    if opt.marco_classes>0:
+        opt.model_name += "_marco"
+
     if opt.last_model_path is not None:
         opt.model_name += "_last_" + opt.last_trail
 
@@ -118,10 +121,12 @@ def parse_option():
     if not os.path.isdir(opt.save_folder):
         os.makedirs(opt.save_folder)
 
-    if opt.marco_classes:
+    if opt.marco_classes>0:
         opt.num_classes = num_marco_classes_mapping(osr_splits_inliers[opt.datasets][opt.trail])
     else:
         opt.num_classes = len(osr_splits_inliers[opt.datasets][opt.trail])
+
+    print("num_classes", opt.num_classes)
 
     return opt
 

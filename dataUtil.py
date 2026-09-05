@@ -149,15 +149,15 @@ std_mapping = {"cifar100_marco": (0.2023, 0.1994, 0.2010), "imagenet100": (0.202
 image_size_mapping = {"cifar100_marco": 32, "imagenet100": 224}
 
 
-def label_to_dict(labels, outliers=False, cifar_marco_class=False):
+def label_to_dict(labels, outliers=False, cifar_marco_class=0):
     label_dict = dict()
-    if cifar_marco_class:
+    if cifar_marco_class>0:
         macro_labels = [superClasses[classMap[label]] for label in labels]
         marco_fine_map = {str(label): marco_label for label, marco_label in zip(labels, macro_labels)}
         marco_normalize_map = {str(marco_label): i for i, marco_label in enumerate(list(set(macro_labels)))}
     for i, l in enumerate(labels):
         if outliers is False:
-            if cifar_marco_class:
+            if cifar_marco_class>0:
                 label_dict[str(l)] = marco_normalize_map[str(marco_fine_map[str(l)])]
             else:
                 label_dict[str(l)] = i
