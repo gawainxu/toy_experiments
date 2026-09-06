@@ -20,7 +20,7 @@ from networks.resnet_big import SupCEResNet
 from  networks.vgg import vgg16
 from networks.LeNet import LeNet5
 
-from dataUtil import osr_splits_inliers, get_train_datasets, get_test_datasets
+from dataUtil import osr_splits_inliers, get_train_datasets, get_test_datasets, num_marco_classes_mapping
 
 
 torch.multiprocessing.set_sharing_strategy('file_system')
@@ -35,6 +35,7 @@ def parse_option():
     parser.add_argument('--model', type=str, default="resnet18", choices=["resnet18", "vgg16", "resnet50_pretrain"])
     parser.add_argument("--model_path", type=str, default=None)
     parser.add_argument("--expand_data", type=float, default=1)
+    parser.add_argument("--marco_classes", type=int, default=0)
 
     parser.add_argument("--model_trail", type=int, default=0)
     parser.add_argument("--trail", type=int, default=0, help="data trail")
@@ -48,7 +49,11 @@ def parse_option():
 
     opt = parser.parse_args()
 
-    opt.num_classes = len(osr_splits_inliers[opt.datasets][opt.model_trail])
+    if opt.marco_classes > 0:
+        opt.num_classes = num_marco_classes_mapping(osr_splits_inliers[opt.datasets][opt.trail])
+    else:
+        opt.num_classes = len(osr_splits_inliers[opt.datasets][opt.trail])
+    print("num_classes", opt.num_classes)
 
     if platform.system() == 'Windows':
         opt.model_name = opt.model_path.split("\\")[-2]
