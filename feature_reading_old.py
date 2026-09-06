@@ -49,11 +49,12 @@ def parse_option():
 
     opt = parser.parse_args()
 
-    if opt.marco_classes > 0:
-        opt.num_classes = num_marco_classes_mapping(osr_splits_inliers[opt.datasets][opt.model_trail])
-    else:
-        opt.num_classes = len(osr_splits_inliers[opt.datasets][opt.model_trail])
-    print("num_classes", opt.num_classes)
+    #if opt.marco_classes > 0:
+    #    opt.num_classes = num_marco_classes_mapping(osr_splits_inliers[opt.datasets][opt.model_trail])
+    #else:
+    #    opt.num_classes = len(osr_splits_inliers[opt.datasets][opt.model_trail])
+    #print("num_classes", opt.num_classes)
+    opt.num_classes = 20
 
     if platform.system() == 'Windows':
         opt.model_name = opt.model_path.split("\\")[-2]
