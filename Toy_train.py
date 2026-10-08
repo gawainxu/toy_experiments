@@ -299,10 +299,10 @@ if __name__ == "__main__":
         print("testing accuracy is ", acc)
         accs.append(acc)
         if acc > acc_best:
-            #torch.save(model.state_dict(), model_path) 
+            torch.save(model.state_dict(), opt.model_path + ".pth")
             acc_best = acc
 
-    torch.save(model.state_dict(), opt.model_path + ".pth")
+    #torch.save(model.state_dict(), opt.model_path + ".pth")
 
     print("best loss: ", loss_best/len(dataset), "best acc: ", acc_best)
     with open(opt.losses_path, "wb") as f:
