@@ -175,3 +175,7 @@ echo "data 1"
 python3 Toy_features.py --task_idx_data 1 --task_idx_model 2 --experiment_idx 5 --model "toy" --model_path "./models2/toy_toy_E6_task_2.pth" --feature_save_path "./features2/" --data_path "./toy_data_train" --training_data 0
 echo "data 2"
 python3 Toy_features.py --task_idx_data 2 --task_idx_model 2 --experiment_idx 5 --model "toy" --model_path "./models2/toy_toy_E6_task_2.pth" --feature_save_path "./features2/" --data_path "./toy_data_train" --training_data 0
+
+
+
+
