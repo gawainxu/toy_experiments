@@ -174,7 +174,7 @@ def parse_options():
     parser.add_argument("--data_size", type=int, default=64)
     parser.add_argument("--feature_save_path", type=str, default="./features/")
     parser.add_argument("--training_data", type=int, default=1)
-    parser.add_argument("--conditional_features", type=int, default=0)
+    parser.add_argument("--conditional_features", type=int, default=1)
 
     opt = parser.parse_args()
     opt.num_classes = len(label_mappings_full[opt.experiment_idx][opt.task_idx_model])
