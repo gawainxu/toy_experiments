@@ -1,5 +1,5 @@
 import torch
-from Toy_model import toy_model, updata_model, init_weights, cnn, toy_model_small
+from Toy_model import toy_model, updata_model, init_weights, cnn, toy_model_small, new_linear
 from Toy_dataset import toy_dataset, continual_buffer, iCIFAR100, mnist
 from util import set_seed
 import torchvision.transforms as transforms
@@ -222,7 +222,8 @@ if __name__ == "__main__":
                 if opt.freeze_layers in name:
                     print(name)
                     param.requires_grad = False
-        updata_model(model, new_num_classes=len(opt.classes))
+        #model = updata_model(model, new_num_classes=len(opt.classes))
+        new_linear(model, num_classes=len(opt.classes))
         if opt.buffer_size > 0:
             old_dataset = toy_dataset(opt.data_path, opt.last_label_mapping, data_transform)
             old_dataset = continual_buffer(old_dataset, opt.buffer_size)

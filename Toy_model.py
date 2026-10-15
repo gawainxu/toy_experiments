@@ -159,7 +159,16 @@ def updata_model(model, new_num_classes):
 
     model.linear3.requires_grad_(True)
 
-    return  model
+    return model
+
+
+def new_linear(model, num_classes):
+
+    input_dim = model.linear3.in_features
+
+    new_out_linear = nn.Linear(input_dim, num_classes)
+    model.linear3 = new_out_linear
+
 
 
 def renew_linear(model, num_classes):
