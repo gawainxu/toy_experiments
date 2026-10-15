@@ -173,9 +173,9 @@ if __name__ == "__main__":
     opt = parse_options()
     opt.label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx]
     if opt.task_idx > 0:
-        opt.old_label_mapping = label_mappings_full[opt.experiment_idx][opt.task_idx-1]
+        opt.old_label_mapping = label_mappings_increment[opt.experiment_idx][opt.task_idx-1]
     else:
-        opt.old_label_mapping = label_mappings_full[opt.experiment_idx][0]
+        opt.old_label_mapping = label_mappings_increment[opt.experiment_idx][0]
 
     if "mnist" in opt.dataset:
         opt.classes = mnist_classes[opt.experiment_idx]
