@@ -57,3 +57,4 @@ if __name__ == "__main__":
         labels_test = [labels_test[i] for i in third_class_test]
 
     accuracy = regression(features_train, labels_train, features_test, labels_test)
+    accuracy = regression(features_train, labels_train, features_train, labels_train)
