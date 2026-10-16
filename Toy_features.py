@@ -171,7 +171,7 @@ def parse_options():
     parser.add_argument("--conditional_features", type=int, default=1)
 
     opt = parser.parse_args()
-    opt.num_classes = len(label_mappings_full[opt.experiment_idx][opt.task_idx_model])
+    opt.num_classes = len(label_mappings_increment[opt.experiment_idx][opt.task_idx_model])
     model_name = opt.model_path.split("/")[-1].split(".")[0]
 
     if opt.conditional_features:
