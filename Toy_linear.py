@@ -3,21 +3,33 @@ import torchvision.transforms as transforms
 from torch.optim import SGD
 from torch.utils.data import DataLoader
 
-from Toy_model import renew_linear, toy_model
+from Toy_model import new_linear, toy_model
 from  Toy_dataset import toy_dataset
 
 
-label_mappings = [{"circle_blue": 0, "rectangle_red": 1},
-                  {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2},
-                  {"circle_blue": 0, "rectangle_red": 1, "rectangle_blue": 2, "rectangle_green": 3},
-                  {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "rectangle_blue": 3, "rectangle_green": 4},
-                  {"circle_blue": 0, "rectangle_red": 1, "circle_green": 2, "rectangle_green": 3},
-                  {"circle_blue": 0, "rectangle_red": 1, "circle_red": 2, "circle_green": 3, "rectangle_green": 4},
+label_mappings = [ [{"circle_blue": 0, "rectangle_red": 1},
+                                {"ellipse_red": 0, "rectangle_blue": 1},
+                                {"circle_black": 0, "rectangle_black": 1}],  # E1,0
 
-                  {"rectangle_blue": 2, "rectangle_green": 3},
-                  {"circle_red": 2, "rectangle_blue": 3, "rectangle_green": 4},
-                  {"circle_green": 2, "rectangle_green": 3},
-                  {"circle_red": 2, "circle_green": 3, "rectangle_green": 4},]
+                               [{"circle_blue": 0, "rectangle_red": 1},
+                                {"ellipse_red": 0, "rectangle_blue": 1},
+                                {"circle_black": 0, "rectangle_black": 1}],  # E2,1
+
+                               [{"circle_blue": 0, "rectangle_red": 1},
+                                {"ellipse_red": 0, "rectangle_blue": 1},
+                                {"circle_black": 0, "rectangle_black": 1}],  # E3,2
+
+                               [{"circle_blue": 0, "rectangle_red": 1},
+                                {"circle_black": 0, "rectangle_black": 1},
+                                {"ellipse_red": 0, "rectangle_blue": 1}],  # E4, 3
+
+                               [{"circle_blue": 0, "rectangle_red": 1},
+                                {"ellipse_red": 0, "rectangle_blue": 1},
+                                {"circle_black": 0, "rectangle_black": 1}],  # E5, 4
+
+                               [{"circle_blue": 0, "rectangle_red": 1},
+                                {"circle_black": 0, "rectangle_black": 1},
+                                {"ellipse_red": 0, "rectangle_blue": 1}], ] # E6, 5
 
 
 if __name__ == "__main__":
@@ -25,26 +37,26 @@ if __name__ == "__main__":
     """
     """
 
-    ori_model_path = "/home/zhi/projects/open_cross_entropy/models/toy_model_E1_99.pth"
+    ori_model_path = "/home/zhi/projects/open_cross_entropy/models6/toy_toy_E5_task_1.pth"
     data_path = "/home/zhi/projects/open_cross_entropy/toy_data_train"
     data_path_test = "/home/zhi/projects/open_cross_entropy/toy_data_test_inliers"
-    num_classes = 5
-    exp_id = 3
-    exp_id_test = 1
+    num_classes = 2
+    exp_id = 4
+    task_id = 0
 
-    model = toy_model(num_classes)
+    model = toy_model(num_classes, in_channels=3, img_size=64)
     model.load_state_dict(torch.load(ori_model_path, map_location=torch.device("cpu")))
-    model = renew_linear(model)
+    new_linear(model, num_classes=num_classes)
 
     data_transform = transforms.Compose([transforms.ToTensor(),
                                          transforms.RandomHorizontalFlip(),])
-    dataset = toy_dataset(data_path, label_mappings[exp_id], data_transform)
-    dataset_test = toy_dataset(data_path_test, label_mappings[exp_id_test], data_transform)
+    dataset = toy_dataset(data_path, label_mappings[exp_id][task_id], data_transform)
+    dataset_test = toy_dataset(data_path_test, label_mappings[exp_id][task_id], data_transform)
     data_loader = DataLoader(dataset, batch_size=32, num_workers=1, shuffle=True)
     test_data_loader = DataLoader(dataset_test, 1, num_workers=1, shuffle=True)
 
     lr = 1e-3
-    epochs = 10
+    epochs = 20
     criteria = torch.nn.CrossEntropyLoss()
     optimizer = SGD(model.parameters(), lr=lr)
 

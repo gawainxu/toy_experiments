@@ -217,7 +217,7 @@ def normalFeatureReading(model, opt):
         module.register_forward_hook(get_activation(name))
 
     data_transform = transforms.Compose([transforms.ToPILImage(),
-                                         #transforms.RandomHorizontalFlip(),
+                                         transforms.RandomHorizontalFlip(),
                                          transforms.ToTensor()])
     dataset = toy_dataset(opt.data_path, opt.label_mapping, data_transform)
     print(len(dataset))
