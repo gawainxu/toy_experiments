@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
     # 5. Evaluation & Inference
     model.eval()
-    all_probs, all_preds, all_targets = [], [], []
+    all_probs, all_preds, all_targets, all_logits = [], [], [], []
 
     with torch.no_grad():
         for X_batch, y_batch in test_loader:
@@ -137,6 +137,7 @@ if __name__ == "__main__":
             all_probs.extend(probs.cpu().numpy())
             all_preds.extend(preds.cpu().numpy())
             all_targets.extend(y_batch.numpy())
+            all_logits.extend(logits.numpy())
 
     # Calculate Metrics
     acc = accuracy_score(all_targets, all_preds)
